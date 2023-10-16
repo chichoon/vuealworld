@@ -7,13 +7,14 @@
     <CustomInput type="text" placeholder="Username" v-model:value="username" />
     <CustomInput type="email" placeholder="Email" v-model:value="email" />
     <CustomInput type="password" placeholder="Password" v-model:value="password" />
-    <button type="submit" class="submit-button">Sign up</button>
+    <CustomButton type="submit" text="Sign up" />
   </form>
   <span>{{ username }}</span>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import CustomButton from '@/components/CustomButton.vue';
 import CustomInput from '@/components/CustomInput.vue';
 
 const username = ref('');
@@ -49,14 +50,5 @@ const password = ref('');
   align-items: center;
   justify-content: center;
   gap: 15px;
-}
-
-.submit-button {
-  background-color: var(--theme-color);
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  color: #ffffff;
-  font-size: 20px;
 }
 </style>
