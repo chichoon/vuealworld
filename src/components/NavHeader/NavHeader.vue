@@ -1,12 +1,12 @@
 <template>
-  <header class="header">
+  <nav class="header">
     <h1>conduit</h1>
-    <nav class="navigate">
+    <div class="navigate">
       <RouterLink to="/" class="button" active-class="selected">home</RouterLink>
       <RouterLink to="/signin" class="button" active-class="selected">Sign in</RouterLink>
       <RouterLink to="/signup" class="button" active-class="selected">Sign up</RouterLink>
-    </nav>
-  </header>
+    </div>
+  </nav>
 </template>
 
 <script setup lang="ts">
