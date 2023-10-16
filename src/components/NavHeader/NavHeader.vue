@@ -1,10 +1,12 @@
 <template>
   <nav class="header">
-    <h1>conduit</h1>
+    <RouterLink to="/">
+      <h1>conduit</h1>
+    </RouterLink>
     <div class="navigate">
-      <RouterLink to="/" class="button" active-class="selected">home</RouterLink>
-      <RouterLink to="/signin" class="button" active-class="selected">Sign in</RouterLink>
-      <RouterLink to="/signup" class="button" active-class="selected">Sign up</RouterLink>
+      <RouterLink to="/" class="link" active-class="selected">home</RouterLink>
+      <RouterLink to="/signin" class="link" active-class="selected">Sign in</RouterLink>
+      <RouterLink to="/signup" class="link" active-class="selected">Sign up</RouterLink>
     </div>
   </nav>
 </template>
@@ -21,6 +23,15 @@ console.log(window.location.pathname);
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  & > a {
+    text-decoration: none;
+    color: #000000;
+
+    h1 {
+      font-size: 30px;
+    }
+  }
 }
 
 .navigate {
@@ -31,7 +42,7 @@ console.log(window.location.pathname);
   justify-content: space-between;
 }
 
-.button {
+.link {
   text-decoration: none;
   background: none;
   border: none;
