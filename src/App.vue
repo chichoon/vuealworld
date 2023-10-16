@@ -4,10 +4,10 @@ import NavHeader from './components/NavHeader/NavHeader.vue';
 </script>
 
 <template>
-  <div>
-    <NavHeader />
-    <RouterView />
-  </div>
+  <NavHeader />
+  <RouterView />
 </template>
 
-<style scoped></style>
+<style lang="scss">
+@import '@/assets/colors.scss';
+</style>
