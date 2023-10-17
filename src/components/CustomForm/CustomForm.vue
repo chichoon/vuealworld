@@ -27,7 +27,7 @@ const password = ref('');
 
 function onSubmit(e: Event) {
   e.preventDefault();
-  if (isSignup) emits('submit', { username, email, password });
-  else emits('submit', { email, password });
+  if (isSignup) emits('submit', { username: username.value, email: email.value, password: password.value });
+  else emits('submit', { email: email.value, password: password.value });
 }
 </script>
