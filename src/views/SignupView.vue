@@ -7,33 +7,24 @@
           <p class="text-xs-center">
             <RouterLink to="/login">Have an account?</RouterLink>
           </p>
-          <form>
-            <fieldset class="form-group">
-              <CustomInput type="text" placeholder="Username" v-model:value="username" />
-            </fieldset>
-            <fieldset class="form-group">
-              <CustomInput type="email" placeholder="Email" v-model:value="email" />
-            </fieldset>
-            <fieldset class="form-group">
-              <CustomInput type="password" placeholder="Password" v-model:value="password" />
-            </fieldset>
-            <CustomButton type="submit" text="Sign up" />
-          </form>
+          <CustomForm @submit="onSubmit" />
         </div>
       </div>
     </div>
   </div>
-  <span>{{ username }}</span>
+  <span>{{ userData }}</span>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import CustomButton from '@/components/CustomButton.vue';
-import CustomInput from '@/components/CustomInput.vue';
+import CustomForm from '@/components/CustomForm/CustomForm.vue';
 
-const username = ref('');
-const email = ref('');
-const password = ref('');
+const userData = ref({ username: '', email: '', password: '' });
+
+function onSubmit(data: any) {
+  console.log(data);
+  userData.value = data;
+}
 </script>
 
 <style lang="scss" scoped></style>
