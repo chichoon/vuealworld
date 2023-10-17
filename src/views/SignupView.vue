@@ -19,22 +19,16 @@
 import { ref } from 'vue';
 import CustomForm from '@/components/CustomForm/CustomForm.vue';
 import type { SignUpData } from '@/types/userData';
-import router from '@/router';
+import { useSignup } from '@/hooks/user/useSignup';
 
 const userData = ref<SignUpData>({ username: '', email: '', password: '' });
 const isValidationFailed = ref<boolean>(false);
 
+const { mutate } = useSignup();
+
 function onSubmit(data: any) {
   userData.value = data;
-  fetch('http://localhost:8080/users', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ user: userData.value }),
-  })
-    .then(() => router.push('/'))
-    .catch(() => (isValidationFailed.value = true));
+  mutate(userData.value);
 }
 </script>
 

@@ -1,26 +1,20 @@
-import { SignUpData, SignInData, EditUserData } from '@/types/userData';
+import type { SignUpData, SignInData, EditUserData } from '@/types/userData';
 import { httpClient } from './httpClient';
 
-export function postUserRegister({ email, password, username }: SignUpData) {
-  return async function () {
-    httpClient({ url: '/users', method: 'POST', body: { email, password, username } });
-  };
+function postRegister({ email, password, username }: SignUpData) {
+  return httpClient({ url: '/users', method: 'POST', body: { user: { email, password, username } } });
 }
 
-export function postUserLogin({ email, password }: SignInData) {
-  return async function () {
-    httpClient({ url: '/users/login', method: 'POST', body: { email, password } });
-  };
+function postLogin({ email, password }: SignInData) {
+  return httpClient({ url: '/users/login', method: 'POST', body: { user: { email, password } } });
 }
 
-export function getUser() {
-  return async function () {
-    httpClient({ url: '/user', method: 'GET' });
-  };
+function get() {
+  return httpClient({ url: '/user', method: 'GET' });
 }
 
-export function putUser({ email, password, username, bio, image }: EditUserData) {
-  return async function () {
-    httpClient({ url: '/user', method: 'PUT', body: { email, password, username, bio, image } });
-  };
+function put({ email, password, username, bio, image }: EditUserData) {
+  return httpClient({ url: '/user', method: 'PUT', body: { user: { email, password, username, bio, image } } });
 }
+
+export default { postRegister, postLogin, get, put };

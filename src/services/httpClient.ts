@@ -9,7 +9,7 @@ export async function httpClient({ url, method, body }: Params) {
     method,
     headers: {
       'Content-Type': 'application/json',
-      credentials: 'include',
+      // credentials: 'include',
     },
     body: JSON.stringify(body),
   });
