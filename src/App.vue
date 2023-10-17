@@ -10,6 +10,4 @@ import NavHeader from './components/NavHeader/NavHeader.vue';
 import FooterComponent from './components/FooterComponent.vue';
 </script>
 
-<style lang="scss">
-@import '@/assets/colors.scss';
-</style>
+<style lang="scss"></style>
