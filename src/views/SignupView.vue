@@ -1,14 +1,28 @@
 <template>
-  <header class="header">
-    <h2>Sign up</h2>
-    <RouterLink to="/signin">Have an account?</RouterLink>
-  </header>
-  <form class="form">
-    <CustomInput type="text" placeholder="Username" v-model:value="username" />
-    <CustomInput type="email" placeholder="Email" v-model:value="email" />
-    <CustomInput type="password" placeholder="Password" v-model:value="password" />
-    <CustomButton type="submit" text="Sign up" />
-  </form>
+  <div class="auth-page">
+    <div class="container page">
+      <div class="row">
+        <div class="col-md-6 offset-md-3 col-xs-12">
+          <h1 class="text-xs-center">Sign up</h1>
+          <p class="text-xs-center">
+            <RouterLink to="/login">Have an account?</RouterLink>
+          </p>
+          <form>
+            <fieldset class="form-group">
+              <CustomInput type="text" placeholder="Username" v-model:value="username" />
+            </fieldset>
+            <fieldset class="form-group">
+              <CustomInput type="email" placeholder="Email" v-model:value="email" />
+            </fieldset>
+            <fieldset class="form-group">
+              <CustomInput type="password" placeholder="Password" v-model:value="password" />
+            </fieldset>
+            <CustomButton type="submit" text="Sign up" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   <span>{{ username }}</span>
 </template>
 
@@ -22,33 +36,4 @@ const email = ref('');
 const password = ref('');
 </script>
 
-<style lang="scss" scoped>
-.header {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  margin-bottom: 20px;
-
-  & > h2 {
-    font-size: 30px;
-    text-align: center;
-  }
-
-  & > a {
-    color: var(--theme-color);
-    text-decoration: none;
-  }
-}
-
-.form {
-  width: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-}
-</style>
+<style lang="scss" scoped></style>
