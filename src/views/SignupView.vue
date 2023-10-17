@@ -7,28 +7,35 @@
           <p class="text-xs-center">
             <RouterLink to="/login">Have an account?</RouterLink>
           </p>
+          <ul v-if="errorMsg.length > 0" class="error-messages">
+            <li>{{ errorMsg }}</li>
+          </ul>
           <CustomForm @submit="onSubmit" />
         </div>
       </div>
     </div>
   </div>
-  <span>{{ userData }}</span>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+
 import CustomForm from '@/components/CustomForm/CustomForm.vue';
 import type { SignUpData } from '@/types/userData';
 import { useSignup } from '@/hooks/user/useSignup';
+import router from '@/router';
 
-const userData = ref<SignUpData>({ username: '', email: '', password: '' });
-const isValidationFailed = ref<boolean>(false);
+const errorMsg = ref<string>('');
 
-const { mutate } = useSignup();
+const { mutateAsync } = useSignup();
 
-function onSubmit(data: any) {
-  userData.value = data;
-  mutate(userData.value);
+async function onSubmit(data: SignUpData) {
+  try {
+    await mutateAsync(data);
+    router.push('/');
+  } catch (e: unknown) {
+    errorMsg.value = e as string;
+  }
 }
 </script>
 

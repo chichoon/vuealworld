@@ -18,10 +18,19 @@
 import { ref } from 'vue';
 import CustomForm from '@/components/CustomForm/CustomForm.vue';
 import type { SignInData } from '@/types/userData';
+import { useSignin } from '@/hooks/user/useSignin';
+import router from '@/router';
 
-const userData = ref<SignInData>({ email: '', password: '' });
+const errorMsg = ref<string>('');
 
-function onSubmit(data: any) {
-  userData.value = data;
+const { mutateAsync } = useSignin();
+
+async function onSubmit(data: SignInData) {
+  try {
+    await mutateAsync(data).then((res) => console.log(res));
+    // router.push('/');
+  } catch (e: unknown) {
+    errorMsg.value = e as string;
+  }
 }
 </script>

@@ -9,8 +9,13 @@ export async function httpClient({ url, method, body }: Params) {
     method,
     headers: {
       'Content-Type': 'application/json',
-      // credentials: 'include',
     },
     body: JSON.stringify(body),
+  }).then(async (res) => {
+    const json = await res.json();
+    if (!res.ok) {
+      if (!json.errors || !json.errors.body) return Promise.reject('Server Error');
+      return Promise.reject(json.errors.body.join(' '));
+    } else return json;
   });
 }
