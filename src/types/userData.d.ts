@@ -16,3 +16,13 @@ export interface EditUserData {
   bio: string;
   image: string;
 }
+
+export interface SignInResponse {
+  user: {
+    email: string;
+    token: string;
+    username: string;
+    bio: string;
+    image: string;
+  };
+}

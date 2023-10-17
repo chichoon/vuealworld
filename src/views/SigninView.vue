@@ -27,7 +27,7 @@ const { mutateAsync } = useSignin();
 
 async function onSubmit(data: SignInData) {
   try {
-    await mutateAsync(data).then((res) => console.log(res));
+    await mutateAsync(data);
     // router.push('/');
   } catch (e: unknown) {
     errorMsg.value = e as string;
