@@ -18,11 +18,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import CustomForm from '@/components/CustomForm/CustomForm.vue';
+import type { SignUpData } from '@/types/userData';
 
-const userData = ref({ username: '', email: '', password: '' });
+const userData = ref<SignUpData>({ username: '', email: '', password: '' });
 
 function onSubmit(data: any) {
-  console.log(data);
   userData.value = data;
 }
 </script>
