@@ -1,12 +1,19 @@
 <template>
   <div class="article-preview">
     <div class="article-meta">
-      <RouterLink :to="`/profile/${articleInfo.author.username}`"><img :src="articleInfo.author.image" /></RouterLink>
+      <RouterLink :to="`/profile/${articleInfo.author.username}`"
+        ><img
+          :src="
+            articleInfo.author.image.length > 0
+              ? articleInfo.author.image
+              : 'https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg'
+          "
+      /></RouterLink>
       <div class="info">
         <RouterLink :to="`/profile/${articleInfo.author.username}`" class="author">{{
           articleInfo.author.username
         }}</RouterLink>
-        <span class="date">{{ new Date(articleInfo.createdAt).toDateString() }}</span>
+        <span class="date">{{ new Date(articleInfo.created).toDateString() }}</span>
       </div>
       <button class="btn btn-outline-primary btn-sm pull-xs-right">
         <i class="ion-heart"></i>{{ articleInfo.favoritesCount }}
