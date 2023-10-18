@@ -27,5 +27,11 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 
-const { userInfo } = defineProps(['userInfo']);
+import type { UserData } from '@/types/userData';
+
+interface Props {
+  userInfo: UserData;
+}
+
+const { userInfo } = defineProps<Props>();
 </script>
