@@ -18,8 +18,6 @@
   </nav>
 </template>
 
-<script setup lang="ts">
-console.log(window.location.pathname);
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped></style>

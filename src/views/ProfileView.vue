@@ -35,10 +35,20 @@
           <div class="articles-toggle">
             <ul class="nav nav-pills outline-active">
               <li class="nav-item">
-                <a class="nav-link active" href="">My Articles</a>
+                <button
+                  @click="handleClickMyArticle"
+                  :class="{ 'nav-link': true, active: !route.query.tab || route.query.tab === 'my-articles' }"
+                >
+                  My Articles
+                </button>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="">Favorited Articles</a>
+                <button
+                  @click="handleClickFavoriteArticle"
+                  :class="{ 'nav-link': true, active: route.query.tab === 'favorited-articles' }"
+                >
+                  Favorited Articles
+                </button>
               </li>
             </ul>
           </div>
@@ -67,14 +77,27 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRoute } from 'vue-router';
 
+import router from '@/router';
 import { useGetCurrentUserData } from '@/hooks/user/useGetCurrentUserData';
 import type { ArticleData } from '@/types/article';
 import ArticlePreview from '@/components/ArticlePreview.vue';
+import { useGetProfile } from '@/hooks/profile/useGetProfile';
 
-const userInfo = useGetCurrentUserData();
+const route = useRoute();
 
+const userInfo = useGetProfile(route.path.split('/')[2]);
+
+function handleClickMyArticle() {
+  router.replace({ path: '#', query: { tab: 'my-articles' } });
+}
+
+function handleClickFavoriteArticle() {
+  router.replace({ path: '#', query: { tab: 'favorited-articles' } });
+}
+
+// TODO: remove
 const DUMMY_ARTICLE = ref<ArticleData>({
   slug: 'how-to-buil-webapps-that-scale',
   title: 'How to build webapps that scale',

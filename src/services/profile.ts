@@ -1,4 +1,3 @@
-import type { ProfileData } from '@/types/profileData';
 import { httpClient } from './httpClient';
 
 function get(username: string) {
