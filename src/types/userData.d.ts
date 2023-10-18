@@ -17,10 +17,18 @@ export interface EditUserData {
   image: string;
 }
 
+export interface AuthorData {
+  username: string;
+  bio: string;
+  image: string;
+  following: boolean;
+}
+
 export interface SignInResponse {
   user: {
     email: string;
-    token: string;
+    token?: string;
+    id?: number;
     username: string;
     bio: string;
     image: string;
