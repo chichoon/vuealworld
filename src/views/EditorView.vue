@@ -15,10 +15,14 @@
 
 <script lang="ts" setup>
 import EditorForm from '@/components/CustomForm/EditorForm.vue';
-import type { ArticleEditData } from '@/types/article';
+import { usePostArticle } from '@/hooks/article/usePostArticle';
+import type { ArticleData } from '@/types/article';
+import router from '@/router';
 
-function handleSubmit(data: ArticleEditData) {
-  console.log(data);
-  console.log(data.tagList);
+const { mutateAsync } = usePostArticle();
+
+async function handleSubmit(data: ArticleData) {
+  await mutateAsync(data);
+  router.push('/');
 }
 </script>
