@@ -9,7 +9,7 @@
           </ul>
           <SettingsForm />
           <hr />
-          <button class="btn btn-outline-danger">Or click here to logout.</button>
+          <button @click="handleLogout" class="btn btn-outline-danger">Or click here to logout.</button>
         </div>
       </div>
     </div>
@@ -18,4 +18,13 @@
 
 <script lang="ts" setup>
 import SettingsForm from '@/components/CustomForm/SettingsForm.vue';
+import router from '@/router';
+import { useCookies } from 'vue3-cookies';
+
+const { cookies } = useCookies();
+
+function handleLogout() {
+  cookies.remove('authorization');
+  router.push('/');
+}
 </script>
