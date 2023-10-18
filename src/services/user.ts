@@ -10,7 +10,7 @@ function postLogin({ email, password }: SignInData) {
 }
 
 function get() {
-  return httpClient({ url: '/user', method: 'GET' });
+  return httpClient({ url: '/user', method: 'GET' }).then((data) => data.user);
 }
 
 function put({ email, password, username, bio, image }: EditUserData) {

@@ -1,5 +1,5 @@
 <template>
-  <AuthenticatedNavHeader v-if="!!data" :user-info="data.user" />
+  <AuthenticatedNavHeader v-if="!!data" :user-info="data" />
   <NavHeader v-else />
   <RouterView />
   <FooterComponent />

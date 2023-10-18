@@ -1,17 +1,24 @@
 <template>
-  <div class="profile-page">
+  <div class="profile-page" v-if="userInfo">
     <div class="user-info">
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-md-10 offset-md-1">
-            <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img" />
-            <h4>{{ data.user.username }}</h4>
+            <img
+              :src="
+                userInfo?.image.length > 0
+                  ? userInfo.image
+                  : 'https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg'
+              "
+              class="user-img"
+            />
+            <h4>{{ userInfo.username }}</h4>
             <p>
-              {{ data.user.bio }}
+              {{ userInfo.bio }}
             </p>
             <button class="btn btn-sm btn-outline-secondary action-btn">
               <i class="ion-plus-round"></i>
-              &nbsp; Follow {{ data.user.username }}
+              &nbsp; Follow {{ userInfo.username }}
             </button>
             <RouterLink to="/settings" class="btn btn-sm btn-outline-secondary action-btn">
               <i class="ion-gear-a"></i>
@@ -35,46 +42,11 @@
               </li>
             </ul>
           </div>
-
-          <div class="article-preview">
-            <div class="article-meta">
-              <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
-              <div class="info">
-                <a href="/profile/eric-simons" class="author">Eric Simons</a>
-                <span class="date">January 20th</span>
-              </div>
-              <button class="btn btn-outline-primary btn-sm pull-xs-right"><i class="ion-heart"></i> 29</button>
-            </div>
-            <a href="/article/how-to-buil-webapps-that-scale" class="preview-link">
-              <h1>How to build webapps that scale</h1>
-              <p>This is the description for the post.</p>
-              <span>Read more...</span>
-              <ul class="tag-list">
-                <li class="tag-default tag-pill tag-outline">realworld</li>
-                <li class="tag-default tag-pill tag-outline">implementations</li>
-              </ul>
-            </a>
-          </div>
-
-          <div class="article-preview">
-            <div class="article-meta">
-              <a href="/profile/albert-pai"><img src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
-              <div class="info">
-                <a href="/profile/albert-pai" class="author">Albert Pai</a>
-                <span class="date">January 20th</span>
-              </div>
-              <button class="btn btn-outline-primary btn-sm pull-xs-right"><i class="ion-heart"></i> 32</button>
-            </div>
-            <a href="/article/the-song-you" class="preview-link">
-              <h1>The song you won't ever stop singing. No matter how hard you try.</h1>
-              <p>This is the description for the post.</p>
-              <span>Read more...</span>
-              <ul class="tag-list">
-                <li class="tag-default tag-pill tag-outline">Music</li>
-                <li class="tag-default tag-pill tag-outline">Song</li>
-              </ul>
-            </a>
-          </div>
+          <ArticlePreview
+            v-for="article in [DUMMY_ARTICLE, DUMMY_ARTICLE]"
+            :key="article.slug"
+            :article-info="article"
+          />
 
           <ul class="pagination">
             <li class="page-item active">
@@ -88,11 +60,36 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <h1>404 Not Found</h1>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { useGetCurrentUserData } from '@/hooks/user/useGetCurrentUserData';
+import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
-const data = useGetCurrentUserData();
+import { useGetCurrentUserData } from '@/hooks/user/useGetCurrentUserData';
+import type { ArticleData } from '@/types/article';
+import ArticlePreview from '@/components/ArticlePreview.vue';
+
+const userInfo = useGetCurrentUserData();
+
+const DUMMY_ARTICLE = ref<ArticleData>({
+  slug: 'how-to-buil-webapps-that-scale',
+  title: 'How to build webapps that scale',
+  description: 'This is the description for the post.',
+  body: 'This is the description for the post.',
+  tagList: ['realworld', 'implementations'],
+  createdAt: 'January 20th',
+  updatedAt: 'January 20th',
+  favorited: false,
+  favoritesCount: 29,
+  author: {
+    username: 'Eric Simons',
+    bio: 'Eric Simons is the co-founder of Thinkster, the former CTO of ...',
+    image: 'http://i.imgur.com/Qr71crq.jpg',
+    following: false,
+  },
+});
 </script>
