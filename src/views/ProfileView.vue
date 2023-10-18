@@ -103,8 +103,8 @@ const DUMMY_ARTICLE = ref<ArticleData>({
   description: 'This is the description for the post.',
   body: 'This is the description for the post.',
   tagList: ['realworld', 'implementations'],
-  createdAt: 'January 20th',
-  updatedAt: 'January 20th',
+  created: 'January 20th',
+  updated: 'January 20th',
   favorited: false,
   favoritesCount: 29,
   author: {
