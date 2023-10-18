@@ -80,7 +80,6 @@ import { ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
 import router from '@/router';
-import { useGetCurrentUserData } from '@/hooks/user/useGetCurrentUserData';
 import type { ArticleData } from '@/types/article';
 import ArticlePreview from '@/components/ArticlePreview.vue';
 import { useGetProfile } from '@/hooks/profile/useGetProfile';

@@ -30,8 +30,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue';
-
 import type { ArticleData } from '@/types/article';
 
 interface Props {

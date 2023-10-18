@@ -25,8 +25,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
-
 import type { UserData } from '@/types/userData';
 
 interface Props {

@@ -5,7 +5,10 @@
 </template>
 
 <script setup lang="ts">
-defineProps(['text']);
+interface Props {
+  text: string;
+}
+defineProps<Props>();
 </script>
 
 <style lang="scss" scoped></style>

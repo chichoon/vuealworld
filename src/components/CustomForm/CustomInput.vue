@@ -14,7 +14,11 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({ value: String, isTextArea: Boolean });
+interface Props {
+  value: string;
+  isTextArea?: boolean;
+}
+defineProps<Props>();
 defineEmits(['update:value']);
 </script>
 
