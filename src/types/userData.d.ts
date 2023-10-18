@@ -24,7 +24,7 @@ export interface AuthorData {
   following: boolean;
 }
 
-export interface SignInResponse {
+export interface UserData {
   email: string;
   token?: string;
   id?: number;
