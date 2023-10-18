@@ -1,3 +1,5 @@
+import { useCookies } from 'vue3-cookies';
+
 interface Params {
   url: string;
   method: string;
@@ -5,17 +7,20 @@ interface Params {
 }
 
 export async function httpClient({ url, method, body }: Params) {
-  return await fetch('http://localhost:8080' + url, {
+  const { cookies } = useCookies();
+  return await fetch('/api' + url, {
     method,
     headers: {
       'Content-Type': 'application/json',
+      authorization: cookies.get('authorization'),
     },
+    credentials: 'include',
     body: JSON.stringify(body),
   }).then(async (res) => {
     const json = await res.json();
     if (!res.ok) {
-      if (!json.errors || !json.errors.body) return Promise.reject('Server Error');
-      return Promise.reject(json.errors.body.join(' '));
+      if (!json.message) return Promise.reject('Server Error');
+      return Promise.reject(json.message);
     } else return json;
   });
 }
