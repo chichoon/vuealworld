@@ -10,7 +10,7 @@
           <ul v-if="errorMsg.length > 0" class="error-messages">
             <li>{{ errorMsg }}</li>
           </ul>
-          <CustomForm @submit="onSubmit" />
+          <CustomForm @submit="handleSubmit" />
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@ const errorMsg = ref<string>('');
 
 const { mutateAsync } = useSignup();
 
-async function onSubmit(data: SignUpData) {
+async function handleSubmit(data: SignUpData) {
   try {
     await mutateAsync(data);
     router.push('/'); // TODO: 왜안됨???? (url만 바뀌고 컴포넌트가 안바뀜)

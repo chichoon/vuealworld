@@ -10,7 +10,7 @@
           <ul v-if="errorMsg.length > 0" class="error-messages">
             <li>{{ errorMsg }}</li>
           </ul>
-          <CustomForm @submit="onSubmit" />
+          <CustomForm @submit="handleSubmit" />
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@ const errorMsg = ref<string>('');
 
 const { mutateAsync } = useSignin();
 
-async function onSubmit(data: SignInData) {
+async function handleSubmit(data: SignInData) {
   try {
     await mutateAsync(data);
     router.push('/');

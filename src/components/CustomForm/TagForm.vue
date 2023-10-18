@@ -21,15 +21,14 @@ interface Props {
 }
 
 defineProps<Props>();
-const emit = defineEmits(['update:tags']);
+const emits = defineEmits(['update:tags']);
 
 const tagList = ref<string[]>([]);
 const newTag = ref('');
 
 function handleSubmit() {
   tagList.value = [...new Set([...tagList.value, newTag.value])];
-  console.log(tagList.value);
-  emit('update:tags', tagList.value);
+  emits('update:tags', tagList.value);
   newTag.value = '';
 }
 
