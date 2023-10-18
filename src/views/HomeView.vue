@@ -39,14 +39,7 @@
             <p>Popular Tags</p>
 
             <div class="tag-list">
-              <a href="" class="tag-pill tag-default">programming</a>
-              <a href="" class="tag-pill tag-default">javascript</a>
-              <a href="" class="tag-pill tag-default">emberjs</a>
-              <a href="" class="tag-pill tag-default">angularjs</a>
-              <a href="" class="tag-pill tag-default">react</a>
-              <a href="" class="tag-pill tag-default">mean</a>
-              <a href="" class="tag-pill tag-default">node</a>
-              <a href="" class="tag-pill tag-default">rails</a>
+              <a href="" v-for="tag in tags" :key="tag" class="tag-pill tag-default">{{ tag }}</a>
             </div>
           </div>
         </div>
@@ -60,7 +53,9 @@ import { ref } from 'vue';
 
 import ArticlePreview from '@/components/ArticlePreview.vue';
 import { useGetArticles } from '@/hooks/article';
+import { useGetTags } from '@/hooks/tag';
 
 const page = ref(1);
 const { data: articles } = useGetArticles(page.value);
+const { data: tags } = useGetTags();
 </script>
