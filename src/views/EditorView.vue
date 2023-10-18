@@ -6,29 +6,19 @@
           <ul class="error-messages">
             <li>That title is required</li>
           </ul>
-
-          <form>
-            <fieldset>
-              <fieldset class="form-group">
-                <input type="text" class="form-control form-control-lg" placeholder="Article Title" />
-              </fieldset>
-              <fieldset class="form-group">
-                <input type="text" class="form-control" placeholder="What's this article about?" />
-              </fieldset>
-              <fieldset class="form-group">
-                <textarea class="form-control" rows="8" placeholder="Write your article (in markdown)"></textarea>
-              </fieldset>
-              <fieldset class="form-group">
-                <input type="text" class="form-control" placeholder="Enter tags" />
-                <div class="tag-list">
-                  <span class="tag-default tag-pill"> <i class="ion-close-round"></i> tag </span>
-                </div>
-              </fieldset>
-              <button class="btn btn-lg pull-xs-right btn-primary" type="button">Publish Article</button>
-            </fieldset>
-          </form>
+          <EditorForm @submit="handleSubmit" />
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import EditorForm from '@/components/CustomForm/EditorForm.vue';
+import type { ArticleEditData } from '@/types/article';
+
+function handleSubmit(data: ArticleEditData) {
+  console.log(data);
+  console.log(data.tagList);
+}
+</script>

@@ -16,10 +16,10 @@
       rows="8"
       placeholder="Write your article (in markdown)"
       v-model:value="body"
-    ></CustomInput>
+    />
     <fieldset class="form-group"></fieldset>
     <TagForm v-model:tags="tagList" />
-    <button class="btn btn-lg pull-xs-right btn-primary" type="button">Publish Article</button>
+    <button class="btn btn-lg pull-xs-right btn-primary" type="submit">Publish Article</button>
   </form>
 </template>
 
@@ -28,13 +28,21 @@ import { ref } from 'vue';
 
 import CustomInput from './CustomInput.vue';
 import TagForm from './TagForm.vue';
+import type { ArticleData } from '@/types/article';
+
+interface Props {
+  articleData?: ArticleData;
+}
+
+defineProps<Props>();
+const emits = defineEmits(['submit']);
 
 const title = ref('');
 const description = ref('');
 const body = ref('');
 const tagList = ref<string[]>([]);
 
-function handleSubmit(e: Event) {
-  console.log(e);
+function handleSubmit() {
+  emits('submit', { title: title.value, description: description.value, body: body.value, tagList: tagList.value });
 }
 </script>
