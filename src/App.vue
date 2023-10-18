@@ -1,12 +1,12 @@
 <template>
   <AuthenticatedNavHeader v-if="isAuthenticated" />
-  <NavHeader />
+  <NavHeader v-else />
   <RouterView />
   <FooterComponent />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { RouterView } from 'vue-router';
 
 import { NavHeader, AuthenticatedNavHeader } from './components/NavHeader';
@@ -15,7 +15,11 @@ import { useGetUserData } from './hooks/user/useGetUserData';
 
 const isAuthenticated = ref<boolean>(false);
 
-const user = useGetUserData();
+const data = useGetUserData();
+watch(data, () => {
+  console.log(data.value.user);
+  isAuthenticated.value = !!data;
+});
 </script>
 
 <style lang="scss"></style>
