@@ -1,5 +1,12 @@
 import type { AuthorData } from './userData';
 
+export interface ArticleEditData {
+  title: string;
+  description: string;
+  body: string;
+  tagList: string[];
+}
+
 export interface ArticleData {
   slug: string;
   title: string;
