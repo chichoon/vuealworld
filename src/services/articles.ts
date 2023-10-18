@@ -21,7 +21,7 @@ function get({ tag, author, favorited, offset, limit }: GetParams) {
     url: '/articles',
     method: 'GET',
     params: { tag, author, favorited, offset, limit },
-  }).then((data) => data.articles);
+  }).then((data) => data);
 }
 
 interface GetFeedParams {
@@ -34,7 +34,7 @@ function getFeed({ offset, limit }: GetFeedParams) {
     url: '/articles/feed',
     method: 'GET',
     params: { offset, limit },
-  }).then((data) => data.articles);
+  }).then((data) => data);
 }
 
 function getBySlug(slug: string) {
