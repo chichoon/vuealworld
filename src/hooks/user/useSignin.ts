@@ -7,8 +7,8 @@ import type { UserData } from '@/types/userData';
 export function useSignin() {
   const { cookies } = useCookies();
   return useMutation(['signin'], user.postLogin, {
-    onSuccess: (data: { user: UserData }) => {
-      cookies.set('authorization', `Bearer ${data.user.token}`);
+    onSuccess: (data: UserData) => {
+      cookies.set('authorization', `Bearer ${data.token}`);
     },
   });
 }
