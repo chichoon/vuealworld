@@ -7,6 +7,8 @@
 </template>
 
 <script lang="ts" setup>
+import { useRoute } from 'vue-router';
+
 import router from '@/router';
 
 interface Props {
@@ -14,9 +16,11 @@ interface Props {
   totalPages: number;
 }
 
+const route = useRoute();
+
 const { totalPages, currentPage } = defineProps<Props>();
 
 function handleClickPage(pageNum: number) {
-  router.replace({ path: '#', query: { page: pageNum } });
+  router.replace({ path: '#', query: { ...route.query, page: pageNum } });
 }
 </script>
