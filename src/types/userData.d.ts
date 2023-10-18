@@ -25,12 +25,10 @@ export interface AuthorData {
 }
 
 export interface SignInResponse {
-  user: {
-    email: string;
-    token?: string;
-    id?: number;
-    username: string;
-    bio: string;
-    image: string;
-  };
+  email: string;
+  token?: string;
+  id?: number;
+  username: string;
+  bio: string;
+  image: string;
 }
