@@ -14,9 +14,9 @@
           <a class="nav-link" href="/settings"> <i class="ion-gear-a"></i>&nbsp;Settings </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/profile/eric-simons">
-            <img src="" class="user-pic" />
-            유저닉네임
+          <a class="nav-link" :href="`/profile/${userInfo.username}`">
+            <img :src="userInfo.image" class="user-pic" />
+            {{ userInfo.username }}
           </a>
         </li>
       </ul>
@@ -24,4 +24,8 @@
   </nav>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { defineProps } from 'vue';
+
+const { userInfo } = defineProps(['userInfo']);
+</script>
