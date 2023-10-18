@@ -5,18 +5,18 @@
         <div class="row">
           <div class="col-xs-12 col-md-10 offset-md-1">
             <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img" />
-            <h4>Eric Simons</h4>
+            <h4>{{ data.user.username }}</h4>
             <p>
-              Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda looks like Peeta from the Hunger Games
+              {{ data.user.bio }}
             </p>
             <button class="btn btn-sm btn-outline-secondary action-btn">
               <i class="ion-plus-round"></i>
-              &nbsp; Follow Eric Simons
+              &nbsp; Follow {{ data.user.username }}
             </button>
-            <button class="btn btn-sm btn-outline-secondary action-btn">
+            <RouterLink to="/settings" class="btn btn-sm btn-outline-secondary action-btn">
               <i class="ion-gear-a"></i>
               &nbsp; Edit Profile Settings
-            </button>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -89,3 +89,10 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useGetCurrentUserData } from '@/hooks/user/useGetCurrentUserData';
+import { RouterLink } from 'vue-router';
+
+const data = useGetCurrentUserData();
+</script>
