@@ -82,7 +82,7 @@ import { RouterLink, useRoute } from 'vue-router';
 import router from '@/router';
 import type { ArticleData } from '@/types/article';
 import ArticlePreview from '@/components/ArticlePreview.vue';
-import { useGetProfile } from '@/hooks/profile/useGetProfile';
+import { useGetProfile } from '@/hooks/profile';
 
 const route = useRoute();
 

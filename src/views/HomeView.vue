@@ -59,7 +59,7 @@
 import { ref } from 'vue';
 
 import ArticlePreview from '@/components/ArticlePreview.vue';
-import { useGetArticles } from '@/hooks/article/useGetArticles';
+import { useGetArticles } from '@/hooks/article';
 
 const page = ref(1);
 const { data: articles } = useGetArticles(page.value);

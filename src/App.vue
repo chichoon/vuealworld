@@ -10,7 +10,7 @@ import { RouterView } from 'vue-router';
 
 import { NavHeader, AuthenticatedNavHeader } from './components/NavHeader';
 import FooterComponent from './components/FooterComponent.vue';
-import { useGetCurrentUserData } from './hooks/user/useGetCurrentUserData';
+import { useGetCurrentUserData } from './hooks/user';
 
 const data = useGetCurrentUserData();
 </script>
