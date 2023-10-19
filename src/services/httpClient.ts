@@ -1,6 +1,7 @@
 import { useCookies } from 'vue3-cookies';
 
 import createURLParams from '@/utils/createURLParams';
+import { concatErrorMessage } from '@/utils/concatErrorMessage';
 
 interface Params {
   url: string;
@@ -19,11 +20,15 @@ export async function httpClient({ url, method, params, body }: Params) {
     },
     credentials: 'include',
     body: JSON.stringify(body),
-  }).then(async (res) => {
-    const json = await res.json();
-    if (!res.ok) {
-      if (!json.message) return Promise.reject('Server Error');
-      return Promise.reject(json.message);
-    } else return json;
-  });
+  })
+    .then(async (res) => {
+      const json = await res.json();
+      if (!res.ok) {
+        if (!json.errors) return Promise.reject('Server Error');
+        return Promise.reject(concatErrorMessage(json.errors));
+      } else return json;
+    })
+    .catch((err) => {
+      throw err;
+    });
 }
