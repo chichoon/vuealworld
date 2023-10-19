@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 
 import ArticlePreview from '@/components/ArticlePreview.vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
@@ -19,8 +19,4 @@ import { useGetFeeds } from '@/hooks/article';
 const currentPage = ref(1);
 const { data: articlesData, isLoading, isError } = useGetFeeds(currentPage);
 const totalPages = computed(() => Math.ceil((articlesData.value?.articlesCount ?? 10) / 10));
-
-watch(currentPage, () => {
-  console.log(currentPage.value);
-});
 </script>

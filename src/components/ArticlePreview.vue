@@ -15,8 +15,13 @@
         }}</RouterLink>
         <span class="date">{{ new Date(articleInfo.createdAt).toDateString() }}</span>
       </div>
-      <button class="btn btn-outline-primary btn-sm pull-xs-right">
-        <i class="ion-heart"></i>{{ articleInfo.favoritesCount }}
+      <button
+        @click="handleClickFavorite"
+        class="btn btn-outline-primary btn-sm pull-xs-right"
+        :class="{ favorited: articleInfo.favorited }"
+      >
+        <i class="ion-heart"></i>
+        <span> {{ articleInfo.favoritesCount }}</span>
       </button>
     </div>
     <RouterLink :to="`/article/${articleInfo.slug}`" class="preview-link">
@@ -37,6 +42,7 @@
 </template>
 
 <script lang="ts" setup>
+import { usePostFavorite, useDeleteFavorite } from '@/hooks/article';
 import type { ArticleData } from '@/types/article';
 
 interface Props {
@@ -44,4 +50,21 @@ interface Props {
 }
 
 const { articleInfo } = defineProps<Props>();
+
+const { mutate: favoriteMutate } = usePostFavorite(articleInfo.slug);
+const { mutate: unfavoriteMutate } = useDeleteFavorite(articleInfo.slug);
+
+function handleClickFavorite() {
+  if (articleInfo.favorited) {
+    unfavoriteMutate(articleInfo.slug);
+  } else {
+    favoriteMutate(articleInfo.slug);
+  }
+}
 </script>
+
+<style scoped>
+.favorited {
+  background-color: #5cb85c44;
+}
+</style>

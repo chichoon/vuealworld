@@ -53,4 +53,12 @@ function deleteBySlug(slug: string) {
   return httpClient({ url: `/articles/${slug}`, method: 'DELETE' });
 }
 
-export default { get, post, getFeed, getBySlug, putBySlug, deleteBySlug };
+function postFavorite(slug: string) {
+  return httpClient({ url: `/articles/${slug}/favorite`, method: 'POST' }).then((data) => data.article);
+}
+
+function deleteFavorite(slug: string) {
+  return httpClient({ url: `/articles/${slug}/favorite`, method: 'DELETE' }).then((data) => data.article);
+}
+
+export default { get, post, getFeed, getBySlug, putBySlug, deleteBySlug, postFavorite, deleteFavorite };
