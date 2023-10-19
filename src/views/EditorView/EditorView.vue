@@ -15,7 +15,8 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import EditorForm from '@/components/EditorForm.vue';
+
+import EditorForm from './EditorForm.vue';
 import { usePostArticle } from '@/hooks/article';
 import type { ArticleData } from '@/types/article';
 import router from '@/router';

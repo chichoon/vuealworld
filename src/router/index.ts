@@ -25,8 +25,12 @@ const router = createRouter({
       component: () => import('../views/ArticleView/ArticleView.vue'),
     },
     { path: '/settings', name: 'settings', component: () => import('../views/SettingsView/SettingsView.vue') },
-    { path: '/editor', name: 'editor', component: () => import('../views/EditorView.vue') },
-    { path: '/editor/:articleId', name: 'editor-articleid', component: () => import('../views/EditorView.vue') },
+    { path: '/editor', name: 'editor', component: () => import('../views/EditorView/EditorView.vue') },
+    {
+      path: '/editor/:articleId',
+      name: 'editor-articleid',
+      component: () => import('../views/EditorView/EditorView.vue'),
+    },
     {
       path: '/profile/:username',
       name: 'profile-userid',

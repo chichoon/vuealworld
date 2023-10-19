@@ -26,8 +26,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import CustomInput from './CustomInput.vue';
-import TagForm from './TagForm.vue';
+import CustomInput from '@/components/CustomInput.vue';
+import TagForm from '@/components/TagForm.vue';
 import type { ArticleData } from '@/types/article';
 
 interface Props {
