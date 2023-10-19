@@ -12,7 +12,7 @@ import { NavHeader, AuthenticatedNavHeader } from './components/NavHeader';
 import FooterComponent from './components/FooterComponent.vue';
 import { useGetCurrentUserData } from './hooks/user';
 
-const data = useGetCurrentUserData();
+const { data } = useGetCurrentUserData();
 </script>
 
 <style lang="scss"></style>
