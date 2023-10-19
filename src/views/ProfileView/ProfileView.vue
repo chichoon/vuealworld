@@ -62,20 +62,8 @@
               </li>
             </ul>
           </div>
-          <ArticlePreview
-            v-for="article in [DUMMY_ARTICLE, DUMMY_ARTICLE]"
-            :key="article.slug"
-            :article-info="article"
-          />
-
-          <ul class="pagination">
-            <li class="page-item active">
-              <a class="page-link" href="">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="">2</a>
-            </li>
-          </ul>
+          <MyArticlesList v-if="!route.query.tab || route.query.tab === 'my-articles'" :username="userInfo.username" />
+          <FavoritedArticlesList v-else-if="route.query.tab === 'favorited-articles'" :username="userInfo.username" />
         </div>
       </div>
     </div>
@@ -93,6 +81,8 @@ import ArticlePreview from '@/components/ArticlePreview.vue';
 import type { ArticleData } from '@/types/article';
 import { useGetProfile, usePostFollow, useDeleteFollow } from '@/hooks/profile';
 import { useGetCurrentUserData } from '@/hooks/user';
+import MyArticlesList from './MyArticlesList.vue';
+import FavoritedArticlesList from './FavoritedArticlesList.vue';
 
 const route = useRoute();
 
