@@ -4,9 +4,6 @@
       <div class="row">
         <div class="col-md-6 offset-md-3 col-xs-12">
           <h1 class="text-xs-center">Your Settings</h1>
-          <ul class="error-messages">
-            <li>That name is required</li>
-          </ul>
           <SettingsForm />
           <hr />
           <button @click="handleLogout" class="btn btn-outline-danger">Or click here to logout.</button>
@@ -17,9 +14,11 @@
 </template>
 
 <script lang="ts" setup>
+import { useCookies } from 'vue3-cookies';
+
+import { useGetCurrentUserData } from '@/hooks/user';
 import SettingsForm from './SettingsForm.vue';
 import router from '@/router';
-import { useCookies } from 'vue3-cookies';
 
 const { cookies } = useCookies();
 

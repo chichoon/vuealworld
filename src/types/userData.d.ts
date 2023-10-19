@@ -10,11 +10,11 @@ export interface SignInData {
 }
 
 export interface EditUserData {
-  email: string;
-  password: string;
-  username: string;
-  bio: string;
-  image: string;
+  email?: string;
+  password?: string;
+  username?: string;
+  bio?: string;
+  image?: string;
 }
 
 export interface AuthorData {
