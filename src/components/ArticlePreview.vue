@@ -56,9 +56,9 @@ const { mutate: unfavoriteMutate } = useDeleteFavorite(articleInfo.slug);
 
 function handleClickFavorite() {
   if (articleInfo.favorited) {
-    unfavoriteMutate(articleInfo.slug);
+    unfavoriteMutate();
   } else {
-    favoriteMutate(articleInfo.slug);
+    favoriteMutate();
   }
 }
 </script>
