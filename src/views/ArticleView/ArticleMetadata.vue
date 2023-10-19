@@ -7,15 +7,25 @@
     </div>
     &nbsp;&nbsp;
     <template v-if="isMyArticle">
-      <button class="btn btn-sm btn-outline-secondary"><i class="ion-edit"></i><span> Edit Article</span></button>
+      <RouterLink :to="`/editor/${articleInfo.slug}`" class="btn btn-sm btn-outline-secondary"
+        ><i class="ion-edit"></i><span> Edit Article</span></RouterLink
+      >
       <button class="btn btn-sm btn-outline-danger"><i class="ion-trash-a"></i><span> Delete Article</span></button>
     </template>
     <template v-else-if="isLoggedIn">
-      <button class="btn btn-sm btn-outline-secondary">
+      <button
+        class="btn btn-sm btn-outline-secondary"
+        :class="{ following: articleInfo.author.following }"
+        @click="handleClickFollow"
+      >
         <i class="ion-plus-round"></i>
         <span> Follow {{ articleInfo.author.username }}</span>
       </button>
-      <button class="btn btn-sm btn-outline-primary">
+      <button
+        class="btn btn-sm btn-outline-primary"
+        :class="{ favorite: articleInfo.favorited }"
+        @click="handleClickFavorite"
+      >
         <i class="ion-heart"></i>
         <span> Favorite Post ({{ articleInfo.favoritesCount }})</span>
       </button>
@@ -24,7 +34,9 @@
 </template>
 
 <script setup lang="ts">
-import { usePostFavorite } from '@/hooks/article';
+import { useDeleteFavorite, usePostFavorite } from '@/hooks/article';
+import { useDeleteFollow } from '@/hooks/profile/useDeleteFollow';
+import { usePostFollow } from '@/hooks/profile/usePostFollow';
 import type { ArticleData } from '@/types/article';
 
 interface Props {
@@ -36,4 +48,33 @@ interface Props {
 const { articleInfo, isMyArticle, isLoggedIn } = defineProps<Props>();
 
 const { mutate: favoriteMutate } = usePostFavorite(articleInfo.slug);
+const { mutate: unfavoriteMutate } = useDeleteFavorite(articleInfo.slug);
+const { mutate: followMutate } = usePostFollow(articleInfo.author.username);
+const { mutate: unfollowMutate } = useDeleteFollow(articleInfo.author.username);
+
+function handleClickFavorite() {
+  if (articleInfo.favorited) {
+    unfavoriteMutate();
+  } else {
+    favoriteMutate();
+  }
+}
+
+function handleClickFollow() {
+  if (articleInfo.author.following) {
+    unfollowMutate();
+  } else {
+    followMutate();
+  }
+}
 </script>
+
+<style scoped>
+.following {
+  background-color: #cccccc44;
+}
+
+.favorite {
+  background-color: #5cb85c44;
+}
+</style>
