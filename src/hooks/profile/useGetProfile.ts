@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/vue-query';
 
 import profile from '@/services/profile';
-import type { UserData } from '@/types/userData';
+import type { ProfileData } from '@/types/profileData';
 
 export function useGetProfile(username: string) {
-  const { data } = useQuery<UserData>(['profile', username], () => profile.get(username));
-
-  return data;
+  return useQuery<ProfileData>(['profile', username], () => profile.get(username));
 }
