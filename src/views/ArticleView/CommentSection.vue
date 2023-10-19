@@ -6,7 +6,7 @@
           <textarea class="form-control" placeholder="Write a comment..." rows="3" v-model="commentBody"></textarea>
         </div>
         <div class="card-footer">
-          <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
+          <img :src="currentUserImage" class="comment-author-img" />
           <button class="btn btn-sm btn-primary" type="submit">Post Comment</button>
         </div>
       </form>
@@ -29,6 +29,7 @@ import CommentComponent from './CommentComponent.vue';
 
 interface Props {
   slug: string;
+  currentUserImage?: string;
 }
 
 const { slug } = defineProps<Props>();

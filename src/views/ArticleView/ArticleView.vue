@@ -28,7 +28,7 @@
           :is-my-article="articleInfo.author.username === currentUser?.username"
           :is-logged-in="!!currentUser"
         />
-        <CommentSection :slug="articleInfo.slug" />
+        <CommentSection :slug="articleInfo.slug" :current-user-image="currentUser?.image" />
       </div>
     </div>
   </template>
