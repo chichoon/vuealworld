@@ -41,7 +41,13 @@ function getBySlug(slug: string) {
   return httpClient({ url: `/articles/${slug}`, method: 'GET' }).then((data) => data.article);
 }
 
-function putBySlug(slug: string, { title, description, body }: ArticleData) {
+interface PutParams {
+  title: string;
+  description: string;
+  body: string;
+}
+
+function putBySlug(slug: string, { title, description, body }: PutParams) {
   return httpClient({
     url: `/articles/${slug}`,
     method: 'PUT',
