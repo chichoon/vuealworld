@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
+import HomeView from '../views/HomeView/HomeView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,7 +24,7 @@ const router = createRouter({
       name: 'article',
       component: () => import('../views/ArticleView.vue'),
     },
-    { path: '/settings', name: 'settings', component: () => import('../views/SettingsView.vue') },
+    { path: '/settings', name: 'settings', component: () => import('../views/SettingsView/SettingsView.vue') },
     { path: '/editor', name: 'editor', component: () => import('../views/EditorView.vue') },
     { path: '/editor/:articleId', name: 'editor-articleid', component: () => import('../views/EditorView.vue') },
     { path: '/profile', name: 'profile', component: () => import('../views/ProfileView.vue') },

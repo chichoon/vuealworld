@@ -7,20 +7,15 @@
 </template>
 
 <script lang="ts" setup>
-import { useRoute } from 'vue-router';
-
-import router from '@/router';
-
 interface Props {
   currentPage: number;
   totalPages: number;
 }
 
-const route = useRoute();
-
+const emits = defineEmits(['update:currentPage']);
 const { totalPages, currentPage } = defineProps<Props>();
 
 function handleClickPage(pageNum: number) {
-  router.replace({ path: '#', query: { ...route.query, page: pageNum } });
+  emits('update:currentPage', pageNum);
 }
 </script>
