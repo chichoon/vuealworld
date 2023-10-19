@@ -1,7 +1,7 @@
 <template>
-  <template v-if="isLoading"> <div>Loading...</div> </template>
-  <template v-if="isError"> <div>Error</div></template>
-  <template v-if="articlesData">
+  <LoadingComponent v-if="isLoading" />
+  <ErrorComponent v-else-if="isError" />
+  <template v-else-if="articlesData">
     <ArticlePreview v-for="article in articlesData.articles" :key="article.slug" :article-info="article" />
     <PaginationComponent v-model:currentPage="currentPage" :totalPages="totalPages" />
   </template>
@@ -11,6 +11,8 @@
 import { computed, ref, watch } from 'vue';
 
 import ArticlePreview from '@/components/ArticlePreview.vue';
+import LoadingComponent from '@/components/LoadingComponent.vue';
+import ErrorComponent from '@/components/ErrorComponent.vue';
 import PaginationComponent from '@/components/PaginationComponent.vue';
 import { useGetFeeds } from '@/hooks/article/useGetFeeds';
 
