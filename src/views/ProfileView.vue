@@ -1,5 +1,7 @@
 <template>
-  <div class="profile-page" v-if="userInfo">
+  <LoadingComponent v-if="isLoading" />
+  <ErrorComponent v-else-if="isError" />
+  <div class="profile-page" v-else-if="userInfo">
     <div class="user-info">
       <div class="container">
         <div class="row">
@@ -16,14 +18,22 @@
             <p>
               {{ userInfo.bio }}
             </p>
-            <button class="btn btn-sm btn-outline-secondary action-btn">
-              <i class="ion-plus-round"></i>
-              &nbsp; Follow {{ userInfo.username }}
-            </button>
-            <RouterLink to="/settings" class="btn btn-sm btn-outline-secondary action-btn">
-              <i class="ion-gear-a"></i>
-              &nbsp; Edit Profile Settings
-            </RouterLink>
+            <template v-if="currentUser?.username === userInfo.username">
+              <RouterLink to="/settings" class="btn btn-sm btn-outline-secondary action-btn">
+                <i class="ion-gear-a"></i>
+                &nbsp; Edit Profile Settings
+              </RouterLink>
+            </template>
+            <template v-else-if="!!currentUser">
+              <button
+                class="btn btn-sm btn-outline-secondary action-btn"
+                :class="{ following: userInfo.following }"
+                @click="handleClickFollow"
+              >
+                <i class="ion-plus-round"></i>
+                &nbsp; Follow {{ userInfo.username }}
+              </button>
+            </template>
           </div>
         </div>
       </div>
@@ -70,9 +80,6 @@
       </div>
     </div>
   </div>
-  <div v-else>
-    <h1>404 Not Found</h1>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -80,13 +87,20 @@ import { ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
 import router from '@/router';
-import type { ArticleData } from '@/types/article';
+import LoadingComponent from '@/components/LoadingComponent.vue';
+import ErrorComponent from '@/components/ErrorComponent.vue';
 import ArticlePreview from '@/components/ArticlePreview.vue';
-import { useGetProfile } from '@/hooks/profile';
+import type { ArticleData } from '@/types/article';
+import { useGetProfile, usePostFollow, useDeleteFollow } from '@/hooks/profile';
+import { useGetCurrentUserData } from '@/hooks/user';
 
 const route = useRoute();
 
-const userInfo = useGetProfile(route.path.split('/')[2]);
+const { data: userInfo, isLoading, isError } = useGetProfile(route.path.split('/')[2]);
+const { data: currentUser } = useGetCurrentUserData();
+
+const { mutate: followMutate } = usePostFollow(userInfo.value?.username ?? '');
+const { mutate: unfollowMutate } = useDeleteFollow(userInfo.value?.username ?? '');
 
 function handleClickMyArticle() {
   router.replace({ path: '#', query: { tab: 'my-articles' } });
@@ -94,6 +108,14 @@ function handleClickMyArticle() {
 
 function handleClickFavoriteArticle() {
   router.replace({ path: '#', query: { tab: 'favorited-articles' } });
+}
+
+function handleClickFollow() {
+  if (userInfo.value?.following) {
+    unfollowMutate();
+  } else {
+    followMutate();
+  }
 }
 
 // TODO: remove
@@ -115,3 +137,9 @@ const DUMMY_ARTICLE = ref<ArticleData>({
   },
 });
 </script>
+
+<style scoped>
+.following {
+  background-color: #cccccc44;
+}
+</style>

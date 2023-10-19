@@ -35,8 +35,7 @@
 
 <script setup lang="ts">
 import { useDeleteFavorite, usePostFavorite } from '@/hooks/article';
-import { useDeleteFollow } from '@/hooks/profile/useDeleteFollow';
-import { usePostFollow } from '@/hooks/profile/usePostFollow';
+import { useDeleteFollow, usePostFollow } from '@/hooks/profile';
 import type { ArticleData } from '@/types/article';
 
 interface Props {
