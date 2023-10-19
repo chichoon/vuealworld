@@ -4,5 +4,5 @@ import comments from '@/services/comments';
 
 export function usePostComment(slug: string | string[]) {
   if (Array.isArray(slug)) slug = slug.join('');
-  return useMutation([], (body: string) => comments.post(slug as string, body), {});
+  return useMutation([], (body: string) => comments.post(slug as string, body));
 }
