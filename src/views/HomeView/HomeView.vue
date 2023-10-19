@@ -33,7 +33,10 @@
               </li>
             </ul>
           </div>
-          <MyFeedList v-if="!route.query.tab || route.query.tab === 'my-feed'" />
+          <template v-if="!currentUser && (!route.query.tab || route.query.tab === 'my-feed')">
+            <h2>You must be logged in to access my feed list</h2>
+          </template>
+          <MyFeedList v-if="!!currentUser && (!route.query.tab || route.query.tab === 'my-feed')" />
           <GlobalFeedList v-else-if="route.query.tab === 'global-feed'" />
         </div>
         <div class="col-md-3">
@@ -53,11 +56,13 @@
 import { useRoute } from 'vue-router';
 
 import { useGetTags } from '@/hooks/tag';
+import { useGetCurrentUserData } from '@/hooks/user';
 import router from '@/router';
 import MyFeedList from './MyFeedList.vue';
 import GlobalFeedList from './GlobalFeedList.vue';
 
 const route = useRoute();
+const { data: currentUser } = useGetCurrentUserData();
 const { data: tags } = useGetTags();
 
 function handleClickMyFeed() {
