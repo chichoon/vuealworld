@@ -7,17 +7,17 @@
     </div>
     <button class="btn btn-sm btn-outline-secondary">
       <i class="ion-plus-round"></i>
-      &nbsp; Follow {{ articleData.author.username }}
+      <span> Follow {{ articleData.author.username }}</span>
     </button>
     &nbsp;&nbsp;
     <template v-if="isMyArticle">
-      <button class="btn btn-sm btn-outline-secondary"><i class="ion-edit"></i> Edit Article</button>
-      <button class="btn btn-sm btn-outline-danger"><i class="ion-trash-a"></i> Delete Article</button>
+      <button class="btn btn-sm btn-outline-secondary"><i class="ion-edit"></i><span> Edit Article</span></button>
+      <button class="btn btn-sm btn-outline-danger"><i class="ion-trash-a"></i><span> Delete Article</span></button>
     </template>
     <template v-else>
       <button class="btn btn-sm btn-outline-primary">
         <i class="ion-heart"></i>
-        &nbsp; Favorite Post <span class="counter">({{ articleData.favoritesCount }})</span>
+        <span> Favorite Post ({{ articleData.favoritesCount }})</span>
       </button>
     </template>
   </div>

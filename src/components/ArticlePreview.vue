@@ -13,7 +13,7 @@
         <RouterLink :to="`/profile/${articleInfo.author.username}`" class="author">{{
           articleInfo.author.username
         }}</RouterLink>
-        <span class="date">{{ new Date(articleInfo.created).toDateString() }}</span>
+        <span class="date">{{ new Date(articleInfo.createdAt).toDateString() }}</span>
       </div>
       <button class="btn btn-outline-primary btn-sm pull-xs-right">
         <i class="ion-heart"></i>{{ articleInfo.favoritesCount }}
