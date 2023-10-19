@@ -71,14 +71,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
 import router from '@/router';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
-import ArticlePreview from '@/components/ArticlePreview.vue';
-import type { ArticleData } from '@/types/article';
 import { useGetProfile, usePostFollow, useDeleteFollow } from '@/hooks/profile';
 import { useGetCurrentUserData } from '@/hooks/user';
 import MyArticlesList from './MyArticlesList.vue';
@@ -107,25 +104,6 @@ function handleClickFollow() {
     followMutate();
   }
 }
-
-// TODO: remove
-const DUMMY_ARTICLE = ref<ArticleData>({
-  slug: 'how-to-buil-webapps-that-scale',
-  title: 'How to build webapps that scale',
-  description: 'This is the description for the post.',
-  body: 'This is the description for the post.',
-  tagList: ['realworld', 'implementations'],
-  createdAt: 'January 20th',
-  updatedAt: 'January 20th',
-  favorited: false,
-  favoritesCount: 29,
-  author: {
-    username: 'Eric Simons',
-    bio: 'Eric Simons is the co-founder of Thinkster, the former CTO of ...',
-    image: 'http://i.imgur.com/Qr71crq.jpg',
-    following: false,
-  },
-});
 </script>
 
 <style scoped>
