@@ -1,4 +1,3 @@
-import CommentComponent from './CommentComponent.vue';
 <template>
   <div class="row">
     <div class="col-xs-12 col-md-8 offset-md-2">
@@ -12,11 +11,20 @@ import CommentComponent from './CommentComponent.vue';
         </div>
       </form>
 
-      <CommentComponent v-for="i in 10" :key="i" />
+      <CommentComponent v-for="comment in commentsData" :key="comment.id" :comment-data="comment" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useGetComments } from '@/hooks/comments';
 import CommentComponent from './CommentComponent.vue';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = defineProps<Props>();
+
+const { data: commentsData } = useGetComments(slug);
 </script>

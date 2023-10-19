@@ -1,18 +1,30 @@
 <template>
   <div class="card">
     <div class="card-block">
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <p class="card-text">{{ commentData.body }}</p>
     </div>
     <div class="card-footer">
-      <a href="/profile/author" class="comment-author">
-        <img src="http://i.imgur.com/Qr71crq.jpg" class="comment-author-img" />
-      </a>
+      <RouterLink :to="`/profile/${commentData.author.username}`" class="comment-author">
+        <img :src="commentData.author.image" class="comment-author-img" />
+      </RouterLink>
       &nbsp;
-      <a href="/profile/jacob-schmidt" class="comment-author">Jacob Schmidt</a>
-      <span class="date-posted">Dec 29th</span>
-      <span class="mod-options">
+      <RouterLink :to="`/profile/${commentData.author.username}`" class="comment-author">{{
+        commentData.author.username
+      }}</RouterLink>
+      <span class="date-posted">{{ new Date(commentData.createdAt).toDateString() }}</span>
+      <button class="mod-options">
         <i class="ion-trash-a"></i>
-      </span>
+      </button>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { CommentData } from '@/types/comments';
+
+interface Props {
+  commentData: CommentData;
+}
+
+const { commentData } = defineProps<Props>();
+</script>
