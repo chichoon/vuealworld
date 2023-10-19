@@ -14,7 +14,7 @@
       <CommentComponent
         v-for="comment in commentsData"
         :key="comment.id"
-        :comment-data="comment"
+        :comment-info="comment"
         @delete-comment="handleDeleteComment"
       />
     </div>

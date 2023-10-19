@@ -1,8 +1,8 @@
 <template>
   <LoadingComponent v-if="isLoading" />
   <ErrorComponent v-else-if="isError" />
-  <template v-else-if="articlesData">
-    <ArticlePreview v-for="article in articlesData.articles" :key="article.slug" :article-info="article" />
+  <template v-else-if="articlesInfo">
+    <ArticlePreview v-for="article in articlesInfo.articles" :key="article.slug" :article-info="article" />
     <PaginationComponent v-model:currentPage="currentPage" :totalPages="totalPages" />
   </template>
 </template>
@@ -17,6 +17,6 @@ import PaginationComponent from '@/components/PaginationComponent.vue';
 import { useGetFeeds } from '@/hooks/article';
 
 const currentPage = ref(1);
-const { data: articlesData, isLoading, isError } = useGetFeeds(currentPage);
-const totalPages = computed(() => Math.ceil((articlesData.value?.articlesCount ?? 10) / 10));
+const { data: articlesInfo, isLoading, isError } = useGetFeeds(currentPage);
+const totalPages = computed(() => Math.ceil((articlesInfo.value?.articlesCount ?? 10) / 10));
 </script>

@@ -1,9 +1,9 @@
 <template>
   <LoadingComponent v-if="isLoading" />
   <ErrorComponent v-else-if="isError" />
-  <template v-else-if="articlesData">
+  <template v-else-if="articlesInfo">
     <ArticlePreview
-      v-for="(article, index) in articlesData.articles"
+      v-for="(article, index) in articlesInfo.articles"
       :index="index"
       :key="article.slug"
       :article-info="article"
@@ -22,6 +22,6 @@ import PaginationComponent from '@/components/PaginationComponent.vue';
 import { useGetArticles } from '@/hooks/article';
 
 const currentPage = ref(1);
-const { data: articlesData, isLoading, isError } = useGetArticles(currentPage);
-const totalPages = computed(() => Math.ceil((articlesData.value?.articlesCount ?? 10) / 10));
+const { data: articlesInfo, isLoading, isError } = useGetArticles(currentPage);
+const totalPages = computed(() => Math.ceil((articlesInfo.value?.articlesCount ?? 10) / 10));
 </script>
