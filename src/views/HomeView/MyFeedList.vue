@@ -14,7 +14,7 @@ import ArticlePreview from '@/components/ArticlePreview.vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
 import PaginationComponent from '@/components/PaginationComponent.vue';
-import { useGetFeeds } from '@/hooks/article/useGetFeeds';
+import { useGetFeeds } from '@/hooks/article';
 
 const currentPage = ref(1);
 const { data: articlesData, isLoading, isError } = useGetFeeds(currentPage);

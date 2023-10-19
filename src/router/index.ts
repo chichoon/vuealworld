@@ -22,7 +22,7 @@ const router = createRouter({
     {
       path: '/article/:slug',
       name: 'article',
-      component: () => import('../views/ArticleView.vue'),
+      component: () => import('../views/ArticleView/ArticleView.vue'),
     },
     { path: '/settings', name: 'settings', component: () => import('../views/SettingsView/SettingsView.vue') },
     { path: '/editor', name: 'editor', component: () => import('../views/EditorView.vue') },
