@@ -16,7 +16,6 @@
 <script lang="ts" setup>
 import { useCookies } from 'vue3-cookies';
 
-import { useGetCurrentUserData } from '@/hooks/user';
 import SettingsForm from './SettingsForm.vue';
 import router from '@/router';
 
