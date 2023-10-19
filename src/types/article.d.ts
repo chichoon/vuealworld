@@ -13,8 +13,8 @@ export interface ArticleData {
   description: string;
   body: string;
   tagList: string[];
-  created: string;
-  updated: string;
+  createdAt: string;
+  updatedAt: string;
   favorited: boolean;
   favoritesCount: number;
   author: AuthorData;
