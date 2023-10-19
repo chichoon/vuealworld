@@ -20,6 +20,8 @@
 </template>
 
 <script lang="ts" setup>
-import CustomInput from './CustomInput.vue';
-import CustomButton from '../CustomButton.vue';
+import CustomInput from '@/components/CustomInput.vue';
+import CustomButton from '@/components/CustomButton.vue';
+
+// TODO: value binding
 </script>

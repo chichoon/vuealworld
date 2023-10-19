@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import SettingsForm from '@/components/CustomForm/SettingsForm.vue';
+import SettingsForm from './SettingsForm.vue';
 import router from '@/router';
 import { useCookies } from 'vue3-cookies';
 
