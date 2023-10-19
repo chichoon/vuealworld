@@ -1,12 +1,10 @@
 <template>
-  <div class="editor-page">
+  <div class="editor - page">
     <div class="container page">
       <div class="row">
         <div class="col-md-10 offset-md-1 col-xs-12">
-          <ul v-if="errorMsg.length > 0" class="error-messages">
-            <li>{{ errorMsg }}</li>
-          </ul>
-          <EditorForm @submit="handleSubmit" />
+          <EditorForm v-if="routes.path.split('/')[2]" :slug="routes.path.split('/')[2]" />
+          <CreateForm v-else />
         </div>
       </div>
     </div>
@@ -14,22 +12,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 import EditorForm from './EditorForm.vue';
-import { usePostArticle } from '@/hooks/article';
-import type { ArticleData } from '@/types/article';
-import router from '@/router';
+import CreateForm from './CreateForm.vue';
 
-const errorMsg = ref<string>('');
-const { mutateAsync } = usePostArticle();
-
-async function handleSubmit(data: ArticleData) {
-  try {
-    await mutateAsync(data);
-    router.push('/');
-  } catch (e: unknown) {
-    errorMsg.value = e as string;
-  }
-}
+const routes = useRoute();
 </script>

@@ -1,7 +1,7 @@
-import type { ArticleData } from '@/types/article';
+import type { ArticleEditData } from '@/types/article';
 import { httpClient } from './httpClient';
 
-function post({ title, description, body, tagList }: ArticleData) {
+function post({ title, description, body, tagList }: ArticleEditData) {
   return httpClient({
     url: '/articles',
     method: 'POST',
