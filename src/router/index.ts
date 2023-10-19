@@ -27,8 +27,11 @@ const router = createRouter({
     { path: '/settings', name: 'settings', component: () => import('../views/SettingsView/SettingsView.vue') },
     { path: '/editor', name: 'editor', component: () => import('../views/EditorView.vue') },
     { path: '/editor/:articleId', name: 'editor-articleid', component: () => import('../views/EditorView.vue') },
-    { path: '/profile', name: 'profile', component: () => import('../views/ProfileView.vue') },
-    { path: '/profile/:username', name: 'profile-userid', component: () => import('../views/ProfileView.vue') },
+    {
+      path: '/profile/:username',
+      name: 'profile-userid',
+      component: () => import('../views/ProfileView/ProfileView.vue'),
+    },
   ],
 });
 
