@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import EditorForm from '@/components/CustomForm/EditorForm.vue';
+import EditorForm from '@/components/EditorForm.vue';
 import { usePostArticle } from '@/hooks/article';
 import type { ArticleData } from '@/types/article';
 import router from '@/router';

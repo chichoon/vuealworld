@@ -20,7 +20,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import CustomForm from '@/components/CustomForm/CustomForm.vue';
+import CustomForm from '@/components/CustomForm.vue';
 import type { SignInData } from '@/types/userData';
 import { useSignin } from '@/hooks/user';
 import router from '@/router';
