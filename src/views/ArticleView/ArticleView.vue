@@ -9,6 +9,7 @@
           <ArticleMetadata
             :article-data="articleData"
             :is-my-article="articleData.author.username === currentUser?.username"
+            :is-logged-in="!!currentUser"
           />
         </div>
       </div>
@@ -25,6 +26,7 @@
         <ArticleMetadata
           :article-data="articleData"
           :is-my-article="articleData.author.username === currentUser?.username"
+          :is-logged-in="!!currentUser"
         />
         <CommentSection />
       </div>
