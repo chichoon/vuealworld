@@ -10,7 +10,9 @@
       <RouterLink :to="`/editor/${articleInfo.slug}`" class="btn btn-sm btn-outline-secondary"
         ><i class="ion-edit"></i><span> Edit Article</span></RouterLink
       >
-      <button class="btn btn-sm btn-outline-danger"><i class="ion-trash-a"></i><span> Delete Article</span></button>
+      <button class="btn btn-sm btn-outline-danger" @click="handleClickDelete">
+        <i class="ion-trash-a"></i><span> Delete Article</span>
+      </button>
     </template>
     <template v-else-if="isLoggedIn">
       <button
@@ -34,8 +36,9 @@
 </template>
 
 <script setup lang="ts">
-import { useDeleteFavorite, usePostFavorite } from '@/hooks/article';
+import { useDeleteArticle, useDeleteFavorite, usePostFavorite } from '@/hooks/article';
 import { useDeleteFollow, usePostFollow } from '@/hooks/profile';
+import router from '@/router';
 import type { ArticleData } from '@/types/article';
 
 interface Props {
@@ -50,6 +53,7 @@ const { mutate: favoriteMutate } = usePostFavorite(articleInfo.slug);
 const { mutate: unfavoriteMutate } = useDeleteFavorite(articleInfo.slug);
 const { mutate: followMutate } = usePostFollow(articleInfo.author.username);
 const { mutate: unfollowMutate } = useDeleteFollow(articleInfo.author.username);
+const { mutate: deleteMutate } = useDeleteArticle(articleInfo.slug);
 
 function handleClickFavorite() {
   if (articleInfo.favorited) {
@@ -65,6 +69,12 @@ function handleClickFollow() {
   } else {
     followMutate();
   }
+}
+
+function handleClickDelete() {
+  if (!confirm('Are you sure to delete this article?')) return;
+  deleteMutate();
+  router.push('/');
 }
 </script>
 
