@@ -6,7 +6,7 @@ function post({ title, description, body, tagList }: ArticleData) {
     url: '/articles',
     method: 'POST',
     body: { article: { title, description, body, tagList } },
-  }).then((data) => data.article);
+  });
 }
 
 interface GetParams {
@@ -46,7 +46,7 @@ function putBySlug(slug: string, { title, description, body }: ArticleData) {
     url: `/articles/${slug}`,
     method: 'PUT',
     body: { article: { title, description, body } },
-  }).then((data) => data.article);
+  });
 }
 
 function deleteBySlug(slug: string) {
