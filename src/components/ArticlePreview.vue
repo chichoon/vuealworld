@@ -55,7 +55,7 @@ const { articleInfo } = defineProps<Props>();
 const queryClient = useQueryClient();
 
 const { mutate: favoriteMutate } = usePostFavorite(queryClient, articleInfo.slug);
-const { mutate: unfavoriteMutate } = useDeleteFavorite(articleInfo.slug);
+const { mutate: unfavoriteMutate } = useDeleteFavorite(queryClient, articleInfo.slug);
 
 function handleClickFavorite() {
   if (articleInfo.favorited) {
