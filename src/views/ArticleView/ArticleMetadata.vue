@@ -36,6 +36,8 @@
 </template>
 
 <script setup lang="ts">
+import { useQueryClient } from '@tanstack/vue-query';
+
 import { useDeleteArticle, useDeleteFavorite, usePostFavorite } from '@/hooks/article';
 import { useDeleteFollow, usePostFollow } from '@/hooks/profile';
 import router from '@/router';
@@ -49,8 +51,9 @@ interface Props {
 
 const { articleInfo, isMyArticle, isLoggedIn } = defineProps<Props>();
 
-const { mutate: favoriteMutate } = usePostFavorite(articleInfo.slug);
-const { mutate: unfavoriteMutate } = useDeleteFavorite(articleInfo.slug);
+const queryClient = useQueryClient();
+const { mutate: favoriteMutate } = usePostFavorite(queryClient, articleInfo.slug);
+const { mutate: unfavoriteMutate } = useDeleteFavorite(queryClient, articleInfo.slug);
 const { mutate: followMutate } = usePostFollow(articleInfo.author.username);
 const { mutate: unfollowMutate } = useDeleteFollow(articleInfo.author.username);
 const { mutate: deleteMutate } = useDeleteArticle(articleInfo.slug);
