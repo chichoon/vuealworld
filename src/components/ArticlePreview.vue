@@ -42,6 +42,8 @@
 </template>
 
 <script lang="ts" setup>
+import { useQueryClient } from '@tanstack/vue-query';
+
 import { usePostFavorite, useDeleteFavorite } from '@/hooks/article';
 import type { ArticleData } from '@/types/article';
 
@@ -50,8 +52,9 @@ interface Props {
 }
 
 const { articleInfo } = defineProps<Props>();
+const queryClient = useQueryClient();
 
-const { mutate: favoriteMutate } = usePostFavorite(articleInfo.slug);
+const { mutate: favoriteMutate } = usePostFavorite(queryClient, articleInfo.slug);
 const { mutate: unfavoriteMutate } = useDeleteFavorite(articleInfo.slug);
 
 function handleClickFavorite() {
