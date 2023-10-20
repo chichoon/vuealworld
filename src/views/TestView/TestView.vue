@@ -2,18 +2,24 @@
   <div>
     <h1>Welcome to the secret test page!!</h1>
   </div>
-  <div>
-    <VBindTest v-model:value1="input1" v-model:value2="input2" />
-    <span>input 1: {{ input1 }}</span>
-    <br />
-    <span>input 2: {{ input2 }}</span>
+  <div v-once>
+    <div>{{ timer }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import VBindTest from './VBindTest.vue';
+import TestTemplate from './TestTemplate.vue';
 
 const input1 = ref('');
 const input2 = ref('');
+const value = '컴파일이 되어버렸당';
+const timer = ref(0);
+
+onMounted(() => {
+  setInterval(() => {
+    timer.value += 1;
+  }, 1000);
+});
 </script>
