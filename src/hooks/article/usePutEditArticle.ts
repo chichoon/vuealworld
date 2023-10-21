@@ -10,7 +10,8 @@ interface Params {
 }
 
 export function usePutEditArticle(slug: string) {
-  return useMutation([], ({ title, description, body, tagList }: Params) =>
-    articles.putBySlug(slug, { title, description, body }),
-  );
+  return useMutation({
+    mutationFn: ({ title, description, body, tagList }: Params) =>
+      articles.putBySlug(slug, { title, description, body, tagList }),
+  });
 }

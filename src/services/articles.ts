@@ -45,13 +45,14 @@ interface PutParams {
   title: string;
   description: string;
   body: string;
+  tagList: string[];
 }
 
-function putBySlug(slug: string, { title, description, body }: PutParams) {
+function putBySlug(slug: string, { title, description, body, tagList }: PutParams) {
   return httpClient({
     url: `/articles/${slug}`,
     method: 'PUT',
-    body: { article: { title, description, body } },
+    body: { article: { title, description, body, tagList } },
   });
 }
 

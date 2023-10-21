@@ -4,7 +4,8 @@ import articles from '@/services/articles';
 import { CACHE_TIME } from '@/utils/constants';
 
 export function useDeleteArticle(slug: string) {
-  return useMutation([], () => articles.deleteBySlug(slug), {
+  return useMutation({
+    mutationFn: () => articles.deleteBySlug(slug),
     cacheTime: CACHE_TIME,
   });
 }

@@ -10,9 +10,11 @@ export const articleKeys = {
       all: () => [...articleKeys.lists.all, 'global'],
       paged: (page: number) => [...articleKeys.lists.all, 'global', page] as const,
     },
-    favorited: (by: string, page: number) => [...articleKeys.lists.global.all(), 'favorited', by, page] as const, // 좋아요한 게시물 목록에 대한 쿼리
-    author: (by: string, page: number) => [...articleKeys.lists.global.all(), 'author', by, page] as const, // 작성자로 필터링한 게시물 목록에 대한 쿼리
-    tagged: (tag: string, page: number) => [...articleKeys.lists.global.all(), 'tagged', tag, page] as const, // 태그로 필터링한 게시물 목록에 대한 쿼리
+    filtered: {
+      favorited: (by: string, page: number) => [...articleKeys.lists.global.all(), 'favorited', by, page] as const, // 좋아요한 게시물 목록에 대한 쿼리
+      author: (by: string, page: number) => [...articleKeys.lists.global.all(), 'author', by, page] as const, // 작성자로 필터링한 게시물 목록에 대한 쿼리
+      tagged: (tag: string, page: number) => [...articleKeys.lists.global.all(), 'tagged', tag, page] as const, // 태그로 필터링한 게시물 목록에 대한 쿼리
+    },
   },
 
   // 게시물 각각에 관한 쿼리
