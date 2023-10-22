@@ -1,16 +1,29 @@
 import { QueryClient, useMutation } from '@tanstack/vue-query';
 
 import articles from '@/services/articles';
+import { articleKeys } from './queries';
 
 export function usePostFavorite(queryClient: QueryClient, slug: string) {
   return useMutation({
     mutationFn: () => articles.postFavorite(slug),
-    onSuccess: () => {
-      queryClient.cancelQueries(['article', slug]);
-      queryClient.invalidateQueries(['articles', 1]);
+    onMutate: async () => {
+      await queryClient.cancelQueries(articleKeys.article.slug(slug));
+      const prevData = queryClient.getQueryData(articleKeys.article.slug(slug));
+
+      queryClient.setQueryData(articleKeys.article.slug(slug), (oldData: any) => ({
+        ...oldData,
+        favorited: true,
+        favoritesCount: oldData.favoritesCount + 1,
+      }));
+
+      return { prevData };
+    },
+    onError: (error, _, context) => {
+      if (context) queryClient.setQueryData(articleKeys.article.slug(slug), context.prevData);
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['article', slug]);
+      queryClient.invalidateQueries(articleKeys.lists.all);
+      queryClient.invalidateQueries(articleKeys.article.slug(slug));
     },
   });
 }
