@@ -39,10 +39,10 @@ import router from '@/router';
 const { data: currentUser, isLoading, isError } = useGetCurrentUserData();
 const { mutateAsync } = usePutUserInfo();
 
-const image = ref('');
-const username = ref('');
-const bio = ref('');
-const email = ref('');
+const image = ref(currentUser.value?.image ?? '');
+const username = ref(currentUser.value?.username ?? '');
+const bio = ref(currentUser.value?.bio ?? '');
+const email = ref(currentUser.value?.email ?? '');
 const password = ref('');
 const errorMsg = ref('');
 
