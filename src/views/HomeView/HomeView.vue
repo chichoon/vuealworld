@@ -17,7 +17,7 @@
                 <button
                   @click="handleClickMyFeed"
                   class="nav-link"
-                  :class="{ active: !route.query.tab || route.query.tab === 'my-feed' }"
+                  :class="{ active: (!route.query.tab || route.query.tab === 'my-feed') && !route.query.tag }"
                 >
                   Your Feed
                 </button>
@@ -26,9 +26,14 @@
                 <button
                   @click="handleClickGlobalFeed"
                   class="nav-link"
-                  :class="{ active: route.query.tab === 'global-feed' }"
+                  :class="{ active: route.query.tab === 'global-feed' && !route.query.tag }"
                 >
                   Global Feed
+                </button>
+              </li>
+              <li class="nav-item" v-if="route.query.tag">
+                <button disabled @click="handleClickGlobalFeed" class="nav-link" :class="{ active: route.query.tag }">
+                  {{ route.query.tag }}
                 </button>
               </li>
             </ul>
@@ -36,14 +41,22 @@
           <template v-if="!currentUser && (!route.query.tab || route.query.tab === 'my-feed')">
             <h2>You must be logged in to access my feed list</h2>
           </template>
-          <MyFeedList v-if="!!currentUser && (!route.query.tab || route.query.tab === 'my-feed')" />
-          <GlobalFeedList v-else-if="route.query.tab === 'global-feed'" />
+          <MyFeedList v-if="!!currentUser && (!route.query.tab || route.query.tab === 'my-feed') && !route.query.tag" />
+          <GlobalFeedList v-else-if="route.query.tab === 'global-feed' && !route.query.tag" />
+          <TagFeedList v-else-if="route.query.tag" />
         </div>
         <div class="col-md-3">
           <div class="sidebar">
             <p>Popular Tags</p>
             <div class="tag-list">
-              <a href="" v-for="tag in tags" :key="tag" class="tag-pill tag-default">{{ tag }}</a>
+              <button
+                @click="() => handleClickTags(tag)"
+                v-for="tag in tags"
+                :key="tag"
+                class="tag-pill tag-default tag-button"
+              >
+                {{ tag }}
+              </button>
             </div>
           </div>
         </div>
@@ -60,6 +73,7 @@ import { useGetCurrentUserData } from '@/hooks/user';
 import router from '@/router';
 import MyFeedList from './MyFeedList.vue';
 import GlobalFeedList from './GlobalFeedList.vue';
+import TagFeedList from './TagFeedList.vue';
 
 const route = useRoute();
 const { data: currentUser } = useGetCurrentUserData();
@@ -72,4 +86,14 @@ function handleClickMyFeed() {
 function handleClickGlobalFeed() {
   router.replace({ path: '', query: { tab: 'global-feed' } });
 }
+
+function handleClickTags(tag: string) {
+  router.replace({ path: '', query: { tag } });
+}
 </script>
+
+<style scoped>
+.tag-button {
+  border: none;
+}
+</style>
