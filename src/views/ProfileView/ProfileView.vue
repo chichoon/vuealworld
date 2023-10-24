@@ -30,8 +30,9 @@
                 :class="{ following: userInfo.following }"
                 @click="handleClickFollow"
               >
-                <i class="ion-plus-round"></i>
-                &nbsp; Follow {{ userInfo.username }}
+                <i v-if="!userInfo.following" class="ion-plus-round"></i>
+                <i v-else class="ion-minus-round"></i>
+                &nbsp; {{ userInfo.following ? 'Unfollow' : 'Follow' }} {{ userInfo.username }}
               </button>
             </template>
           </div>
