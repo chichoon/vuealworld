@@ -59,7 +59,7 @@ const { mutate: favoriteMutate } = usePostFavorite(queryClient, slugToRef);
 const { mutate: unfavoriteMutate } = useDeleteFavorite(queryClient, slugToRef);
 const { mutate: followMutate } = usePostFollow(queryClient, usernameToRef);
 const { mutate: unfollowMutate } = useDeleteFollow(queryClient, usernameToRef);
-const { mutate: deleteMutate } = useDeleteArticle(slugToRef);
+const { mutate: deleteMutate } = useDeleteArticle(queryClient, slugToRef);
 
 function handleClickFavorite() {
   if (articleInfo.favorited) {
