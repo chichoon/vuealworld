@@ -8,7 +8,7 @@ import { articleKeys } from './queries';
 
 export function useGetFeeds(page: Ref<number>) {
   return useQuery<ArticlesResponse>({
-    queryKey: articleKeys.lists.feed.paged(page.value),
+    queryKey: articleKeys.lists.feed.paged(page),
     queryFn: () => articles.getFeed({ offset: page.value * 10 - 10, limit: 10 }),
     cacheTime: CACHE_TIME,
     staleTime: STALE_TIME,

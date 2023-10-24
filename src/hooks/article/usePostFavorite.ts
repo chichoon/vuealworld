@@ -2,10 +2,11 @@ import { QueryClient, useMutation } from '@tanstack/vue-query';
 
 import articles from '@/services/articles';
 import { articleKeys } from './queries';
+import type { Ref } from 'vue';
 
-export function usePostFavorite(queryClient: QueryClient, slug: string) {
+export function usePostFavorite(queryClient: QueryClient, slug: Ref<string>) {
   return useMutation({
-    mutationFn: () => articles.postFavorite(slug),
+    mutationFn: () => articles.postFavorite(slug.value),
     onMutate: async () => {
       await queryClient.cancelQueries(articleKeys.article.slug(slug));
       const prevData = queryClient.getQueryData(articleKeys.article.slug(slug));

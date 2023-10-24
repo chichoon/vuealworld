@@ -1,11 +1,12 @@
+import type { Ref } from 'vue';
 import { QueryClient, useMutation } from '@tanstack/vue-query';
 
 import articles from '@/services/articles';
 import { articleKeys } from './queries';
 
-export function useDeleteFavorite(queryClient: QueryClient, slug: string) {
+export function useDeleteFavorite(queryClient: QueryClient, slug: Ref<string>) {
   return useMutation({
-    mutationFn: () => articles.deleteFavorite(slug),
+    mutationFn: () => articles.deleteFavorite(slug.value),
     onMutate: async () => {
       await queryClient.cancelQueries(articleKeys.article.slug(slug));
       const prevData = queryClient.getQueryData(articleKeys.article.slug(slug));

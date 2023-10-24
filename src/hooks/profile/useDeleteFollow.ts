@@ -1,6 +1,8 @@
-import profile from '@/services/profile';
+import type { Ref } from 'vue';
 import { useMutation } from '@tanstack/vue-query';
 
-export function useDeleteFollow(username: string) {
-  return useMutation({ mutationFn: () => profile.unfollow(username) });
+import profile from '@/services/profile';
+
+export function useDeleteFollow(username: Ref<string>) {
+  return useMutation({ mutationFn: () => profile.unfollow(username.value) });
 }

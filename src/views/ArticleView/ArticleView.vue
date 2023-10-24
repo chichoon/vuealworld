@@ -36,6 +36,7 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
+import { ref } from 'vue';
 
 import ErrorComponent from '@/components/ErrorComponent.vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
@@ -46,6 +47,7 @@ import CommentSection from './CommentSection.vue';
 
 const route = useRoute();
 
-const { data: articleInfo, isLoading, isError } = useGetArticle(route.params.slug);
+const routeToRef = ref(route.params.slug as string);
+const { data: articleInfo, isLoading, isError } = useGetArticle(routeToRef);
 const { data: currentUser } = useGetCurrentUserData();
 </script>
