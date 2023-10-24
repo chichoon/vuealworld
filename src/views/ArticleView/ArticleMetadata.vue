@@ -36,13 +36,13 @@
 </template>
 
 <script setup lang="ts">
+import { ref, toRef } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
 import { useDeleteArticle, useDeleteFavorite, usePostFavorite } from '@/hooks/article';
 import { useDeleteFollow, usePostFollow } from '@/hooks/profile';
 import router from '@/router';
 import type { ArticleData } from '@/types/article';
-import { ref, toRef } from 'vue';
 
 interface Props {
   articleInfo: ArticleData;
@@ -67,6 +67,7 @@ function handleClickFavorite() {
   } else {
     favoriteMutate();
   }
+  // window.location.reload(); // TODO: Fix this hack
 }
 
 function handleClickFollow() {
@@ -75,6 +76,7 @@ function handleClickFollow() {
   } else {
     followMutate();
   }
+  // window.location.reload(); // TODO: Fix this hack
 }
 
 function handleClickDelete() {
