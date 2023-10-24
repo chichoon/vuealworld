@@ -1,0 +1,1 @@
+import{d as e,o as s,e as n,f as o,t as a}from"./index-81273894.js";const r={class:"btn btn-lg btn-primary pull-xs-right"},_=e({__name:"CustomButton",props:{text:{}},setup(p){return(t,c)=>(s(),n("button",r,[o("span",null,a(t.text),1)]))}});export{_};
