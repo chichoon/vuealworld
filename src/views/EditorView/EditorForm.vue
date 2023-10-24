@@ -1,7 +1,7 @@
 <template>
   <LoadingComponent v-if="isLoading" />
   <ErrorComponent v-else-if="isError" />
-  <template v-else>
+  <template v-else-if="!!articleData">
     <ul v-if="errorMsg.length > 0" class="error-messages">
       <li>{{ errorMsg }}</li>
     </ul>
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
@@ -59,9 +59,16 @@ const { mutateAsync } = usePutEditArticle(slugToRef);
 async function handleSubmit() {
   try {
     await mutateAsync({ title: title.value, description: description.value, body: body.value, tagList: tagList.value });
-    router.push('/');
+    router.push(`/article/${slug}`);
   } catch (e: unknown) {
     errorMsg.value = e as string;
   }
 }
+
+watch(articleData, () => {
+  title.value = articleData.value?.title ?? '';
+  description.value = articleData.value?.description ?? '';
+  body.value = articleData.value?.body ?? '';
+  tagList.value = [...(articleData.value?.tagList ?? [])];
+});
 </script>

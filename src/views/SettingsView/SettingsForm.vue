@@ -1,7 +1,7 @@
 <template>
   <LoadingComponent v-if="isLoading" />
   <ErrorComponent v-else-if="isError" />
-  <template v-else-if="currentUser">
+  <template v-else-if="!!currentUser">
     <ul v-if="errorMsg.length > 0" class="error-messages">
       <li>{{ errorMsg }}</li>
     </ul>
