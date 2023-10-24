@@ -11,11 +11,12 @@ export function useDeleteFavorite(queryClient: QueryClient, slug: Ref<string>) {
       await queryClient.cancelQueries(articleKeys.article.slug(slug));
       const prevData = queryClient.getQueryData(articleKeys.article.slug(slug));
 
-      queryClient.setQueryData(articleKeys.article.slug(slug), (oldData: any) => ({
-        ...oldData,
-        favorited: false,
-        favoritesCount: oldData.favoritesCount - 1,
-      }));
+      if (prevData)
+        queryClient.setQueryData(articleKeys.article.slug(slug), (oldData: any) => ({
+          ...oldData,
+          favorited: false,
+          favoritesCount: oldData.favoritesCount - 1,
+        }));
 
       return { prevData };
     },
