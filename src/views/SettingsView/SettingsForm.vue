@@ -1,7 +1,7 @@
 <template>
   <LoadingComponent v-if="isLoading" />
   <ErrorComponent v-else-if="isError" />
-  <template v-else>
+  <template v-else-if="currentUser">
     <ul v-if="errorMsg.length > 0" class="error-messages">
       <li>{{ errorMsg }}</li>
     </ul>
@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 import CustomInput from '@/components/CustomInput.vue';
 import CustomButton from '@/components/CustomButton.vue';
@@ -39,10 +39,10 @@ import router from '@/router';
 const { data: currentUser, isLoading, isError } = useGetCurrentUserData();
 const { mutateAsync } = usePutUserInfo();
 
-const image = ref(currentUser.value?.image ?? '');
-const username = ref(currentUser.value?.username ?? '');
-const bio = ref(currentUser.value?.bio ?? '');
-const email = ref(currentUser.value?.email ?? '');
+const image = ref('');
+const username = ref('');
+const bio = ref('');
+const email = ref('');
 const password = ref('');
 const errorMsg = ref('');
 
@@ -60,4 +60,12 @@ async function handleSubmit() {
     errorMsg.value = e as string;
   }
 }
+
+watch(currentUser, () => {
+  image.value = currentUser.value?.image ?? '';
+  username.value = currentUser.value?.username ?? '';
+  bio.value = currentUser.value?.bio ?? '';
+  email.value = currentUser.value?.email ?? '';
+  password.value = '';
+});
 </script>
