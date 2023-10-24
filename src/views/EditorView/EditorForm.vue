@@ -39,12 +39,14 @@ import CustomInput from '@/components/CustomInput.vue';
 import TagForm from '@/components/TagForm.vue';
 import { useGetArticle, usePutEditArticle } from '@/hooks/article';
 import router from '@/router';
+import { useQueryClient } from '@tanstack/vue-query';
 
 interface Props {
   slug: string;
 }
 
 const { slug } = defineProps<Props>();
+const queryClient = useQueryClient();
 
 const slugToRef = ref(slug);
 const { data: articleData, isLoading, isError } = useGetArticle(slugToRef);
@@ -54,7 +56,7 @@ const body = ref(articleData.value?.body ?? '');
 const tagList = ref<string[]>([...(articleData.value?.tagList ?? [])]);
 const errorMsg = ref<string>('');
 
-const { mutateAsync } = usePutEditArticle(slugToRef);
+const { mutateAsync } = usePutEditArticle(queryClient, slugToRef);
 
 async function handleSubmit() {
   try {
