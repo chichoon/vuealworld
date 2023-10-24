@@ -73,6 +73,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
+import { useQueryClient } from '@tanstack/vue-query';
 
 import router from '@/router';
 import LoadingComponent from '@/components/LoadingComponent.vue';
@@ -83,13 +84,14 @@ import MyArticlesList from './MyArticlesList.vue';
 import FavoritedArticlesList from './FavoritedArticlesList.vue';
 
 const route = useRoute();
+const queryClient = useQueryClient();
 
 const usernameToRef = ref(route.path.split('/')[2]);
 const { data: userInfo, isLoading, isError } = useGetProfile(usernameToRef);
 const { data: currentUser } = useGetCurrentUserData();
 
-const { mutate: followMutate } = usePostFollow(usernameToRef);
-const { mutate: unfollowMutate } = useDeleteFollow(usernameToRef);
+const { mutate: followMutate } = usePostFollow(queryClient, usernameToRef);
+const { mutate: unfollowMutate } = useDeleteFollow(queryClient, usernameToRef);
 
 function handleClickMyArticle() {
   router.replace({ path: '#', query: { tab: 'my-articles' } });

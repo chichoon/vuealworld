@@ -57,8 +57,8 @@ const slugToRef = ref(articleInfo.slug);
 const usernameToRef = toRef(articleInfo.author, 'username');
 const { mutate: favoriteMutate } = usePostFavorite(queryClient, slugToRef);
 const { mutate: unfavoriteMutate } = useDeleteFavorite(queryClient, slugToRef);
-const { mutate: followMutate } = usePostFollow(usernameToRef);
-const { mutate: unfollowMutate } = useDeleteFollow(usernameToRef);
+const { mutate: followMutate } = usePostFollow(queryClient, usernameToRef);
+const { mutate: unfollowMutate } = useDeleteFollow(queryClient, usernameToRef);
 const { mutate: deleteMutate } = useDeleteArticle(slugToRef);
 
 function handleClickFavorite() {
