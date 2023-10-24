@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useQueryClient } from '@tanstack/vue-query';
 
 import { useDeleteComment, useGetComments, usePostComment } from '@/hooks/comments';
 import CommentComponent from './CommentComponent.vue';
@@ -33,19 +34,21 @@ interface Props {
 }
 
 const { slug } = defineProps<Props>();
+const queryClient = useQueryClient();
 
 const commentBody = ref('');
-
 const slugToRef = ref(slug);
-const { mutate: postComment } = usePostComment(slugToRef);
-const { mutate: deleteComment } = useDeleteComment(slugToRef);
+const { mutate: postComment } = usePostComment(queryClient, slugToRef);
+const { mutate: deleteComment } = useDeleteComment(queryClient, slugToRef);
 const { data: commentsData } = useGetComments(slugToRef);
 
 function handleSubmit() {
   postComment(commentBody.value);
+  commentBody.value = '';
 }
 
 function handleDeleteComment(commentID: number) {
+  if (!confirm('Are you sure to delete this comment?')) return;
   deleteComment(commentID);
 }
 </script>
