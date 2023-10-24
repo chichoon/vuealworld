@@ -46,14 +46,15 @@ interface Props {
 
 const { slug } = defineProps<Props>();
 
-const { data: articleData, isLoading, isError } = useGetArticle(slug);
+const slugToRef = ref(slug);
+const { data: articleData, isLoading, isError } = useGetArticle(slugToRef);
 const title = ref(articleData.value?.title ?? '');
 const description = ref(articleData.value?.description ?? '');
 const body = ref(articleData.value?.body ?? '');
 const tagList = ref<string[]>([...(articleData.value?.tagList ?? [])]);
 const errorMsg = ref<string>('');
 
-const { mutateAsync } = usePutEditArticle(slug);
+const { mutateAsync } = usePutEditArticle(slugToRef);
 
 async function handleSubmit() {
   try {

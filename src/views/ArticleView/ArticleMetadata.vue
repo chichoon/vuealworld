@@ -42,7 +42,7 @@ import { useDeleteArticle, useDeleteFavorite, usePostFavorite } from '@/hooks/ar
 import { useDeleteFollow, usePostFollow } from '@/hooks/profile';
 import router from '@/router';
 import type { ArticleData } from '@/types/article';
-import { ref } from 'vue';
+import { ref, toRef } from 'vue';
 
 interface Props {
   articleInfo: ArticleData;
@@ -54,10 +54,11 @@ const { articleInfo, isMyArticle, isLoggedIn } = defineProps<Props>();
 
 const queryClient = useQueryClient();
 const slugToRef = ref(articleInfo.slug);
+const usernameToRef = toRef(articleInfo.author, 'username');
 const { mutate: favoriteMutate } = usePostFavorite(queryClient, slugToRef);
 const { mutate: unfavoriteMutate } = useDeleteFavorite(queryClient, slugToRef);
-const { mutate: followMutate } = usePostFollow(articleInfo.author.username);
-const { mutate: unfollowMutate } = useDeleteFollow(articleInfo.author.username);
+const { mutate: followMutate } = usePostFollow(usernameToRef);
+const { mutate: unfollowMutate } = useDeleteFollow(usernameToRef);
 const { mutate: deleteMutate } = useDeleteArticle(slugToRef);
 
 function handleClickFavorite() {

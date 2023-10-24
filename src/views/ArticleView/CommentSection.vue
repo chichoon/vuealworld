@@ -36,9 +36,10 @@ const { slug } = defineProps<Props>();
 
 const commentBody = ref('');
 
-const { mutate: postComment } = usePostComment(slug);
-const { mutate: deleteComment } = useDeleteComment(slug);
-const { data: commentsData } = useGetComments(slug);
+const slugToRef = ref(slug);
+const { mutate: postComment } = usePostComment(slugToRef);
+const { mutate: deleteComment } = useDeleteComment(slugToRef);
+const { data: commentsData } = useGetComments(slugToRef);
 
 function handleSubmit() {
   postComment(commentBody.value);

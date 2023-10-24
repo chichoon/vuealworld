@@ -71,6 +71,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 
 import router from '@/router';
@@ -83,11 +84,12 @@ import FavoritedArticlesList from './FavoritedArticlesList.vue';
 
 const route = useRoute();
 
-const { data: userInfo, isLoading, isError } = useGetProfile(route.path.split('/')[2]);
+const usernameToRef = ref(route.path.split('/')[2]);
+const { data: userInfo, isLoading, isError } = useGetProfile(usernameToRef);
 const { data: currentUser } = useGetCurrentUserData();
 
-const { mutate: followMutate } = usePostFollow(userInfo.value?.username ?? '');
-const { mutate: unfollowMutate } = useDeleteFollow(userInfo.value?.username ?? '');
+const { mutate: followMutate } = usePostFollow(usernameToRef);
+const { mutate: unfollowMutate } = useDeleteFollow(usernameToRef);
 
 function handleClickMyArticle() {
   router.replace({ path: '#', query: { tab: 'my-articles' } });
