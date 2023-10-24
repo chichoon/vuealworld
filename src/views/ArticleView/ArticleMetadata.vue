@@ -42,6 +42,7 @@ import { useDeleteArticle, useDeleteFavorite, usePostFavorite } from '@/hooks/ar
 import { useDeleteFollow, usePostFollow } from '@/hooks/profile';
 import router from '@/router';
 import type { ArticleData } from '@/types/article';
+import { toRef } from 'vue';
 
 interface Props {
   articleInfo: ArticleData;

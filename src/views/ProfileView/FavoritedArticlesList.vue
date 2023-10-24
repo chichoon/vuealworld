@@ -12,7 +12,7 @@ import { computed, ref } from 'vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
 import PaginationComponent from '@/components/PaginationComponent.vue';
-import { useGetArticles } from '@/hooks/article';
+import { useGetArticlesByFavorited } from '@/hooks/article';
 import ArticlePreview from '@/components/ArticlePreview.vue';
 
 interface Props {
@@ -22,6 +22,7 @@ interface Props {
 const { username } = defineProps<Props>();
 
 const currentPage = ref(1);
-const { data: articlesInfo, isLoading, isError } = useGetArticles(currentPage, { favorited: username });
+const usernameToRef = ref(username);
+const { data: articlesInfo, isLoading, isError } = useGetArticlesByFavorited(usernameToRef, currentPage);
 const totalPages = computed(() => Math.ceil((articlesInfo.value?.articlesCount ?? 10) / 10));
 </script>

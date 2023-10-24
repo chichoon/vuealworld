@@ -15,6 +15,15 @@
         }}</RouterLink>
         <span class="date">{{ new Date(articleInfo.createdAt).toDateString() }}</span>
       </div>
+      <button
+        v-if="!(currentUser && currentUser.username === articleInfo.author.username)"
+        @click="handleClickFavorite"
+        class="btn btn-outline-primary btn-sm pull-xs-right"
+        :class="{ favorited: articleInfo.favorited }"
+      >
+        <i class="ion-heart"></i>
+        <span> {{ articleInfo.favoritesCount }}</span>
+      </button>
     </div>
     <RouterLink :to="`/article/${articleInfo.slug}`" class="preview-link">
       <h1>{{ articleInfo.title }}</h1>
@@ -34,13 +43,30 @@
 </template>
 
 <script lang="ts" setup>
+import { useQueryClient } from '@tanstack/vue-query';
+
+import { usePostFavorite, useDeleteFavorite } from '@/hooks/article';
 import type { ArticleData } from '@/types/article';
+import { useGetCurrentUserData } from '@/hooks/user';
 
 interface Props {
   articleInfo: ArticleData;
 }
 
 const { articleInfo } = defineProps<Props>();
+const queryClient = useQueryClient();
+
+const { mutate: favoriteMutate } = usePostFavorite(queryClient, articleInfo.slug);
+const { mutate: unfavoriteMutate } = useDeleteFavorite(queryClient, articleInfo.slug);
+const { data: currentUser } = useGetCurrentUserData();
+
+function handleClickFavorite() {
+  if (articleInfo.favorited) {
+    unfavoriteMutate();
+  } else {
+    favoriteMutate();
+  }
+}
 </script>
 
 <style scoped>
