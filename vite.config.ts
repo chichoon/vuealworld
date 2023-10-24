@@ -17,4 +17,5 @@ export default defineConfig({
       '/api': 'https://api.realworld.io',
     },
   },
+  base: '/vuealworld/',
 });
