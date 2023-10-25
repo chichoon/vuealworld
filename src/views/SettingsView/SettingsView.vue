@@ -15,13 +15,18 @@
 
 <script lang="ts" setup>
 import { useCookies } from 'vue3-cookies';
+import { useQueryClient } from '@tanstack/vue-query';
 
 import SettingsForm from './SettingsForm.vue';
 import router from '@/router';
+import { userKeys } from '@/hooks/user/queries';
 
 const { cookies } = useCookies();
+const queryClient = useQueryClient();
 
 function handleLogout() {
+  if (!confirm('Are you sure you want to logout?')) return;
+  queryClient.setQueryData(userKeys.current, null);
   cookies.remove('authorization');
   router.push('/');
 }
