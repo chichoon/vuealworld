@@ -14,9 +14,9 @@
           <a class="nav-link" href="/settings"> <i class="ion-gear-a"></i>&nbsp;Settings </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" :href="`/profile/${userInfo.username}`">
-            <img :src="userInfo.image" class="user-pic" />
-            {{ userInfo.username }}
+          <a class="nav-link" :href="`/profile/${props.userInfo.username}`">
+            <img :src="props.userInfo.image" class="user-pic" />
+            {{ props.userInfo.username }}
           </a>
         </li>
       </ul>
@@ -31,5 +31,5 @@ interface Props {
   userInfo: UserData;
 }
 
-const { userInfo } = defineProps<Props>();
+const props = defineProps<Props>();
 </script>

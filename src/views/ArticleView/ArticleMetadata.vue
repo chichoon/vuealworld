@@ -51,6 +51,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+// props를 destructuring 하면 반응성이 깨어지므로 데이터의 변화를 감지하지 못하게 된다
 
 const queryClient = useQueryClient();
 const slugToRef = ref(props.articleInfo.slug);
