@@ -19,15 +19,17 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useQueryClient } from '@tanstack/vue-query';
 
 import CustomForm from '@/components/CustomForm.vue';
 import type { SignInData } from '@/types/userData';
 import { useSignin } from '@/hooks/user';
 import router from '@/router';
 
+const queryClient = useQueryClient();
 const errorMsg = ref<string>('');
 
-const { mutateAsync } = useSignin();
+const { mutateAsync } = useSignin(queryClient);
 
 async function handleSubmit(data: SignInData) {
   try {
