@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { ref, toRef, watch } from 'vue';
 
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
@@ -45,10 +45,10 @@ interface Props {
   slug: string;
 }
 
-const { slug } = defineProps<Props>();
+const props = defineProps<Props>();
 const queryClient = useQueryClient();
 
-const slugToRef = ref(slug);
+const slugToRef = toRef(props.slug);
 const { data: articleData, isLoading, isError } = useGetArticle(slugToRef);
 const title = ref(articleData.value?.title ?? '');
 const description = ref(articleData.value?.description ?? '');
@@ -61,7 +61,7 @@ const { mutateAsync } = usePutEditArticle(queryClient, slugToRef);
 async function handleSubmit() {
   try {
     await mutateAsync({ title: title.value, description: description.value, body: body.value, tagList: tagList.value });
-    router.push(`/article/${slug}`);
+    router.push(`/article/${props.slug}`);
   } catch (e: unknown) {
     errorMsg.value = e as string;
   }

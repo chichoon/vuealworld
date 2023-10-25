@@ -6,7 +6,7 @@
           <textarea class="form-control" placeholder="Write a comment..." rows="3" v-model="commentBody"></textarea>
         </div>
         <div class="card-footer">
-          <img :src="currentUserImage" class="comment-author-img" />
+          <img :src="props.currentUserImage" class="comment-author-img" />
           <button class="btn btn-sm btn-primary" type="submit">Post Comment</button>
         </div>
       </form>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, toRef } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
 import { useDeleteComment, useGetComments, usePostComment } from '@/hooks/comments';
@@ -33,11 +33,11 @@ interface Props {
   currentUserImage?: string;
 }
 
-const { slug } = defineProps<Props>();
+const props = defineProps<Props>();
 const queryClient = useQueryClient();
 
 const commentBody = ref('');
-const slugToRef = ref(slug);
+const slugToRef = toRef(props, 'slug');
 const { mutate: postComment } = usePostComment(queryClient, slugToRef);
 const { mutate: deleteComment } = useDeleteComment(queryClient, slugToRef);
 const { data: commentsData } = useGetComments(slugToRef);

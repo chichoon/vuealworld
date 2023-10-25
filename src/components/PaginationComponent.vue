@@ -1,6 +1,6 @@
 <template>
   <ul class="pagination">
-    <li v-for="page in totalPages" :key="page" class="page-item" :class="{ active: page === currentPage }">
+    <li v-for="page in props.totalPages" :key="page" class="page-item" :class="{ active: page === props.currentPage }">
       <button class="page-link" @click="() => handleClickPage(page)">{{ page }}</button>
     </li>
   </ul>
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const emits = defineEmits(['update:currentPage']);
-const { totalPages, currentPage } = defineProps<Props>();
+const props = defineProps<Props>();
 
 function handleClickPage(pageNum: number) {
   emits('update:currentPage', pageNum);

@@ -1,39 +1,39 @@
 <template>
   <div class="article-preview">
     <div class="article-meta">
-      <RouterLink :to="`/profile/${articleInfo.author.username}`"
+      <RouterLink :to="`/profile/${props.articleInfo.author.username}`"
         ><img
           :src="
-            articleInfo.author.image.length > 0
-              ? articleInfo.author.image
+            props.articleInfo.author.image.length > 0
+              ? props.articleInfo.author.image
               : 'https://static.vecteezy.com/system/resources/previews/008/442/086/non_2x/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg'
           "
       /></RouterLink>
       <div class="info">
-        <RouterLink :to="`/profile/${articleInfo.author.username}`" class="author">{{
-          articleInfo.author.username
+        <RouterLink :to="`/profile/${props.articleInfo.author.username}`" class="author">{{
+          props.articleInfo.author.username
         }}</RouterLink>
-        <span class="date">{{ new Date(articleInfo.createdAt).toDateString() }}</span>
+        <span class="date">{{ new Date(props.articleInfo.createdAt).toDateString() }}</span>
       </div>
       <button
-        v-if="!(currentUser && currentUser.username === articleInfo.author.username)"
+        v-if="!(currentUser && currentUser.username === props.articleInfo.author.username)"
         @click="handleClickFavorite"
         class="btn btn-outline-primary btn-sm pull-xs-right"
-        :class="{ favorited: articleInfo.favorited }"
+        :class="{ favorited: props.articleInfo.favorited }"
       >
         <i class="ion-heart"></i>
-        <span> {{ articleInfo.favoritesCount }}</span>
+        <span> {{ props.articleInfo.favoritesCount }}</span>
       </button>
     </div>
-    <RouterLink :to="`/article/${articleInfo.slug}`" class="preview-link">
-      <h1>{{ articleInfo.title }}</h1>
-      <p>{{ articleInfo.description }}</p>
+    <RouterLink :to="`/article/${props.articleInfo.slug}`" class="preview-link">
+      <h1>{{ props.articleInfo.title }}</h1>
+      <p>{{ props.articleInfo.description }}</p>
       <span>Read more...</span>
       <ul class="tag-list">
         <li
-          v-for="tag in articleInfo.tagList"
+          v-for="tag in props.articleInfo.tagList"
           class="tag-default tag-pill tag-outline"
-          :key="`${articleInfo.slug}-${tag}`"
+          :key="`${props.articleInfo.slug}-${tag}`"
         >
           {{ tag }}
         </li>
@@ -54,16 +54,16 @@ interface Props {
   articleInfo: ArticleData;
 }
 
-const { articleInfo } = defineProps<Props>();
+const props = defineProps<Props>();
 const queryClient = useQueryClient();
 
-const slugToRef = ref(articleInfo.slug);
+const slugToRef = ref(props.articleInfo.slug);
 const { mutate: favoriteMutate } = usePostFavorite(queryClient, slugToRef);
 const { mutate: unfavoriteMutate } = useDeleteFavorite(queryClient, slugToRef);
 const { data: currentUser } = useGetCurrentUserData();
 
 function handleClickFavorite() {
-  if (articleInfo.favorited) {
+  if (props.articleInfo.favorited) {
     unfavoriteMutate();
   } else {
     favoriteMutate();

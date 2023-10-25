@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, toRef } from 'vue';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
 import PaginationComponent from '@/components/PaginationComponent.vue';
@@ -19,10 +19,10 @@ interface Props {
   username: string;
 }
 
-const { username } = defineProps<Props>();
+const props = defineProps<Props>();
 
 const currentPage = ref(1);
-const usernameToRef = ref(username);
+const usernameToRef = toRef(props.username);
 const { data: articlesInfo, isLoading, isError } = useGetArticlesByAuthor(usernameToRef, currentPage);
 const totalPages = computed(() => Math.ceil((articlesInfo.value?.articlesCount ?? 10) / 10));
 </script>
