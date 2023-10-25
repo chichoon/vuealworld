@@ -50,11 +50,11 @@ interface Props {
   isLoggedIn: boolean;
 }
 
-const { articleInfo, isMyArticle, isLoggedIn } = defineProps<Props>();
+const props = defineProps<Props>();
 
 const queryClient = useQueryClient();
-const slugToRef = ref(articleInfo.slug);
-const usernameToRef = toRef(articleInfo.author, 'username');
+const slugToRef = ref(props.articleInfo.slug);
+const usernameToRef = toRef(props.articleInfo.author, 'username');
 const { mutate: favoriteMutate } = usePostFavorite(queryClient, slugToRef);
 const { mutate: unfavoriteMutate } = useDeleteFavorite(queryClient, slugToRef);
 const { mutate: followMutate } = usePostFollow(queryClient, usernameToRef);
@@ -62,7 +62,7 @@ const { mutate: unfollowMutate } = useDeleteFollow(queryClient, usernameToRef);
 const { mutate: deleteMutate } = useDeleteArticle(queryClient, slugToRef);
 
 function handleClickFavorite() {
-  if (articleInfo.favorited) {
+  if (props.articleInfo.favorited) {
     unfavoriteMutate();
   } else {
     favoriteMutate();
@@ -71,7 +71,7 @@ function handleClickFavorite() {
 }
 
 function handleClickFollow() {
-  if (articleInfo.author.following) {
+  if (props.articleInfo.author.following) {
     unfollowMutate();
   } else {
     followMutate();

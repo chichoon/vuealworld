@@ -39,12 +39,15 @@ import router from '@/router';
 const { data: currentUser, isLoading, isError } = useGetCurrentUserData();
 const { mutateAsync } = usePutUserInfo();
 
+// form 할 때 name 붙여서 이벤트에서 가져오거나 (html 본연의 기능)
+// reactive 이용해서 한번에 묶어서 사용
 const image = ref(currentUser.value?.image ?? '');
 const username = ref(currentUser.value?.username ?? '');
 const bio = ref(currentUser.value?.bio ?? '');
 const email = ref(currentUser.value?.email ?? '');
 const password = ref('');
 const errorMsg = ref('');
+// ref, reactive => 반응성, vue core 등
 
 async function handleSubmit() {
   try {
