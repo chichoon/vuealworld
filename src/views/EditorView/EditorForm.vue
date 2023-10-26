@@ -6,24 +6,34 @@
       <li>{{ errorMsg }}</li>
     </ul>
     <form @submit.prevent="handleSubmit">
-      <CustomInput type="text" class="form-control form-control-lg" placeholder="Article Title" v-model:value="title" />
-      <fieldset class="form-group"></fieldset>
+      <fieldset class="form-group">
+        <CustomInput
+          type="text"
+          class="form-control form-control-lg"
+          placeholder="Article Title"
+          name="title"
+          :value="articleData.title"
+        />
+      </fieldset>
       <fieldset class="form-group">
         <CustomInput
           type="text"
           class="form-control"
           placeholder="What's this article about?"
-          v-model:value="description"
+          name="description"
+          :value="articleData.description"
         />
       </fieldset>
-      <CustomInput
-        is-text-area
-        class="form-control"
-        rows="8"
-        placeholder="Write your article (in markdown)"
-        v-model:value="body"
-      />
-      <fieldset class="form-group"></fieldset>
+      <fieldset class="form-group">
+        <CustomInput
+          is-text-area
+          class="form-control"
+          rows="8"
+          placeholder="Write your article (in markdown)"
+          name="body"
+          :value="articleData.body"
+        />
+      </fieldset>
       <TagForm v-model:tags="tagList" />
       <button class="btn btn-lg pull-xs-right btn-primary" type="submit">Edit Article</button>
     </form>
@@ -50,17 +60,20 @@ const queryClient = useQueryClient();
 
 const slugToRef = toRef(props.slug);
 const { data: articleData, isLoading, isError } = useGetArticle(slugToRef);
-const title = ref(articleData.value?.title ?? '');
-const description = ref(articleData.value?.description ?? '');
-const body = ref(articleData.value?.body ?? '');
 const tagList = ref<string[]>([...(articleData.value?.tagList ?? [])]);
 const errorMsg = ref<string>('');
 
 const { mutateAsync } = usePutEditArticle(queryClient, slugToRef);
 
-async function handleSubmit() {
+async function handleSubmit(e: Event) {
   try {
-    await mutateAsync({ title: title.value, description: description.value, body: body.value, tagList: tagList.value });
+    const formData = new FormData(e.target as HTMLFormElement);
+    await mutateAsync({
+      title: formData.get('title') as string,
+      description: formData.get('description') as string,
+      body: formData.get('body') as string,
+      tagList: tagList.value,
+    });
     router.push(`/article/${props.slug}`);
   } catch (e: unknown) {
     errorMsg.value = e as string;
@@ -68,9 +81,6 @@ async function handleSubmit() {
 }
 
 watch(articleData, () => {
-  title.value = articleData.value?.title ?? '';
-  description.value = articleData.value?.description ?? '';
-  body.value = articleData.value?.body ?? '';
   tagList.value = [...(articleData.value?.tagList ?? [])];
 });
 </script>

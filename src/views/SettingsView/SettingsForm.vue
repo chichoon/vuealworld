@@ -7,19 +7,19 @@
     </ul>
     <form @submit.prevent="handleSubmit">
       <fieldset class="form-group">
-        <CustomInput type="text" placeholder="URL of profile picture" v-model:value="image" />
+        <CustomInput type="text" placeholder="URL of profile picture" name="image" :value="currentUser.image" />
       </fieldset>
       <fieldset class="form-group">
-        <CustomInput type="text" placeholder="Your Name" v-model:value="username" />
+        <CustomInput type="text" placeholder="Your Name" name="username" :value="currentUser.username" />
       </fieldset>
       <fieldset class="form-group">
-        <CustomInput type="text" placeholder="Short bio about you" is-text-area v-model:value="bio" />
+        <CustomInput type="text" placeholder="Short bio about you" is-text-area name="bio" :value="currentUser.bio" />
       </fieldset>
       <fieldset class="form-group">
-        <CustomInput type="email" placeholder="Email" v-model:value="email" />
+        <CustomInput type="email" placeholder="Email" name="email" :value="currentUser.email" />
       </fieldset>
       <fieldset class="form-group">
-        <CustomInput type="password" placeholder="New Password" v-model:value="password" />
+        <CustomInput type="password" placeholder="New Password" name="password" />
       </fieldset>
       <CustomButton type="submit" text="Update Settings" />
     </form>
@@ -39,23 +39,18 @@ import router from '@/router';
 const { data: currentUser, isLoading, isError } = useGetCurrentUserData();
 const { mutateAsync } = usePutUserInfo();
 
-// form 할 때 name 붙여서 이벤트에서 가져오거나 (html 본연의 기능)
-// reactive 이용해서 한번에 묶어서 사용
-const image = ref(currentUser.value?.image ?? '');
-const username = ref(currentUser.value?.username ?? '');
-const bio = ref(currentUser.value?.bio ?? '');
-const email = ref(currentUser.value?.email ?? '');
 const password = ref('');
 const errorMsg = ref('');
 // ref, reactive => 반응성, vue core 등
 
-async function handleSubmit() {
+async function handleSubmit(e: Event) {
   try {
+    const formData = new FormData(e.target as HTMLFormElement);
     await mutateAsync({
-      image: image.value.length > 0 ? image.value : undefined,
-      username: username.value.length > 0 ? username.value : undefined,
-      bio: bio.value.length > 0 ? bio.value : undefined,
-      email: email.value.length > 0 ? email.value : undefined,
+      image: formData.get('image') as string,
+      username: formData.get('username') as string,
+      bio: formData.get('bio') as string,
+      email: formData.get('email') as string,
       password: password.value.length > 0 ? password.value : undefined,
     });
     router.push('/');
@@ -65,10 +60,6 @@ async function handleSubmit() {
 }
 
 watch(currentUser, () => {
-  image.value = currentUser.value?.image ?? '';
-  username.value = currentUser.value?.username ?? '';
-  bio.value = currentUser.value?.bio ?? '';
-  email.value = currentUser.value?.email ?? '';
   password.value = '';
 });
 </script>

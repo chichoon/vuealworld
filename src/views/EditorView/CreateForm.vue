@@ -3,24 +3,21 @@
     <li>{{ errorMsg }}</li>
   </ul>
   <form @submit.prevent="handleSubmit">
-    <CustomInput type="text" class="form-control form-control-lg" placeholder="Article Title" v-model:value="title" />
-    <fieldset class="form-group"></fieldset>
+    <fieldset class="form-group">
+      <CustomInput name="title" type="text" class="form-control form-control-lg" placeholder="Article Title" />
+    </fieldset>
+    <fieldset class="form-group">
+      <CustomInput name="description" type="text" class="form-control" placeholder="What's this article about?" />
+    </fieldset>
     <fieldset class="form-group">
       <CustomInput
-        type="text"
+        name="body"
+        is-text-area
         class="form-control"
-        placeholder="What's this article about?"
-        v-model:value="description"
+        rows="8"
+        placeholder="Write your article (in markdown)"
       />
     </fieldset>
-    <CustomInput
-      is-text-area
-      class="form-control"
-      rows="8"
-      placeholder="Write your article (in markdown)"
-      v-model:value="body"
-    />
-    <fieldset class="form-group"></fieldset>
     <TagForm v-model:tags="tagList" />
     <button class="btn btn-lg pull-xs-right btn-primary" type="submit">Publish Article</button>
   </form>
@@ -34,20 +31,18 @@ import CustomInput from '@/components/CustomInput.vue';
 import TagForm from '@/components/TagForm.vue';
 import { usePostArticle } from '@/hooks/article';
 
-const title = ref('');
-const description = ref('');
-const body = ref('');
 const tagList = ref<string[]>([]);
 const errorMsg = ref<string>('');
 
 const { mutateAsync } = usePostArticle();
 
-async function handleSubmit() {
+async function handleSubmit(e: Event) {
   try {
+    const formData = new FormData(e.target as HTMLFormElement);
     await mutateAsync({
-      title: title.value,
-      description: description.value,
-      body: body.value,
+      title: formData.get('title') as string,
+      description: formData.get('description') as string,
+      body: formData.get('body') as string,
       tagList: tagList.value,
     });
     router.push('/');

@@ -1,34 +1,37 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <fieldset class="form-group" v-if="isSignup">
-      <CustomInput type="text" placeholder="Username" v-model:value="username" />
+      <CustomInput type="text" placeholder="Username" name="username" />
     </fieldset>
     <fieldset class="form-group">
-      <CustomInput type="email" placeholder="Email" v-model:value="email" />
+      <CustomInput type="email" placeholder="Email" name="email" />
     </fieldset>
     <fieldset class="form-group">
-      <CustomInput type="password" placeholder="Password" v-model:value="password" />
+      <CustomInput type="password" placeholder="Password" name="password" />
     </fieldset>
     <CustomButton type="submit" text="Sign up" />
   </form>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
 import CustomInput from './CustomInput.vue';
 import CustomButton from '@/components/CustomButton.vue';
 
 const emits = defineEmits(['submit']);
-const isSignup = window.location.pathname === '/register';
-
-const username = ref('');
-const email = ref('');
-const password = ref('');
+const route = useRoute();
+const isSignup = computed(() => route.path === '/register');
 
 function handleSubmit(e: Event) {
-  console.log(e);
-  if (isSignup) emits('submit', { username: username.value, email: email.value, password: password.value });
-  else emits('submit', { email: email.value, password: password.value });
+  const formData = new FormData(e.target as HTMLFormElement);
+  if (isSignup.value)
+    emits('submit', {
+      username: formData.get('username') as string,
+      email: formData.get('email') as string,
+      password: formData.get('password') as string,
+    });
+  else emits('submit', { email: formData.get('email') as string, password: formData.get('password') as string });
 }
 </script>
