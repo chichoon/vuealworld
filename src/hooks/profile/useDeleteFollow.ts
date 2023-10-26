@@ -3,8 +3,9 @@ import { QueryClient, useMutation } from '@tanstack/vue-query';
 
 import profile from '@/services/profile';
 import { profileKeys } from './queries';
+import { articleKeys } from '../article/queries';
 
-export function useDeleteFollow(queryClient: QueryClient, username: Ref<string>) {
+export function useDeleteFollow(queryClient: QueryClient, username: Ref<string>, slug?: Ref<string>) {
   return useMutation({
     mutationFn: () => profile.unfollow(username.value),
     onMutate: async () => {
@@ -15,6 +16,16 @@ export function useDeleteFollow(queryClient: QueryClient, username: Ref<string>)
         ...oldData,
         following: false,
       }));
+
+      if (slug) {
+        queryClient.setQueryData(articleKeys.article.slug(slug), (oldData: any) => ({
+          ...oldData,
+          author: {
+            ...oldData.author,
+            following: false,
+          },
+        }));
+      }
 
       return { prevData };
     },

@@ -3,8 +3,9 @@ import { QueryClient, useMutation } from '@tanstack/vue-query';
 
 import profile from '@/services/profile';
 import { profileKeys } from './queries';
+import { articleKeys } from '../article/queries';
 
-export function usePostFollow(queryClient: QueryClient, username: Ref<string>) {
+export function usePostFollow(queryClient: QueryClient, username: Ref<string>, slug?: Ref<string>) {
   return useMutation({
     mutationFn: () => profile.follow(username.value),
     onMutate: async () => {
@@ -15,6 +16,17 @@ export function usePostFollow(queryClient: QueryClient, username: Ref<string>) {
         ...oldData,
         following: true,
       }));
+
+      if (slug) {
+        console.log('here');
+        queryClient.setQueryData(articleKeys.article.slug(slug), (oldData: any) => ({
+          ...oldData,
+          author: {
+            ...oldData.author,
+            following: true,
+          },
+        }));
+      }
 
       return { prevData };
     },

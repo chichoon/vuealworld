@@ -1,13 +1,15 @@
 <template>
   <div class="article-meta">
-    <a :href="`/profile/${articleInfo.author.username}`"><img :src="articleInfo.author.image" /></a>
+    <a :href="`/profile/${props.articleInfo.author.username}`"><img :src="props.articleInfo.author.image" /></a>
     <div class="info">
-      <a :href="`/profile/${articleInfo.author.username}`" class="author">{{ articleInfo.author.username }}</a>
-      <span class="date">{{ new Date(articleInfo.createdAt).toDateString() }}</span>
+      <a :href="`/profile/${props.articleInfo.author.username}`" class="author">{{
+        props.articleInfo.author.username
+      }}</a>
+      <span class="date">{{ new Date(props.articleInfo.createdAt).toDateString() }}</span>
     </div>
     &nbsp;&nbsp;
     <template v-if="isMyArticle">
-      <RouterLink :to="`/editor/${articleInfo.slug}`" class="btn btn-sm btn-outline-secondary"
+      <RouterLink :to="`/editor/${props.articleInfo.slug}`" class="btn btn-sm btn-outline-secondary"
         ><i class="ion-edit"></i><span> Edit Article</span></RouterLink
       >
       <button class="btn btn-sm btn-outline-danger" @click="handleClickDelete">
@@ -17,19 +19,23 @@
     <template v-else-if="isLoggedIn">
       <button
         class="btn btn-sm btn-outline-secondary"
-        :class="{ following: articleInfo.author.following }"
+        :class="{ following: props.articleInfo.author.following }"
         @click="handleClickFollow"
       >
-        <i class="ion-plus-round"></i>
-        <span> Follow {{ articleInfo.author.username }}</span>
+        <i v-if="props.articleInfo.author.following" class="ion-minus-round"></i>
+        <i v-else class="ion-plus-round"></i>
+        <span
+          >{{ props.articleInfo.author.following ? ' Unfollow' : ' Follow' }}
+          {{ props.articleInfo.author.username }}</span
+        >
       </button>
       <button
         class="btn btn-sm btn-outline-primary"
-        :class="{ favorite: articleInfo.favorited }"
+        :class="{ favorite: props.articleInfo.favorited }"
         @click="handleClickFavorite"
       >
         <i class="ion-heart"></i>
-        <span> Favorite Post ({{ articleInfo.favoritesCount }})</span>
+        <span> Favorite Post ({{ props.articleInfo.favoritesCount }})</span>
       </button>
     </template>
   </div>
@@ -54,12 +60,12 @@ const props = defineProps<Props>();
 // props를 destructuring 하면 반응성이 깨어지므로 데이터의 변화를 감지하지 못하게 된다
 
 const queryClient = useQueryClient();
-const slugToRef = ref(props.articleInfo.slug);
+const slugToRef = toRef(props.articleInfo.slug);
 const usernameToRef = toRef(props.articleInfo.author, 'username');
 const { mutate: favoriteMutate } = usePostFavorite(queryClient, slugToRef);
 const { mutate: unfavoriteMutate } = useDeleteFavorite(queryClient, slugToRef);
-const { mutate: followMutate } = usePostFollow(queryClient, usernameToRef);
-const { mutate: unfollowMutate } = useDeleteFollow(queryClient, usernameToRef);
+const { mutate: followMutate } = usePostFollow(queryClient, usernameToRef, slugToRef);
+const { mutate: unfollowMutate } = useDeleteFollow(queryClient, usernameToRef, slugToRef);
 const { mutate: deleteMutate } = useDeleteArticle(queryClient, slugToRef);
 
 function handleClickFavorite() {
