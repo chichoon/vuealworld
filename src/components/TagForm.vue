@@ -34,7 +34,6 @@ function handleSubmit() {
 
 function handleDelete(tag: string) {
   tagList.value = tagList.value.filter((t) => t !== tag);
-  console.log(tagList.value);
 }
 </script>
 

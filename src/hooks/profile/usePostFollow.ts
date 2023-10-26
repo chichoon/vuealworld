@@ -18,7 +18,6 @@ export function usePostFollow(queryClient: QueryClient, username: Ref<string>, s
       }));
 
       if (slug) {
-        console.log('here');
         queryClient.setQueryData(articleKeys.article.slug(slug), (oldData: any) => ({
           ...oldData,
           author: {
