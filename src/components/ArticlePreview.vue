@@ -43,10 +43,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { useQueryClient } from '@tanstack/vue-query';
+import { ref, type Ref } from 'vue';
 
-import { usePostFavorite, useDeleteFavorite } from '@/hooks/article';
 import type { ArticleData } from '@/types/article';
 import { useGetCurrentUserData } from '@/hooks/user';
 
@@ -54,19 +52,22 @@ interface Props {
   articleInfo: ArticleData;
 }
 
+interface Emits {
+  (e: 'favorite', slug: Ref<string>): void;
+  (e: 'unfavorite', slug: Ref<string>): void;
+}
+
 const props = defineProps<Props>();
-const queryClient = useQueryClient();
+const emits = defineEmits<Emits>();
 
 const slugToRef = ref(props.articleInfo.slug);
-const { mutate: favoriteMutate } = usePostFavorite(queryClient, slugToRef);
-const { mutate: unfavoriteMutate } = useDeleteFavorite(queryClient, slugToRef);
 const { data: currentUser } = useGetCurrentUserData();
 
 function handleClickFavorite() {
   if (props.articleInfo.favorited) {
-    unfavoriteMutate();
+    emits('unfavorite', slugToRef);
   } else {
-    favoriteMutate();
+    emits('favorite', slugToRef);
   }
 }
 </script>
