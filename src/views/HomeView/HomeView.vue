@@ -38,14 +38,14 @@
               </li>
             </ul>
           </div>
-          <LoadingComponent v-if="isLoading" />
-          <ErrorComponent
-            v-else-if="isError || (!currentUser && (!route.query.tab || route.query.tab === 'my-feed'))"
-            :error="'You must be logged in to access feed list'"
-          />
-          <MyFeedList
-            v-else-if="!!currentUser && (!route.query.tab || route.query.tab === 'my-feed') && !route.query.tag"
-          />
+          <template v-if="(!route.query.tab || route.query.tab === 'my-feed') && !route.query.tag">
+            <LoadingComponent v-if="isLoading" />
+            <ErrorComponent
+              v-else-if="isError || (!currentUser && (!route.query.tab || route.query.tab === 'my-feed'))"
+              :error="'You must be logged in to access feed list'"
+            />
+            <MyFeedList v-else-if="!!currentUser" />
+          </template>
           <GlobalFeedList v-else-if="route.query.tab === 'global-feed' && !route.query.tag" />
           <TagFeedList v-else-if="route.query.tag" />
         </div>

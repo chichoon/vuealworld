@@ -1,6 +1,6 @@
 <template>
   <form class="form-group" @submit.prevent="handleSubmit">
-    <CustomInput type="text" class="form-control" placeholder="Enter tags" v-model:value="newTag" />
+    <input class="form-control" type="text" placeholder="Enter tags" v-model="newTag" />
   </form>
   <div class="tag-list">
     <button v-for="tag in tagList" :key="tag" class="tag-default tag-pill tag-button" @click="() => handleDelete(tag)">
@@ -14,7 +14,6 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import CustomInput from './CustomInput.vue';
 
 interface Props {
   tags: string[];
