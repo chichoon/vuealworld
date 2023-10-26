@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRef } from 'vue';
+import { toRef } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
 import { useDeleteArticle, useDeleteFavorite, usePostFavorite } from '@/hooks/article';
