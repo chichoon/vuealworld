@@ -38,10 +38,14 @@
               </li>
             </ul>
           </div>
-          <template v-if="!currentUser && (!route.query.tab || route.query.tab === 'my-feed')">
-            <h2>You must be logged in to access my feed list</h2>
-          </template>
-          <MyFeedList v-if="!!currentUser && (!route.query.tab || route.query.tab === 'my-feed') && !route.query.tag" />
+          <LoadingComponent v-if="isLoading" />
+          <ErrorComponent
+            v-else-if="isError || (!currentUser && (!route.query.tab || route.query.tab === 'my-feed'))"
+            :error="'You must be logged in to access feed list'"
+          />
+          <MyFeedList
+            v-else-if="!!currentUser && (!route.query.tab || route.query.tab === 'my-feed') && !route.query.tag"
+          />
           <GlobalFeedList v-else-if="route.query.tab === 'global-feed' && !route.query.tag" />
           <TagFeedList v-else-if="route.query.tag" />
         </div>
@@ -68,6 +72,8 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 
+import LoadingComponent from '@/components/LoadingComponent.vue';
+import ErrorComponent from '@/components/ErrorComponent.vue';
 import { useGetTags } from '@/hooks/tag';
 import { useGetCurrentUserData } from '@/hooks/user';
 import router from '@/router';
@@ -76,7 +82,7 @@ import GlobalFeedList from './GlobalFeedList.vue';
 import TagFeedList from './TagFeedList.vue';
 
 const route = useRoute();
-const { data: currentUser } = useGetCurrentUserData();
+const { data: currentUser, isLoading, isError } = useGetCurrentUserData();
 const { data: tags } = useGetTags();
 
 function handleClickMyFeed() {
