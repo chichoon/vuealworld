@@ -62,19 +62,18 @@ const props = defineProps<Props>();
 const queryClient = useQueryClient();
 const slugToRef = toRef(props.articleInfo.slug);
 const usernameToRef = toRef(props.articleInfo.author, 'username');
-const { mutate: favoriteMutate } = usePostFavorite(queryClient, slugToRef);
-const { mutate: unfavoriteMutate } = useDeleteFavorite(queryClient, slugToRef);
+const { mutate: favoriteMutate } = usePostFavorite(queryClient);
+const { mutate: unfavoriteMutate } = useDeleteFavorite(queryClient);
 const { mutate: followMutate } = usePostFollow(queryClient, usernameToRef, slugToRef);
 const { mutate: unfollowMutate } = useDeleteFollow(queryClient, usernameToRef, slugToRef);
 const { mutate: deleteMutate } = useDeleteArticle(queryClient, slugToRef);
 
 function handleClickFavorite() {
   if (props.articleInfo.favorited) {
-    unfavoriteMutate();
+    unfavoriteMutate(slugToRef);
   } else {
-    favoriteMutate();
+    favoriteMutate(slugToRef);
   }
-  // window.location.reload(); // TODO: Fix this hack
 }
 
 function handleClickFollow() {
@@ -83,7 +82,6 @@ function handleClickFollow() {
   } else {
     followMutate();
   }
-  // window.location.reload(); // TODO: Fix this hack
 }
 
 function handleClickDelete() {
