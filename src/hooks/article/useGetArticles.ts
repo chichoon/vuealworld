@@ -12,7 +12,6 @@ export function useGetArticles(page: Ref<number>) {
     queryFn: () => articles.get({ offset: page.value * 10 - 10, limit: 10 }),
     cacheTime: CACHE_TIME,
     staleTime: STALE_TIME,
-    keepPreviousData: true,
   });
 }
 
@@ -22,7 +21,6 @@ export function useGetArticlesByTag(tag: Ref<string>, page: Ref<number>) {
     queryFn: () => articles.get({ tag: tag.value, offset: page.value * 10 - 10, limit: 10 }),
     cacheTime: CACHE_TIME,
     staleTime: STALE_TIME,
-    keepPreviousData: true,
   });
 }
 
@@ -32,7 +30,6 @@ export function useGetArticlesByAuthor(author: Ref<string>, page: Ref<number>) {
     queryFn: () => articles.get({ author: author.value, offset: page.value * 10 - 10, limit: 10 }),
     cacheTime: CACHE_TIME,
     staleTime: STALE_TIME,
-    keepPreviousData: true,
   });
 }
 
@@ -42,6 +39,5 @@ export function useGetArticlesByFavorited(by: Ref<string>, page: Ref<number>) {
     queryFn: () => articles.get({ favorited: by.value, offset: page.value * 10 - 10, limit: 10 }),
     cacheTime: CACHE_TIME,
     staleTime: STALE_TIME,
-    keepPreviousData: true,
   });
 }
