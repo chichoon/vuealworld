@@ -2,24 +2,45 @@
   <div>
     <h1>Welcome to the secret test page!!</h1>
   </div>
-  <div v-once>
-    <div>{{ timer }}</div>
-  </div>
+  <form @submit.prevent="handleSubmitAllRef">
+    <input type="text" v-model="name" />
+    <input type="number" v-model="age" />
+    <button type="submit">Submit</button>
+  </form>
+  <form @submit.prevent="handleSubmitReactive">
+    <input type="text" v-model="obj.name" />
+    <input type="number" v-model="obj.age" />
+    <button type="submit">Submit</button>
+  </form>
+  <form @submit.prevent="handleSubmitFormData">
+    <input type="text" name="name" />
+    <input type="number" name="age" />
+    <button type="submit">Submit</button>
+  </form>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import VBindTest from './VBindTest.vue';
-import TestTemplate from './TestTemplate.vue';
+import { reactive, ref } from 'vue';
 
-const input1 = ref('');
-const input2 = ref('');
-const value = '컴파일이 되어버렸당';
-const timer = ref(0);
+interface ReactiveObj {
+  name: string;
+  age: number;
+}
 
-onMounted(() => {
-  setInterval(() => {
-    timer.value += 1;
-  }, 1000);
-});
+const obj = reactive<ReactiveObj>({ name: '', age: 0 });
+const name = ref('');
+const age = ref(0);
+
+function handleSubmitAllRef() {
+  console.log({ name: name.value, age: age.value });
+}
+
+function handleSubmitReactive() {
+  console.log(obj);
+}
+
+function handleSubmitFormData(e: Event) {
+  const formData = new FormData(e.target as HTMLFormElement);
+  console.log({ name: formData.get('name'), age: formData.get('age') });
+}
 </script>
