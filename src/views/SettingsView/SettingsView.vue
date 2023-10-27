@@ -18,11 +18,11 @@
 import { useCookies } from 'vue3-cookies';
 import { useQueryClient } from '@tanstack/vue-query';
 
-import SettingsForm from './SettingsForm.vue';
-import router from '@/router';
-import { userKeys } from '@/hooks/user/queries';
-import { useGetCurrentUserData } from '@/hooks/user';
 import ErrorComponent from '@/components/ErrorComponent.vue';
+import { useGetCurrentUserData } from '@/hooks/user';
+import { userKeys } from '@/hooks/user/queries';
+import router from '@/router';
+import SettingsForm from './SettingsForm.vue';
 
 const { cookies } = useCookies();
 const queryClient = useQueryClient();

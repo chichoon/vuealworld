@@ -20,8 +20,8 @@ import { useQueryClient } from '@tanstack/vue-query';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
 import PaginationComponent from '@/components/PaginationComponent.vue';
-import { useDeleteFavorite, useGetArticlesByAuthor, usePostFavorite } from '@/hooks/article';
 import ArticlePreview from '@/components/ArticlePreview.vue';
+import { useDeleteFavorite, useGetArticlesByAuthor, usePostFavorite } from '@/hooks/article';
 
 interface Props {
   username: string;

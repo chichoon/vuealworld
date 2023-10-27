@@ -26,10 +26,10 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import router from '@/router';
 import CustomInput from '@/components/CustomInput.vue';
 import TagForm from '@/components/TagForm.vue';
 import { usePostArticle } from '@/hooks/article';
+import router from '@/router';
 
 const tagList = ref<string[]>([]);
 const errorMsg = ref<string>('');

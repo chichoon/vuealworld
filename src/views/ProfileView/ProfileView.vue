@@ -63,15 +63,15 @@ import { ref } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import { useQueryClient } from '@tanstack/vue-query';
 
-import router from '@/router';
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
-import { useGetProfile, usePostFollow, useDeleteFollow } from '@/hooks/profile';
-import { useGetCurrentUserData } from '@/hooks/user';
-import MyArticlesList from './MyArticlesList.vue';
-import FavoritedArticlesList from './FavoritedArticlesList.vue';
 import FollowButton from '@/components/FollowButton.vue';
 import NavigationTab from '@/components/NavigationTab.vue';
+import { useGetProfile, usePostFollow, useDeleteFollow } from '@/hooks/profile';
+import { useGetCurrentUserData } from '@/hooks/user';
+import router from '@/router';
+import MyArticlesList from './MyArticlesList.vue';
+import FavoritedArticlesList from './FavoritedArticlesList.vue';
 
 const route = useRoute();
 const queryClient = useQueryClient();
