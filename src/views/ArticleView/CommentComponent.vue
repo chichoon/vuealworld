@@ -12,7 +12,11 @@
         props.commentInfo.author.username
       }}</RouterLink>
       <span class="date-posted">{{ new Date(props.commentInfo.createdAt).toDateString() }}</span>
-      <button class="mod-options delete-button" @click="handleDeleteComment">
+      <button
+        v-if="currentUser?.username === props.commentInfo.author.username"
+        class="mod-options delete-button"
+        @click="handleDeleteComment"
+      >
         <i class="ion-trash-a"></i>
       </button>
     </div>
@@ -20,6 +24,7 @@
 </template>
 
 <script setup lang="ts">
+import { useGetCurrentUserData } from '@/hooks/user';
 import type { CommentData } from '@/types/comments';
 
 interface Props {
@@ -28,6 +33,8 @@ interface Props {
 
 const props = defineProps<Props>();
 const emits = defineEmits(['delete-comment']);
+
+const { data: currentUser } = useGetCurrentUserData();
 
 function handleDeleteComment() {
   emits('delete-comment', props.commentInfo.id);
