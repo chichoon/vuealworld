@@ -17,26 +17,16 @@
       </button>
     </template>
     <template v-else-if="isLoggedIn">
-      <button
-        class="btn btn-sm btn-outline-secondary"
-        :class="{ following: props.articleInfo.author.following }"
-        @click="handleClickFollow"
-      >
-        <i v-if="props.articleInfo.author.following" class="ion-minus-round"></i>
-        <i v-else class="ion-plus-round"></i>
-        <span
-          >{{ props.articleInfo.author.following ? ' Unfollow' : ' Follow' }}
-          {{ props.articleInfo.author.username }}</span
-        >
-      </button>
-      <button
-        class="btn btn-sm btn-outline-primary"
-        :class="{ favorite: props.articleInfo.favorited }"
-        @click="handleClickFavorite"
-      >
-        <i class="ion-heart"></i>
-        <span> Favorite Post ({{ props.articleInfo.favoritesCount }})</span>
-      </button>
+      <FollowButton
+        :is-following="props.articleInfo.author.following"
+        :username="props.articleInfo.author.username"
+        @follow="handleClickFollow"
+      />
+      <FavoriteButton
+        :is-favorited="props.articleInfo.favorited"
+        :favorites-count="props.articleInfo.favoritesCount"
+        @favorite="handleClickFavorite"
+      />
     </template>
   </div>
 </template>
@@ -45,10 +35,12 @@
 import { toRef } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
+import FollowButton from '@/components/FollowButton.vue';
 import { useDeleteArticle, useDeleteFavorite, usePostFavorite } from '@/hooks/article';
 import { useDeleteFollow, usePostFollow } from '@/hooks/profile';
 import router from '@/router';
 import type { ArticleData } from '@/types/article';
+import FavoriteButton from '@/components/FavoriteButton.vue';
 
 interface Props {
   articleInfo: ArticleData;
@@ -90,13 +82,3 @@ function handleClickDelete() {
   router.push('/');
 }
 </script>
-
-<style scoped>
-.following {
-  background-color: #cccccc44;
-}
-
-.favorite {
-  background-color: #5cb85c44;
-}
-</style>

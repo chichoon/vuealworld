@@ -18,23 +18,20 @@
             <p>
               {{ userInfo.bio }}
             </p>
-            <template v-if="currentUser?.username === userInfo.username">
-              <RouterLink to="/settings" class="btn btn-sm btn-outline-secondary action-btn">
-                <i class="ion-gear-a"></i>
-                &nbsp; Edit Profile Settings
-              </RouterLink>
-            </template>
-            <template v-else-if="!!currentUser">
-              <button
-                class="btn btn-sm btn-outline-secondary action-btn"
-                :class="{ following: userInfo.following }"
-                @click="handleClickFollow"
-              >
-                <i v-if="!userInfo.following" class="ion-plus-round"></i>
-                <i v-else class="ion-minus-round"></i>
-                &nbsp; {{ userInfo.following ? 'Unfollow' : 'Follow' }} {{ userInfo.username }}
-              </button>
-            </template>
+            <RouterLink
+              v-if="currentUser?.username === userInfo.username"
+              to="/settings"
+              class="btn btn-sm btn-outline-secondary action-btn"
+            >
+              <i class="ion-gear-a"></i>
+              &nbsp; Edit Profile Settings
+            </RouterLink>
+            <FollowButton
+              v-else-if="!!currentUser"
+              :is-following="userInfo.following"
+              :username="userInfo.username"
+              @follow="handleClickFollow"
+            />
           </div>
         </div>
       </div>
@@ -83,6 +80,7 @@ import { useGetProfile, usePostFollow, useDeleteFollow } from '@/hooks/profile';
 import { useGetCurrentUserData } from '@/hooks/user';
 import MyArticlesList from './MyArticlesList.vue';
 import FavoritedArticlesList from './FavoritedArticlesList.vue';
+import FollowButton from '@/components/FollowButton.vue';
 
 const route = useRoute();
 const queryClient = useQueryClient();

@@ -15,15 +15,13 @@
         }}</RouterLink>
         <span class="date">{{ new Date(props.articleInfo.createdAt).toDateString() }}</span>
       </div>
-      <button
+      <FavoriteButton
         v-if="!(currentUser && currentUser.username === props.articleInfo.author.username) && !!currentUser"
-        @click="handleClickFavorite"
-        class="btn btn-outline-primary btn-sm pull-xs-right"
-        :class="{ favorited: props.articleInfo.favorited }"
-      >
-        <i class="ion-heart"></i>
-        <span> {{ props.articleInfo.favoritesCount }}</span>
-      </button>
+        @favorite="handleClickFavorite"
+        :is-favorited="props.articleInfo.favorited"
+        :favorites-count="props.articleInfo.favoritesCount"
+        is-short-version
+      />
     </div>
     <RouterLink :to="`/article/${props.articleInfo.slug}`" class="preview-link">
       <h1>{{ props.articleInfo.title }}</h1>
@@ -47,6 +45,7 @@ import { ref, type Ref } from 'vue';
 
 import type { ArticleData } from '@/types/article';
 import { useGetCurrentUserData } from '@/hooks/user';
+import FavoriteButton from './FavoriteButton.vue';
 
 interface Props {
   articleInfo: ArticleData;
@@ -71,9 +70,3 @@ function handleClickFavorite() {
   }
 }
 </script>
-
-<style scoped>
-.favorited {
-  background-color: #5cb85c44;
-}
-</style>
