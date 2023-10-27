@@ -11,33 +11,18 @@
     <div class="container page">
       <div class="row">
         <div class="col-md-9">
-          <div class="feed-toggle">
-            <ul class="nav nav-pills outline-active">
-              <li class="nav-item">
-                <button
-                  @click="handleClickMyFeed"
-                  class="nav-link"
-                  :class="{ active: (!route.query.tab || route.query.tab === 'my-feed') && !route.query.tag }"
-                >
-                  Your Feed
-                </button>
-              </li>
-              <li class="nav-item">
-                <button
-                  @click="handleClickGlobalFeed"
-                  class="nav-link"
-                  :class="{ active: route.query.tab === 'global-feed' && !route.query.tag }"
-                >
-                  Global Feed
-                </button>
-              </li>
-              <li class="nav-item" v-if="route.query.tag">
-                <button disabled @click="handleClickGlobalFeed" class="nav-link" :class="{ active: route.query.tag }">
-                  {{ route.query.tag }}
-                </button>
-              </li>
-            </ul>
-          </div>
+          <NavigationTab
+            class="feed-toggle"
+            :tab-names="['Your Feed', 'Global Feed', route.query.tag as string]"
+            :is-active="[
+              (!route.query.tab || route.query.tab === 'my-feed') && !route.query.tag,
+              route.query.tab === 'global-feed' && !route.query.tag,
+              !!route.query.tag,
+            ]"
+            :is-third-tab="!!route.query.tag"
+            @first-tab="handleClickMyFeed"
+            @second-tab="handleClickGlobalFeed"
+          />
           <template v-if="(!route.query.tab || route.query.tab === 'my-feed') && !route.query.tag">
             <LoadingComponent v-if="isLoading" />
             <ErrorComponent
@@ -74,6 +59,7 @@ import { useRoute } from 'vue-router';
 
 import LoadingComponent from '@/components/LoadingComponent.vue';
 import ErrorComponent from '@/components/ErrorComponent.vue';
+import NavigationTab from '@/components/NavigationTab.vue';
 import { useGetTags } from '@/hooks/tag';
 import { useGetCurrentUserData } from '@/hooks/user';
 import router from '@/router';

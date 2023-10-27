@@ -40,26 +40,16 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-md-10 offset-md-1">
-          <div class="articles-toggle">
-            <ul class="nav nav-pills outline-active">
-              <li class="nav-item">
-                <button
-                  @click="handleClickMyArticle"
-                  :class="{ 'nav-link': true, active: !route.query.tab || route.query.tab === 'my-articles' }"
-                >
-                  My Articles
-                </button>
-              </li>
-              <li class="nav-item">
-                <button
-                  @click="handleClickFavoriteArticle"
-                  :class="{ 'nav-link': true, active: route.query.tab === 'favorited-articles' }"
-                >
-                  Favorited Articles
-                </button>
-              </li>
-            </ul>
-          </div>
+          <NavigationTab
+            class="artickes-toggle"
+            :tab-names="['My Articles', 'Favorited Articles']"
+            :is-active="[
+              !route.query.tab || route.query.tab === 'my-articles',
+              route.query.tab === 'favorited-articles',
+            ]"
+            @first-tab="handleClickMyArticle"
+            @second-tab="handleClickFavoriteArticle"
+          />
           <MyArticlesList v-if="!route.query.tab || route.query.tab === 'my-articles'" :username="userInfo.username" />
           <FavoritedArticlesList v-else-if="route.query.tab === 'favorited-articles'" :username="userInfo.username" />
         </div>
@@ -81,6 +71,7 @@ import { useGetCurrentUserData } from '@/hooks/user';
 import MyArticlesList from './MyArticlesList.vue';
 import FavoritedArticlesList from './FavoritedArticlesList.vue';
 import FollowButton from '@/components/FollowButton.vue';
+import NavigationTab from '@/components/NavigationTab.vue';
 
 const route = useRoute();
 const queryClient = useQueryClient();
@@ -108,9 +99,3 @@ function handleClickFollow() {
   }
 }
 </script>
-
-<style scoped>
-.following {
-  background-color: #cccccc44;
-}
-</style>
