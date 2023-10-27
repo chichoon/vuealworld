@@ -16,7 +16,7 @@
         <span class="date">{{ new Date(props.articleInfo.createdAt).toDateString() }}</span>
       </div>
       <button
-        v-if="!(currentUser && currentUser.username === props.articleInfo.author.username)"
+        v-if="!(currentUser && currentUser.username === props.articleInfo.author.username) && !!currentUser"
         @click="handleClickFavorite"
         class="btn btn-outline-primary btn-sm pull-xs-right"
         :class="{ favorited: props.articleInfo.favorited }"
