@@ -1,9 +1,9 @@
 import type { Ref } from 'vue';
 import { QueryClient, useMutation } from '@tanstack/vue-query';
 
-import articles from '@/services/articles';
-import { articleKeys } from './queries';
-import type { ArticleListInfoParams } from '@/types/article';
+import articles from '@/02_adapter/services/articles';
+import { articleKeys } from '../query-key';
+import type { ArticleFavoriteParams } from './ArticleFavoriteParams';
 
 function handlePostFavoriteFromArticle(oldData: any) {
   return {
@@ -24,7 +24,7 @@ function handlePostFavoriteFromList(oldData: any, slug: Ref<string>) {
   };
 }
 
-export function usePostFavorite(queryClient: QueryClient, info?: ArticleListInfoParams) {
+export function usePostFavorite(queryClient: QueryClient, info?: ArticleFavoriteParams) {
   return useMutation({
     mutationFn: (slug: Ref<string>) => articles.postFavorite(slug.value),
     onMutate: async (slug: Ref<string>) => {

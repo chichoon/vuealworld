@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/vue-query';
 
-import articles from '@/services/articles';
+import articles from '@/02_adapter/services/articles';
 
 export function usePostArticle() {
   return useMutation({

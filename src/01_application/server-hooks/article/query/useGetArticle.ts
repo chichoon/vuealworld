@@ -1,10 +1,10 @@
 import type { Ref } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 
-import articles from '@/services/articles';
-import type { ArticleData } from '@/types/article';
-import { CACHE_TIME, STALE_TIME } from '@/utils/constants';
-import { articleKeys } from './queries';
+import articles from '@/02_adapter/services/articles';
+import type { ArticleData } from '@/00_domain/entity/article';
+import { CACHE_TIME, STALE_TIME } from '@/01_application/server-hooks/constants';
+import { articleKeys } from '../query-key';
 
 export function useGetArticle(slug: Ref<string>) {
   return useQuery<ArticleData>({

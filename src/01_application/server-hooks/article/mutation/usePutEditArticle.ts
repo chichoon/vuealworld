@@ -1,8 +1,8 @@
 import type { Ref } from 'vue';
 import { QueryClient, useMutation } from '@tanstack/vue-query';
 
-import articles from '@/services/articles';
-import { articleKeys } from './queries';
+import articles from '@/02_adapter/services/articles';
+import { articleKeys } from '../query-key';
 
 interface Params {
   title: string;
