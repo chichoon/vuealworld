@@ -1,0 +1,1 @@
+export { useGetCurrentUserData } from './useGetCurrentUserData';

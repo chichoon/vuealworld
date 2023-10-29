@@ -1,15 +1,14 @@
 import { QueryClient, useMutation } from '@tanstack/vue-query';
 import { useCookies } from 'vue3-cookies';
 
-import user from '@/services/user';
-import type { UserData } from '@/types/userData';
-import { CACHE_TIME } from '@/utils/constants';
-import { userKeys } from './queries';
+import user from '@/02_adapter/services/user';
+import type { UserData } from '@/00_domain/entity/user';
+import { CACHE_TIME } from '@/01_application/common/constants';
+import { userKeys } from '../query-key';
 
 export function useSignin(queryClient: QueryClient) {
   const { cookies } = useCookies();
   return useMutation({
-    mutationKey: userKeys.current,
     mutationFn: user.postLogin,
     cacheTime: CACHE_TIME,
     onSuccess: (data: UserData) => {

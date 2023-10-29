@@ -32,7 +32,7 @@ const { mutateAsync } = useSignup();
 async function handleSubmit(data: SignUpData) {
   try {
     await mutateAsync(data);
-    router.push('/'); // TODO: 왜안됨???? (url만 바뀌고 컴포넌트가 안바뀜)
+    router.push('/');
   } catch (e: unknown) {
     errorMsg.value = e as string;
   }

@@ -2,8 +2,8 @@ import type { Ref } from 'vue';
 import { QueryClient, useMutation } from '@tanstack/vue-query';
 
 import profile from '@/services/profile';
-import { profileKeys } from './queries';
-import { articleKeys } from '../article/queries';
+import { profileKeys } from '../query-key';
+import { articleKeys } from '@/01_application/server-hooks/article/query-key';
 
 export function usePostFollow(queryClient: QueryClient, username: Ref<string>, slug?: Ref<string>) {
   return useMutation({

@@ -1,9 +1,9 @@
 import type { Ref } from 'vue';
 import { QueryClient, useMutation } from '@tanstack/vue-query';
 
-import profile from '@/services/profile';
-import { profileKeys } from './queries';
-import { articleKeys } from '../article/queries';
+import profile from '@/02_adapter/services/profile';
+import { profileKeys } from '../query-key';
+import { articleKeys } from '@/01_application/server-hooks/article/query-key';
 
 export function useDeleteFollow(queryClient: QueryClient, username: Ref<string>, slug?: Ref<string>) {
   return useMutation({
