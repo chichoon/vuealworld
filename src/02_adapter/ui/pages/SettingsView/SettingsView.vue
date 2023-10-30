@@ -21,6 +21,7 @@ import { useQueryClient } from '@tanstack/vue-query';
 import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
 import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
 import { userKeys } from '@/01_application/server-hooks/user/query-key';
+import { articleKeys } from '@/01_application/server-hooks/article/query-key';
 import router from '@/02_adapter/ui/router';
 import SettingsForm from './SettingsForm.vue';
 
@@ -32,6 +33,7 @@ const { data: currentUser } = useGetCurrentUserData();
 function handleLogout() {
   if (!confirm('Are you sure you want to logout?')) return;
   queryClient.setQueryData(userKeys.current, null);
+  queryClient.invalidateQueries(articleKeys.lists.all);
   cookies.remove('authorization');
   router.push('/');
 }
