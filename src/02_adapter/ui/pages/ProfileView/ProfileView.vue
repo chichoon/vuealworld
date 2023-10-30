@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import { useQueryClient } from '@tanstack/vue-query';
 
@@ -77,7 +77,7 @@ import FavoritedArticlesList from './FavoritedArticlesList.vue';
 const route = useRoute();
 const queryClient = useQueryClient();
 
-const usernameToRef = ref(route.path.split('/')[2]);
+const usernameToRef = computed(() => route.params.username as string);
 const { data: userInfo, isLoading, isError } = useGetProfile(usernameToRef);
 const { data: currentUser } = useGetCurrentUserData();
 
