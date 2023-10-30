@@ -27,8 +27,8 @@ const router = createRouter({
     { path: '/settings', name: 'settings', component: () => import('../pages/SettingsView/SettingsView.vue') },
     { path: '/editor', name: 'editor', component: () => import('../pages/EditorView/EditorView.vue') },
     {
-      path: '/editor/:articleId',
-      name: 'editor-articleid',
+      path: '/editor/:slug',
+      name: 'editor-with-slug',
       component: () => import('../pages/EditorView/EditorView.vue'),
     },
     {
