@@ -1,4 +1,4 @@
-import type { ArticleEditData } from '@/domain/entity/article';
+import type { ArticleEditData } from '@/01_application/ports/article';
 import { httpClient } from './httpClient';
 
 function post({ title, description, body, tagList }: ArticleEditData) {

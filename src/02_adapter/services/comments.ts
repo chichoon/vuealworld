@@ -1,4 +1,4 @@
-import type { CommentData } from '@/types/comments';
+import type { CommentData } from '@/00_domain/entity/comment';
 import { httpClient } from './httpClient';
 
 function get(slug: string): Promise<CommentData[]> {

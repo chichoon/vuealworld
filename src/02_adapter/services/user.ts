@@ -1,4 +1,5 @@
-import type { SignUpData, SignInData, EditUserData } from '@/types/userData';
+import type { SignUpData, SignInData } from '@/01_application/ports/auth';
+import type { EditUserData } from '@/01_application/ports/user';
 import { httpClient } from './httpClient';
 
 function postRegister({ email, password, username }: SignUpData) {
