@@ -9,5 +9,6 @@ export async function login(page: Page) {
   await page.getByRole('button', { name: 'Sign in' }).click();
   await expect(page).toHaveURL('/');
 
+  await page.waitForTimeout(1000);
   await expect(page.getByTestId('nav-userdata')).toHaveText(process.env.USERNAME);
 }
