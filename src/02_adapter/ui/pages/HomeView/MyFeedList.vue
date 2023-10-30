@@ -17,15 +17,16 @@
 import { computed, ref } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
+import type { Page } from '@/00_domain/common/value';
+import { useDeleteFavorite, usePostFavorite } from '@/01_application/server-hooks/article/mutation';
+import { useGetFeeds } from '@/01_application/server-hooks/article/query';
 import ArticlePreview from '@/02_adapter/ui/components/ArticlePreview.vue';
 import LoadingComponent from '@/02_adapter/ui/components/LoadingComponent.vue';
 import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
 import PaginationComponent from '@/02_adapter/ui/components/PaginationComponent.vue';
-import { useDeleteFavorite, usePostFavorite } from '@/01_application/server-hooks/article/mutation';
-import { useGetFeeds } from '@/01_application/server-hooks/article/query';
 
-const currentPage = ref(1);
-const totalPages = computed(() => Math.ceil((articlesInfo.value?.articlesCount ?? 10) / 10));
+const currentPage = ref<Page>(1);
+const totalPages = computed<Page>(() => Math.ceil((articlesInfo.value?.articlesCount ?? 10) / 10));
 const { data: articlesInfo, isLoading, isError } = useGetFeeds(currentPage);
 const queryClient = useQueryClient();
 

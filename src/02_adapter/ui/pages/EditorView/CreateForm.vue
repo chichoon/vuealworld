@@ -26,13 +26,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
+import type { Message, Tag, Text } from '@/00_domain/common/value';
+import { usePostArticle } from '@/01_application/server-hooks/article/mutation';
 import CustomInput from '@/02_adapter/ui/components/CustomInput.vue';
 import TagForm from '@/02_adapter/ui/components/TagForm.vue';
-import { usePostArticle } from '@/01_application/server-hooks/article/mutation';
 import router from '@/02_adapter/ui/router';
 
-const tagList = ref<string[]>([]);
-const errorMsg = ref<string>('');
+const tagList = ref<Tag[]>([]);
+const errorMsg = ref<Message>('');
 
 const { mutateAsync } = usePostArticle();
 
@@ -40,14 +41,14 @@ async function handleSubmit(e: Event) {
   try {
     const formData = new FormData(e.target as HTMLFormElement);
     await mutateAsync({
-      title: formData.get('title') as string,
-      description: formData.get('description') as string,
-      body: formData.get('body') as string,
+      title: formData.get('title') as Text,
+      description: formData.get('description') as Text,
+      body: formData.get('body') as Text,
       tagList: tagList.value,
     });
     router.push('/');
   } catch (e: unknown) {
-    errorMsg.value = e as string;
+    errorMsg.value = e as Message;
   }
 }
 </script>

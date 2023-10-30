@@ -24,11 +24,12 @@ import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
 import PaginationComponent from '@/02_adapter/ui/components/PaginationComponent.vue';
 import { useDeleteFavorite, usePostFavorite } from '@/01_application/server-hooks/article/mutation';
 import { useGetArticlesByTag } from '@/01_application/server-hooks/article/query';
+import { Tag, type Page } from '@/00_domain/common/value';
 
 const route = useRoute();
-const currentPage = ref(1);
-const totalPages = computed(() => Math.ceil((articlesInfo.value?.articlesCount ?? 10) / 10));
-const tag = computed(() => route.query.tag as string);
+const currentPage = ref<Page>(1);
+const totalPages = computed<Page>(() => Math.ceil((articlesInfo.value?.articlesCount ?? 10) / 10));
+const tag = computed<Tag>(() => route.query.tag as Tag);
 const { data: articlesInfo, isLoading, isError } = useGetArticlesByTag(tag, currentPage);
 const queryClient = useQueryClient();
 

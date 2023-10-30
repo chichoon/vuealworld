@@ -1,6 +1,8 @@
+import type { Text, URLString, Username } from '../common/value';
+
 export interface AuthorData {
-  username: string;
-  bio: string;
-  image: string;
+  username: Username;
+  bio: Text;
+  image: URLString;
   following: boolean;
 }

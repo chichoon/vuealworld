@@ -4,6 +4,7 @@ import { QueryClient, useMutation } from '@tanstack/vue-query';
 import articles from '@/02_adapter/services/articles';
 import { articleKeys } from '../query-key';
 import type { ArticleFavoriteParams } from './ArticleFavoriteParams';
+import type { Slug } from '@/00_domain/common/value';
 
 function handlePostFavoriteFromArticle(oldData: any) {
   return {
@@ -13,7 +14,7 @@ function handlePostFavoriteFromArticle(oldData: any) {
   };
 }
 
-function handlePostFavoriteFromList(oldData: any, slug: Ref<string>) {
+function handlePostFavoriteFromList(oldData: any, slug: Ref<Slug>) {
   return {
     ...oldData,
     articles: oldData.articles.map((article: any) =>
@@ -26,8 +27,8 @@ function handlePostFavoriteFromList(oldData: any, slug: Ref<string>) {
 
 export function usePostFavorite(queryClient: QueryClient, info?: ArticleFavoriteParams) {
   return useMutation({
-    mutationFn: (slug: Ref<string>) => articles.postFavorite(slug.value),
-    onMutate: async (slug: Ref<string>) => {
+    mutationFn: (slug: Ref<Slug>) => articles.postFavorite(slug.value),
+    onMutate: async (slug: Ref<Slug>) => {
       await queryClient.cancelQueries(articleKeys.article.slug(slug));
       const prevData = queryClient.getQueryData(articleKeys.article.slug(slug));
 
@@ -69,10 +70,10 @@ export function usePostFavorite(queryClient: QueryClient, info?: ArticleFavorite
       }
       return { prevData };
     },
-    onError: (_, slug: Ref<string>, context) => {
+    onError: (_, slug: Ref<Slug>, context) => {
       if (context) queryClient.setQueryData(articleKeys.article.slug(slug), context.prevData);
     },
-    onSettled: (_, __, slug: Ref<string>) => {
+    onSettled: (_, __, slug: Ref<Slug>) => {
       queryClient.invalidateQueries(articleKeys.lists.all);
       queryClient.invalidateQueries(articleKeys.article.slug(slug));
     },

@@ -3,15 +3,16 @@ import { QueryClient, useMutation } from '@tanstack/vue-query';
 
 import articles from '@/02_adapter/services/articles';
 import { articleKeys } from '../query-key';
+import type { Slug, Tag, Text } from '@/00_domain/common/value';
 
 interface Params {
-  title: string;
-  description: string;
-  body: string;
-  tagList: string[];
+  title: Text;
+  description: Text;
+  body: Text;
+  tagList: Tag[];
 }
 
-export function usePutEditArticle(queryClient: QueryClient, slug: Ref<string>) {
+export function usePutEditArticle(queryClient: QueryClient, slug: Ref<Slug>) {
   return useMutation({
     mutationFn: ({ title, description, body, tagList }: Params) =>
       articles.putBySlug(slug.value, { title, description, body, tagList }),

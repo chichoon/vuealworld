@@ -1,7 +1,9 @@
+import type { Email, URLString, Password, Username, Text } from '@/00_domain/common/value';
+
 export interface EditUserData {
-  email?: string;
-  password?: string;
-  username?: string;
-  bio?: string;
-  image?: string;
+  email?: Email;
+  password?: Password;
+  username?: Username;
+  bio?: Text;
+  image?: URLString;
 }

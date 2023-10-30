@@ -1,8 +1,10 @@
+import type { Email, ID, URLString, JWTToken, Username } from '../common/value';
+
 export interface UserData {
-  email: string;
-  token?: string;
-  id?: number;
-  username: string;
+  email: Email;
+  token?: JWTToken;
+  id?: ID;
+  username: Username;
   bio: string;
-  image: string;
+  image: URLString;
 }

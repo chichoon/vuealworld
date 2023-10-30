@@ -46,20 +46,21 @@ import { ref, type Ref } from 'vue';
 import type { ArticleData } from '@/00_domain/entity/article';
 import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
 import FavoriteButton from './FavoriteButton.vue';
+import type { Slug } from '@/00_domain/common/value';
 
 interface Props {
   articleInfo: ArticleData;
 }
 
 interface Emits {
-  (e: 'favorite', slug: Ref<string>): void;
-  (e: 'unfavorite', slug: Ref<string>): void;
+  (e: 'favorite', slug: Ref<Slug>): void;
+  (e: 'unfavorite', slug: Ref<Slug>): void;
 }
 
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
-const slugToRef = ref(props.articleInfo.slug);
+const slugToRef = ref<Slug>(props.articleInfo.slug);
 const { data: currentUser } = useGetCurrentUserData();
 
 function handleClickFavorite() {

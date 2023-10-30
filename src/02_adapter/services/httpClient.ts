@@ -1,10 +1,11 @@
 import { useCookies } from 'vue3-cookies';
 
 import { concatErrorMessage, createURLParams } from '@/02_adapter/common/utils';
+import type { HTTPMethod, URLString } from '@/00_domain/common/value';
 
 interface Params {
-  url: string;
-  method: string;
+  url: URLString;
+  method: HTTPMethod;
   params?: Record<string, string | number | undefined>;
   body?: object;
 }

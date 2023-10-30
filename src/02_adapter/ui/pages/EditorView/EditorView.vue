@@ -16,13 +16,14 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
-import EditorForm from './EditorForm.vue';
-import CreateForm from './CreateForm.vue';
+import type { Slug } from '@/00_domain/common/value';
 import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
 import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
+import EditorForm from './EditorForm.vue';
+import CreateForm from './CreateForm.vue';
 
 const route = useRoute();
-const slugToRef = computed(() => route.params.slug as string);
+const slugToRef = computed<Slug>(() => route.params.slug as Slug);
 
 const { data: currentUser } = useGetCurrentUserData();
 </script>

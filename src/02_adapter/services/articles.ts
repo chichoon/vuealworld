@@ -1,5 +1,6 @@
 import type { ArticleEditData } from '@/01_application/ports/article';
 import { httpClient } from './httpClient';
+import type { Page, Slug, Tag, Text, Username } from '@/00_domain/common/value';
 
 function post({ title, description, body, tagList }: ArticleEditData) {
   return httpClient({
@@ -10,11 +11,11 @@ function post({ title, description, body, tagList }: ArticleEditData) {
 }
 
 interface GetParams {
-  tag?: string;
-  author?: string;
-  favorited?: string;
-  offset?: number;
-  limit?: number;
+  tag?: Tag;
+  author?: Username;
+  favorited?: Username;
+  offset?: Page;
+  limit?: Page;
 }
 function get({ tag, author, favorited, offset, limit }: GetParams) {
   return httpClient({
@@ -25,8 +26,8 @@ function get({ tag, author, favorited, offset, limit }: GetParams) {
 }
 
 interface GetFeedParams {
-  offset?: number;
-  limit?: number;
+  offset?: Page;
+  limit?: Page;
 }
 
 function getFeed({ offset, limit }: GetFeedParams) {
@@ -37,18 +38,18 @@ function getFeed({ offset, limit }: GetFeedParams) {
   }).then((data) => data);
 }
 
-function getBySlug(slug: string) {
+function getBySlug(slug: Slug) {
   return httpClient({ url: `/articles/${slug}`, method: 'GET' }).then((data) => data.article);
 }
 
 interface PutParams {
-  title: string;
-  description: string;
-  body: string;
-  tagList: string[];
+  title: Text;
+  description: Text;
+  body: Text;
+  tagList: Tag[];
 }
 
-function putBySlug(slug: string, { title, description, body, tagList }: PutParams) {
+function putBySlug(slug: Slug, { title, description, body, tagList }: PutParams) {
   return httpClient({
     url: `/articles/${slug}`,
     method: 'PUT',
@@ -56,15 +57,15 @@ function putBySlug(slug: string, { title, description, body, tagList }: PutParam
   });
 }
 
-function deleteBySlug(slug: string) {
+function deleteBySlug(slug: Slug) {
   return httpClient({ url: `/articles/${slug}`, method: 'DELETE' });
 }
 
-function postFavorite(slug: string) {
+function postFavorite(slug: Slug) {
   return httpClient({ url: `/articles/${slug}/favorite`, method: 'POST' }).then((data) => data.article);
 }
 
-function deleteFavorite(slug: string) {
+function deleteFavorite(slug: Slug) {
   return httpClient({ url: `/articles/${slug}/favorite`, method: 'DELETE' }).then((data) => data.article);
 }
 

@@ -21,13 +21,14 @@
 import { ref } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
-import CustomForm from '@/02_adapter/ui/components/CustomForm.vue';
+import type { Message } from '@/00_domain/common/value';
 import type { SignInData } from '@/01_application/ports/auth';
 import { useSignin } from '@/01_application/server-hooks/user/mutation';
+import CustomForm from '@/02_adapter/ui/components/CustomForm.vue';
 import router from '@/02_adapter/ui/router';
 
 const queryClient = useQueryClient();
-const errorMsg = ref<string>('');
+const errorMsg = ref<Message>('');
 
 const { mutateAsync } = useSignin(queryClient);
 
@@ -36,7 +37,7 @@ async function handleSubmit(data: SignInData) {
     await mutateAsync(data);
     router.push('/');
   } catch (e: unknown) {
-    errorMsg.value = e as string;
+    errorMsg.value = e as Message;
   }
 }
 </script>

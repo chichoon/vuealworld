@@ -5,8 +5,10 @@
 </template>
 
 <script setup lang="ts">
+import type { Message } from '@/00_domain/common/value';
+
 interface Props {
-  error?: Error | string;
+  error?: Error | Message;
 }
 
 const props = defineProps<Props>();

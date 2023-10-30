@@ -17,6 +17,7 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
+import type { Email, Password, Username } from '@/00_domain/common/value';
 import CustomButton from './CustomButton.vue';
 import CustomInput from './CustomInput.vue';
 
@@ -28,10 +29,10 @@ function handleSubmit(e: Event) {
   const formData = new FormData(e.target as HTMLFormElement);
   if (isSignup.value)
     emits('submit', {
-      username: formData.get('username') as string,
-      email: formData.get('email') as string,
-      password: formData.get('password') as string,
+      username: formData.get('username') as Username,
+      email: formData.get('email') as Email,
+      password: formData.get('password') as Password,
     });
-  else emits('submit', { email: formData.get('email') as string, password: formData.get('password') as string });
+  else emits('submit', { email: formData.get('email') as Email, password: formData.get('password') as Password });
 }
 </script>

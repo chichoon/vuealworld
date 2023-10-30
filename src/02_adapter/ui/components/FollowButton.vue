@@ -7,9 +7,11 @@
 </template>
 
 <script setup lang="ts">
+import type { Username } from '@/00_domain/common/value';
+
 interface Props {
   isFollowing: boolean;
-  username: string;
+  username: Username;
 }
 
 interface Emits {

@@ -1,10 +1,12 @@
+import type { Email, Password, Username } from '@/00_domain/common/value';
+
 export interface SignUpData {
-  username: string;
-  email: string;
-  password: string;
+  username: Username;
+  email: Email;
+  password: Password;
 }
 
 export interface SignInData {
-  email: string;
-  password: string;
+  email: Email;
+  password: Password;
 }

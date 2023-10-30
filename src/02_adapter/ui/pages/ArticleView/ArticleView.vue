@@ -44,10 +44,11 @@ import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query'
 import { useGetArticle } from '@/01_application/server-hooks/article/query';
 import ArticleMetadata from './ArticleMetadata.vue';
 import CommentSection from './CommentSection.vue';
+import type { Slug } from '@/00_domain/common/value';
 
 const route = useRoute();
 
-const routeToRef = ref(route.params.slug as string);
-const { data: articleInfo, isLoading, isError } = useGetArticle(routeToRef);
+const slugToRef = ref<Slug>(route.params.slug as Slug);
+const { data: articleInfo, isLoading, isError } = useGetArticle(slugToRef);
 const { data: currentUser } = useGetCurrentUserData();
 </script>

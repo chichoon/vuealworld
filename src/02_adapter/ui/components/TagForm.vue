@@ -15,15 +15,17 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
+import type { Tag } from '@/00_domain/common/value';
+
 interface Props {
-  tags: string[];
+  tags: Tag[];
 }
 
 defineProps<Props>();
 const emits = defineEmits(['update:tags']);
 
-const tagList = ref<string[]>([]);
-const newTag = ref('');
+const tagList = ref<Tag[]>([]);
+const newTag = ref<Tag>('');
 
 function handleSubmit() {
   tagList.value = [...new Set([...tagList.value, newTag.value])];
@@ -31,7 +33,7 @@ function handleSubmit() {
   newTag.value = '';
 }
 
-function handleDelete(tag: string) {
+function handleDelete(tag: Tag) {
   tagList.value = tagList.value.filter((t) => t !== tag);
 }
 </script>

@@ -1,4 +1,6 @@
-export function concatErrorMessage(errorObj: Record<string, string>): string {
+import type { Message } from '@/00_domain/common/value';
+
+export function concatErrorMessage(errorObj: Record<string, Message>): Message {
   const keys = Object.keys(errorObj);
 
   return keys.reduce((acc, cur) => {

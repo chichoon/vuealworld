@@ -63,13 +63,14 @@ import { computed } from 'vue';
 import { RouterLink, useRoute } from 'vue-router';
 import { useQueryClient } from '@tanstack/vue-query';
 
+import type { Username } from '@/00_domain/common/value';
+import { usePostFollow, useDeleteFollow } from '@/01_application/server-hooks/profile/mutation';
+import { useGetProfile } from '@/01_application/server-hooks/profile/query';
+import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
 import LoadingComponent from '@/02_adapter/ui/components/LoadingComponent.vue';
 import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
 import FollowButton from '@/02_adapter/ui/components/FollowButton.vue';
 import NavigationTab from '@/02_adapter/ui/components/NavigationTab.vue';
-import { usePostFollow, useDeleteFollow } from '@/01_application/server-hooks/profile/mutation';
-import { useGetProfile } from '@/01_application/server-hooks/profile/query';
-import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
 import router from '@/02_adapter/ui/router';
 import MyArticlesList from './MyArticlesList.vue';
 import FavoritedArticlesList from './FavoritedArticlesList.vue';
@@ -77,7 +78,7 @@ import FavoritedArticlesList from './FavoritedArticlesList.vue';
 const route = useRoute();
 const queryClient = useQueryClient();
 
-const usernameToRef = computed(() => route.params.username as string);
+const usernameToRef = computed<Username>(() => route.params.username as Username);
 const { data: userInfo, isLoading, isError } = useGetProfile(usernameToRef);
 const { data: currentUser } = useGetCurrentUserData();
 

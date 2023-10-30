@@ -1,8 +1,10 @@
+import type { Tag, Text } from '@/00_domain/common/value';
+
 export interface ArticleEditData {
-  title: string;
-  description: string;
-  body: string;
-  tagList: string[];
+  title: Text;
+  description: Text;
+  body: Text;
+  tagList: Tag[];
 }
 
 export interface ArticlesResponse {

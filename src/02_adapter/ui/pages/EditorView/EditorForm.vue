@@ -44,16 +44,17 @@
 import { ref, toRef, watch } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
+import type { Message, Slug, Tag, Text } from '@/00_domain/common/value';
+import { useGetArticle } from '@/01_application/server-hooks/article/query';
+import { usePutEditArticle } from '@/01_application/server-hooks/article/mutation';
 import LoadingComponent from '@/02_adapter/ui/components/LoadingComponent.vue';
 import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
 import CustomInput from '@/02_adapter/ui/components/CustomInput.vue';
 import TagForm from '@/02_adapter/ui/components/TagForm.vue';
-import { useGetArticle } from '@/01_application/server-hooks/article/query';
-import { usePutEditArticle } from '@/01_application/server-hooks/article/mutation';
 import router from '@/02_adapter/ui/router';
 
 interface Props {
-  slug: string;
+  slug: Slug;
 }
 
 const props = defineProps<Props>();
@@ -61,8 +62,8 @@ const queryClient = useQueryClient();
 
 const slugToRef = toRef(props.slug);
 const { data: articleData, isLoading, isError } = useGetArticle(slugToRef);
-const tagList = ref<string[]>([...(articleData.value?.tagList ?? [])]);
-const errorMsg = ref<string>('');
+const tagList = ref<Tag[]>([...(articleData.value?.tagList ?? [])]);
+const errorMsg = ref<Message>('');
 
 const { mutateAsync } = usePutEditArticle(queryClient, slugToRef);
 
@@ -70,14 +71,14 @@ async function handleSubmit(e: Event) {
   try {
     const formData = new FormData(e.target as HTMLFormElement);
     await mutateAsync({
-      title: formData.get('title') as string,
-      description: formData.get('description') as string,
-      body: formData.get('body') as string,
+      title: formData.get('title') as Text,
+      description: formData.get('description') as Text,
+      body: formData.get('body') as Text,
       tagList: tagList.value,
     });
     router.push(`/article/${props.slug}`);
   } catch (e: unknown) {
-    errorMsg.value = e as string;
+    errorMsg.value = e as Message;
   }
 }
 

@@ -1,6 +1,8 @@
+import type { Page, Tag, Username } from '@/00_domain/common/value';
+
 export interface ArticleFavoriteParams {
   type: 'feed' | 'global' | 'favorited' | 'author' | 'tagged';
-  page: Ref<number>;
-  by?: Ref<string>;
-  tag?: Ref<string>;
+  page: Ref<Page>;
+  by?: Ref<Username>;
+  tag?: Ref<Tag>;
 }

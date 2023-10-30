@@ -7,15 +7,17 @@
 </template>
 
 <script lang="ts" setup>
+import type { Page } from '@/00_domain/common/value';
+
 interface Props {
-  currentPage: number;
-  totalPages: number;
+  currentPage: Page;
+  totalPages: Page;
 }
 
 const emits = defineEmits(['update:currentPage']);
 const props = defineProps<Props>();
 
-function handleClickPage(pageNum: number) {
+function handleClickPage(pageNum: Page) {
   emits('update:currentPage', pageNum);
 }
 </script>

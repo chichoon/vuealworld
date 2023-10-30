@@ -13,7 +13,7 @@
         <div class="col-md-9">
           <NavigationTab
             class="feed-toggle"
-            :tab-names="['Your Feed', 'Global Feed', route.query.tag as string]"
+            :tab-names="['Your Feed', 'Global Feed', route.query.tag as Tag]"
             :is-active="[
               (!route.query.tab || route.query.tab === 'my-feed') && !route.query.tag,
               route.query.tab === 'global-feed' && !route.query.tag,
@@ -57,11 +57,12 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 
+import type { Tag } from '@/00_domain/common/value';
+import { useGetTags } from '@/01_application/server-hooks/tag/query';
+import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
 import LoadingComponent from '@/02_adapter/ui/components/LoadingComponent.vue';
 import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
 import NavigationTab from '@/02_adapter/ui/components/NavigationTab.vue';
-import { useGetTags } from '@/01_application/server-hooks/tag/query';
-import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
 import router from '@/02_adapter/ui/router';
 import MyFeedList from './MyFeedList.vue';
 import GlobalFeedList from './GlobalFeedList.vue';
@@ -79,7 +80,7 @@ function handleClickGlobalFeed() {
   router.replace({ path: '', query: { tab: 'global-feed' } });
 }
 
-function handleClickTags(tag: string) {
+function handleClickTags(tag: Tag) {
   router.replace({ path: '', query: { tag } });
 }
 </script>

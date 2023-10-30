@@ -17,23 +17,24 @@
 import { computed, ref, toRef } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
+import type { Page, Username } from '@/00_domain/common/value';
+import { useGetArticlesByAuthor } from '@/01_application/server-hooks/article/query';
+import { useDeleteFavorite, usePostFavorite } from '@/01_application/server-hooks/article/mutation';
 import LoadingComponent from '@/02_adapter/ui/components/LoadingComponent.vue';
 import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
 import PaginationComponent from '@/02_adapter/ui/components/PaginationComponent.vue';
 import ArticlePreview from '@/02_adapter/ui/components/ArticlePreview.vue';
-import { useGetArticlesByAuthor } from '@/01_application/server-hooks/article/query';
-import { useDeleteFavorite, usePostFavorite } from '@/01_application/server-hooks/article/mutation';
 
 interface Props {
-  username: string;
+  username: Username;
 }
 
 const props = defineProps<Props>();
 
-const currentPage = ref(1);
-const usernameToRef = toRef(props.username);
+const currentPage = ref<Page>(1);
+const usernameToRef = toRef<Username>(props.username);
 const { data: articlesInfo, isLoading, isError } = useGetArticlesByAuthor(usernameToRef, currentPage);
-const totalPages = computed(() => Math.ceil((articlesInfo.value?.articlesCount ?? 10) / 10));
+const totalPages = computed<Page>(() => Math.ceil((articlesInfo.value?.articlesCount ?? 10) / 10));
 const queryClient = useQueryClient();
 
 const { mutate: favoriteMutate } = usePostFavorite(queryClient, {

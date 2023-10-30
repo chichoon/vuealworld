@@ -1,11 +1,13 @@
+import type { Slug, Text, Timestamp } from '../common/value';
+
 export interface ArticleData {
-  slug: string;
-  title: string;
-  description: string;
-  body: string;
-  tagList: string[];
-  createdAt: string;
-  updatedAt: string;
+  slug: Slug;
+  title: Text;
+  description: Text;
+  body: Text;
+  tagList: Tag[];
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
   favorited: boolean;
   favoritesCount: number;
   author: AuthorData;

@@ -1,6 +1,8 @@
+import type { Text, URLString, Username } from '../common/value';
+
 export interface ProfileData {
-  username: string;
-  bio: string;
-  image: string;
+  username: Username;
+  bio: Text;
+  image: URLString;
   following: boolean;
 }
