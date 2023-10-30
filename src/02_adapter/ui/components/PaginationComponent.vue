@@ -1,7 +1,7 @@
 <template>
   <ul class="pagination">
     <li v-for="page in props.totalPages" :key="page" class="page-item" :class="{ active: page === props.currentPage }">
-      <button class="page-link" @click="() => handleClickPage(page)">{{ page }}</button>
+      <button data-testid="pagination-button" class="page-link" @click="() => handleClickPage(page)">{{ page }}</button>
     </li>
   </ul>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="article-preview">
+  <div class="article-preview" data-testid="article-preview">
     <div class="article-meta">
       <RouterLink :to="`/profile/${props.articleInfo.author.username}`"
         ><img
