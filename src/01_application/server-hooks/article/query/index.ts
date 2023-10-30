@@ -1,3 +1,8 @@
 export { useGetArticle } from './useGetArticle';
-export { useGetArticles } from './useGetArticles';
+export {
+  useGetArticles,
+  useGetArticlesByTag,
+  useGetArticlesByAuthor,
+  useGetArticlesByFavorited,
+} from './useGetArticles';
 export { useGetFeeds } from './useGetFeeds';
