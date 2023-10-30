@@ -5,7 +5,7 @@ import { VueQueryPlugin } from '@tanstack/vue-query';
 import VueCookies from 'vue3-cookies';
 
 import App from './App.vue';
-import router from './router';
+import router from '@/02_adapter/ui/router';
 
 const app = createApp(App);
 

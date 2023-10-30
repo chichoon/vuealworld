@@ -1,7 +1,7 @@
 import type { Ref } from 'vue';
 import { QueryClient, useMutation } from '@tanstack/vue-query';
 
-import profile from '@/services/profile';
+import profile from '@/02_adapter/services/profile';
 import { profileKeys } from '../query-key';
 import { articleKeys } from '@/01_application/server-hooks/article/query-key';
 
