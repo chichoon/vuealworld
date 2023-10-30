@@ -9,7 +9,7 @@
     <fieldset class="form-group">
       <CustomInput type="password" placeholder="Password" name="password" />
     </fieldset>
-    <CustomButton type="submit" text="Sign up" />
+    <CustomButton type="submit" :text="isSignup ? 'Sign up' : 'Sign in'" />
   </form>
 </template>
 
