@@ -29,3 +29,4 @@ coverage
 .vite
 
 test-results
+.env행
