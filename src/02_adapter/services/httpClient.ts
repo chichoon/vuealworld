@@ -1,7 +1,6 @@
 import { useCookies } from 'vue3-cookies';
 
-import createURLParams from '@/utils/createURLParams';
-import { concatErrorMessage } from '@/utils/concatErrorMessage';
+import { concatErrorMessage, createURLParams } from '@/02_adapter/common/utils';
 
 interface Params {
   url: string;
