@@ -14,7 +14,7 @@
           <a class="nav-link" href="/settings"> <i class="ion-gear-a"></i>&nbsp;Settings </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" :href="`/profile/${props.userInfo.username}`">
+          <a class="nav-link" data-testid="nav-userdata" :href="`/profile/${props.userInfo.username}`">
             <img :src="props.userInfo.image" class="user-pic" />
             {{ props.userInfo.username }}
           </a>
