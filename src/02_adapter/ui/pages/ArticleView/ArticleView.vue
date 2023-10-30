@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { ref } from 'vue';
+import { toRef } from 'vue';
 
 import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
 import LoadingComponent from '@/02_adapter/ui/components/LoadingComponent.vue';
@@ -48,7 +48,7 @@ import type { Slug } from '@/00_domain/common/value';
 
 const route = useRoute();
 
-const slugToRef = ref<Slug>(route.params.slug as Slug);
+const slugToRef = toRef<Slug>(route.params.slug as Slug);
 const { data: articleInfo, isLoading, isError } = useGetArticle(slugToRef);
 const { data: currentUser } = useGetCurrentUserData();
 </script>

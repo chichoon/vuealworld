@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, type Ref } from 'vue';
+import { toRef, type Ref } from 'vue';
 
 import type { ArticleData } from '@/00_domain/entity/article';
 import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
@@ -60,7 +60,7 @@ interface Emits {
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
-const slugToRef = ref<Slug>(props.articleInfo.slug);
+const slugToRef = toRef<Slug>(props.articleInfo.slug);
 const { data: currentUser } = useGetCurrentUserData();
 
 function handleClickFavorite() {

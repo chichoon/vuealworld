@@ -35,11 +35,12 @@
 import { toRef } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
-import FollowButton from '@/02_adapter/ui/components/FollowButton.vue';
-import FavoriteButton from '@/02_adapter/ui/components/FavoriteButton.vue';
+import type { AuthorData } from '@/00_domain/entity/author';
+import type { ArticleData } from '@/00_domain/entity/article';
 import { useDeleteArticle, useDeleteFavorite, usePostFavorite } from '@/01_application/server-hooks/article/mutation';
 import { useDeleteFollow, usePostFollow } from '@/01_application/server-hooks/profile/mutation';
-import type { ArticleData } from '@/00_domain/entity/article';
+import FollowButton from '@/02_adapter/ui/components/FollowButton.vue';
+import FavoriteButton from '@/02_adapter/ui/components/FavoriteButton.vue';
 import router from '@/02_adapter/ui/router';
 
 interface Props {
@@ -52,8 +53,8 @@ const props = defineProps<Props>();
 // props를 destructuring 하면 반응성이 깨어지므로 데이터의 변화를 감지하지 못하게 된다
 
 const queryClient = useQueryClient();
-const slugToRef = toRef(props.articleInfo.slug);
-const usernameToRef = toRef(props.articleInfo.author, 'username');
+const slugToRef = toRef<ArticleData, 'slug'>(props.articleInfo, 'slug');
+const usernameToRef = toRef<AuthorData, 'username'>(props.articleInfo.author, 'username');
 const { mutate: favoriteMutate } = usePostFavorite(queryClient);
 const { mutate: unfavoriteMutate } = useDeleteFavorite(queryClient);
 const { mutate: followMutate } = usePostFollow(queryClient, usernameToRef, slugToRef);

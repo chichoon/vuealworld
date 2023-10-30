@@ -17,7 +17,7 @@
 import { computed, ref, toRef } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
-import { Page, type Username } from '@/00_domain/common/value';
+import type { Page, Username } from '@/00_domain/common/value';
 import { useDeleteFavorite, usePostFavorite } from '@/01_application/server-hooks/article/mutation';
 import { useGetArticlesByFavorited } from '@/01_application/server-hooks/article/query';
 import LoadingComponent from '@/02_adapter/ui/components/LoadingComponent.vue';

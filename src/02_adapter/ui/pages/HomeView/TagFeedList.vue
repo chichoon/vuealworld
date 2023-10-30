@@ -24,7 +24,7 @@ import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
 import PaginationComponent from '@/02_adapter/ui/components/PaginationComponent.vue';
 import { useDeleteFavorite, usePostFavorite } from '@/01_application/server-hooks/article/mutation';
 import { useGetArticlesByTag } from '@/01_application/server-hooks/article/query';
-import { Tag, type Page } from '@/00_domain/common/value';
+import type { Tag, Page } from '@/00_domain/common/value';
 
 const route = useRoute();
 const currentPage = ref<Page>(1);

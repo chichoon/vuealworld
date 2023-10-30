@@ -60,7 +60,7 @@ interface Props {
 const props = defineProps<Props>();
 const queryClient = useQueryClient();
 
-const slugToRef = toRef(props.slug);
+const slugToRef = toRef<Props, 'slug'>(props, 'slug');
 const { data: articleData, isLoading, isError } = useGetArticle(slugToRef);
 const tagList = ref<Tag[]>([...(articleData.value?.tagList ?? [])]);
 const errorMsg = ref<Message>('');
