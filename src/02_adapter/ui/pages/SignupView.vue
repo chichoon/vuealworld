@@ -20,10 +20,10 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import CustomForm from '@/components/CustomForm.vue';
-import type { SignUpData } from '@/types/userData';
-import { useSignup } from '@/hooks/user';
-import router from '@/router';
+import CustomForm from '@/02_adapter/ui/components/CustomForm.vue';
+import type { SignUpData } from '@/01_application/ports/auth';
+import { useSignup } from '@/01_application/server-hooks/user/mutation';
+import router from '@/02_adapter/ui/router';
 
 const errorMsg = ref<string>('');
 

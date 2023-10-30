@@ -24,8 +24,8 @@
 </template>
 
 <script setup lang="ts">
-import { useGetCurrentUserData } from '@/hooks/user';
-import type { CommentData } from '@/types/comments';
+import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
+import type { CommentData } from '@/00_domain/entity/comment';
 
 interface Props {
   commentInfo: CommentData;

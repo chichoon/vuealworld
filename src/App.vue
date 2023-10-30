@@ -8,9 +8,10 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
 
-import { NavHeader, AuthenticatedNavHeader } from './components/NavHeader';
-import FooterComponent from './components/FooterComponent.vue';
-import { useGetCurrentUserData } from './hooks/user';
+import NavHeader from '@/02_adapter/ui/components/NavHeader.vue';
+import AuthenticatedNavHeader from '@/02_adapter/ui/components/AuthenticatedNavHeader.vue';
+import FooterComponent from '@/02_adapter/ui/components/FooterComponent.vue';
+import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
 
 const { data } = useGetCurrentUserData();
 </script>

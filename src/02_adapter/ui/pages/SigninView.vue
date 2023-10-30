@@ -21,10 +21,10 @@
 import { ref } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
-import CustomForm from '@/components/CustomForm.vue';
-import type { SignInData } from '@/types/userData';
-import { useSignin } from '@/hooks/user';
-import router from '@/router';
+import CustomForm from '@/02_adapter/ui/components/CustomForm.vue';
+import type { SignInData } from '@/01_application/ports/auth';
+import { useSignin } from '@/01_application/server-hooks/user/mutation';
+import router from '@/02_adapter/ui/router';
 
 const queryClient = useQueryClient();
 const errorMsg = ref<string>('');

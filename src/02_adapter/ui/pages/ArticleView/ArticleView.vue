@@ -38,10 +38,10 @@
 import { useRoute } from 'vue-router';
 import { ref } from 'vue';
 
-import ErrorComponent from '@/components/ErrorComponent.vue';
-import LoadingComponent from '@/components/LoadingComponent.vue';
-import { useGetCurrentUserData } from '@/hooks/user';
-import { useGetArticle } from '@/hooks/article';
+import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
+import LoadingComponent from '@/02_adapter/ui/components/LoadingComponent.vue';
+import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
+import { useGetArticle } from '@/01_application/server-hooks/article/query';
 import ArticleMetadata from './ArticleMetadata.vue';
 import CommentSection from './CommentSection.vue';
 

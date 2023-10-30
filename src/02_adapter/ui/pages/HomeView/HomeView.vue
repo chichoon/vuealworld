@@ -57,12 +57,12 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 
-import LoadingComponent from '@/components/LoadingComponent.vue';
-import ErrorComponent from '@/components/ErrorComponent.vue';
-import NavigationTab from '@/components/NavigationTab.vue';
-import { useGetTags } from '@/hooks/tag';
-import { useGetCurrentUserData } from '@/hooks/user';
-import router from '@/router';
+import LoadingComponent from '@/02_adapter/ui/components/LoadingComponent.vue';
+import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
+import NavigationTab from '@/02_adapter/ui/components/NavigationTab.vue';
+import { useGetTags } from '@/01_application/server-hooks/tag/query';
+import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
+import router from '@/02_adapter/ui/router';
 import MyFeedList from './MyFeedList.vue';
 import GlobalFeedList from './GlobalFeedList.vue';
 import TagFeedList from './TagFeedList.vue';

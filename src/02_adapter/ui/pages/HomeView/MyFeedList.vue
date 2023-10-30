@@ -17,10 +17,10 @@
 import { computed, ref } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
-import ArticlePreview from '@/components/ArticlePreview.vue';
-import LoadingComponent from '@/components/LoadingComponent.vue';
-import ErrorComponent from '@/components/ErrorComponent.vue';
-import PaginationComponent from '@/components/PaginationComponent.vue';
+import ArticlePreview from '@/02_adapter/ui/components/ArticlePreview.vue';
+import LoadingComponent from '@/02_adapter/ui/components/LoadingComponent.vue';
+import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
+import PaginationComponent from '@/02_adapter/ui/components/PaginationComponent.vue';
 import { useDeleteFavorite, useGetFeeds, usePostFavorite } from '@/hooks/article';
 
 const currentPage = ref(1);

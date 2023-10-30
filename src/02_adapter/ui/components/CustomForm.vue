@@ -17,7 +17,7 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
-import CustomButton from '@/components/CustomButton.vue';
+import CustomButton from './CustomButton.vue';
 import CustomInput from './CustomInput.vue';
 
 const emits = defineEmits(['submit']);

@@ -17,11 +17,12 @@
 import { computed, ref, toRef } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
-import LoadingComponent from '@/components/LoadingComponent.vue';
-import ErrorComponent from '@/components/ErrorComponent.vue';
-import PaginationComponent from '@/components/PaginationComponent.vue';
-import ArticlePreview from '@/components/ArticlePreview.vue';
-import { useDeleteFavorite, useGetArticlesByFavorited, usePostFavorite } from '@/hooks/article';
+import LoadingComponent from '@/02_adapter/ui/components/LoadingComponent.vue';
+import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
+import PaginationComponent from '@/02_adapter/ui/components/PaginationComponent.vue';
+import ArticlePreview from '@/02_adapter/ui/components/ArticlePreview.vue';
+import { useDeleteFavorite, usePostFavorite } from '@/01_application/server-hooks/article/mutation';
+import { useGetArticlesByFavorited } from '@/01_application/server-hooks/article/query';
 
 interface Props {
   username: string;

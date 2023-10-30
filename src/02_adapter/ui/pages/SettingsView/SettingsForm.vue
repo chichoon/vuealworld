@@ -29,15 +29,16 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 
-import CustomInput from '@/components/CustomInput.vue';
-import CustomButton from '@/components/CustomButton.vue';
-import LoadingComponent from '@/components/LoadingComponent.vue';
-import ErrorComponent from '@/components/ErrorComponent.vue';
-import { useGetCurrentUserData, usePutUserInfo } from '@/hooks/user';
-import router from '@/router';
+import CustomInput from '@/02_adapter/ui/components/CustomInput.vue';
+import CustomButton from '@/02_adapter/ui/components/CustomButton.vue';
+import LoadingComponent from '@/02_adapter/ui/components/LoadingComponent.vue';
+import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
+import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
+import { usePutEditUserInfo } from '@/01_application/server-hooks/user/mutation';
+import router from '@/02_adapter/ui/router';
 
 const { data: currentUser, isLoading, isError } = useGetCurrentUserData();
-const { mutateAsync } = usePutUserInfo();
+const { mutateAsync } = usePutEditUserInfo();
 
 const password = ref('');
 const errorMsg = ref('');

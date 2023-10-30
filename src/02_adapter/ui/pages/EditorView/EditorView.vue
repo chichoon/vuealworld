@@ -17,8 +17,8 @@ import { useRoute } from 'vue-router';
 
 import EditorForm from './EditorForm.vue';
 import CreateForm from './CreateForm.vue';
-import { useGetCurrentUserData } from '@/hooks/user';
-import ErrorComponent from '@/components/ErrorComponent.vue';
+import { useGetCurrentUserData } from '@/01_application/server-hooks/user/query';
+import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
 
 const routes = useRoute();
 

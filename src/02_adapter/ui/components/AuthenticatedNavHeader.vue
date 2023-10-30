@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import type { UserData } from '@/types/userData';
+import type { UserData } from '@/00_domain/entity/user';
 
 interface Props {
   userInfo: UserData;

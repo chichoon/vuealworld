@@ -25,7 +25,8 @@
 import { ref, toRef } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
-import { useDeleteComment, useGetComments, usePostComment } from '@/hooks/comments';
+import { useGetComments } from '@/01_application/server-hooks/comment/query';
+import { useDeleteComment, usePostComment } from '@/01_application/server-hooks/comment/mutation';
 import CommentComponent from './CommentComponent.vue';
 
 interface Props {

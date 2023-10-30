@@ -42,14 +42,15 @@
 
 <script lang="ts" setup>
 import { ref, toRef, watch } from 'vue';
-
-import LoadingComponent from '@/components/LoadingComponent.vue';
-import ErrorComponent from '@/components/ErrorComponent.vue';
-import CustomInput from '@/components/CustomInput.vue';
-import TagForm from '@/components/TagForm.vue';
-import { useGetArticle, usePutEditArticle } from '@/hooks/article';
-import router from '@/router';
 import { useQueryClient } from '@tanstack/vue-query';
+
+import LoadingComponent from '@/02_adapter/ui/components/LoadingComponent.vue';
+import ErrorComponent from '@/02_adapter/ui/components/ErrorComponent.vue';
+import CustomInput from '@/02_adapter/ui/components/CustomInput.vue';
+import TagForm from '@/02_adapter/ui/components/TagForm.vue';
+import { useGetArticle } from '@/01_application/server-hooks/article/query';
+import { usePutEditArticle } from '@/01_application/server-hooks/article/mutation';
+import router from '@/02_adapter/ui/router';
 
 interface Props {
   slug: string;
