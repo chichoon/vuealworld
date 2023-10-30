@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/vue-query';
 import { useCookies } from 'vue3-cookies';
 
-import user from '@/services/user';
+import user from '@/02_adapter/services/user';
 import type { UserData } from '@/00_domain/entity/user';
 import { userKeys } from '../query-key';
 
