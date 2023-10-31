@@ -7,6 +7,7 @@ export async function login(page: Page) {
   await page.getByPlaceholder('Email').fill(process.env.EMAIL);
   await page.getByPlaceholder('Password').fill(process.env.PASSWORD);
   await page.getByRole('button', { name: 'Sign in' }).click();
+  await page.waitForTimeout(1000);
   await expect(page).toHaveURL('/');
 
   await page.waitForTimeout(1000);
