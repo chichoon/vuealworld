@@ -1,24 +1,36 @@
 import { test, expect } from '@playwright/test';
 
-test('Register and Login test', async ({ page }) => {
-  await page.goto('/register');
-  await expect(page).toHaveURL('/register');
+function randomIDGenerator() {
+  return `a${Math.random()}atest`;
+}
 
-  const SID = Math.random();
-  await page.getByPlaceholder('Username').fill(`aaatest${SID}`);
-  await page.getByPlaceholder('Email').fill(`aaatest${SID}@gmail.com`);
-  await page.getByPlaceholder('Password').fill(`aaatest${SID}`);
-  await page.getByRole('button', { name: 'Sign up' }).click();
-  await expect(page).toHaveURL('/');
+test('Register, Login, Logout test', async ({ page }) => {
+  const id = randomIDGenerator();
+  await test.step('Register', async () => {
+    await page.goto('/register');
+    await expect(page).toHaveURL('/register');
 
-  await page.goto('/login');
-  await expect(page).toHaveURL('/login');
+    await page.getByPlaceholder('Username').fill(`${id}`);
+    await page.getByPlaceholder('Email').fill(`${id}@gmail.com`);
+    await page.getByPlaceholder('Password').fill(`${id}`);
+    await page.getByRole('button', { name: 'Sign up' }).click();
+    await expect(page).toHaveURL('/');
+  });
 
-  await page.getByPlaceholder('Email').fill(`aaatest${SID}@gmail.com`);
-  await page.getByPlaceholder('Password').fill(`aaatest${SID}`);
-  await page.getByRole('button', { name: 'Sign in' }).click();
-  await expect(page).toHaveURL('/');
+  await test.step('Login', async () => {
+    await page.goto('/login');
+    await expect(page).toHaveURL('/login');
 
-  const headerInfo = page.getByTestId('nav-userdata');
-  await expect(headerInfo).toHaveText(`aaatest${SID}`);
+    await page.getByPlaceholder('Email').fill(`${id}@gmail.com`);
+    await page.getByPlaceholder('Password').fill(`${id}`);
+    await page.getByRole('button', { name: 'Sign in' }).click();
+    await expect(page).toHaveURL('/');
+
+    const headerInfo = page.getByTestId('nav-userdata');
+    await expect(headerInfo).toHaveText(`${id}`);
+  });
+
+  await test.step('Logout', async () => {
+    await page.goto(`/profile/${id}`);
+  });
 });
