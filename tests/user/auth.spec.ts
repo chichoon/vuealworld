@@ -17,7 +17,7 @@ test('Register, Login, Logout test', async ({ page }) => {
     await expect(page).toHaveURL('/');
   });
 
-  await test.step('Login', async () => {
+  await test.step('Login and Logout', async () => {
     await page.goto('/login');
     await expect(page).toHaveURL('/login');
 
@@ -28,9 +28,25 @@ test('Register, Login, Logout test', async ({ page }) => {
 
     const headerInfo = page.getByTestId('nav-userdata');
     await expect(headerInfo).toHaveText(`${id}`);
-  });
 
-  await test.step('Logout', async () => {
-    await page.goto(`/profile/${id}`);
+    const settingsBtn = page.getByRole('link', { name: 'Settings' });
+    await expect(settingsBtn).toHaveAttribute('href', '/settings');
+
+    page.on('dialog', async (dialog) => {
+      expect(dialog.message()).toContain('Are you sure you want to logout?');
+      await dialog.accept();
+    });
+
+    await settingsBtn.click();
+    await expect(page).toHaveURL('/settings');
+
+    await page.waitForSelector('.form-control');
+    const logoutBtn = page.getByRole('button', { name: 'Or click here to logout.' });
+    await logoutBtn.click();
+
+    await page.waitForURL('/');
+    await expect(page).toHaveURL('/');
+    await expect(page.getByRole('link', { name: 'Sign in' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Sign up' })).toBeVisible();
   });
 });
