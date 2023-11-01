@@ -36,12 +36,12 @@ import { toRef } from 'vue';
 import { useQueryClient } from '@tanstack/vue-query';
 
 import type { ArticleData } from '@/00_domain/entity/article';
+import type { ProfileData } from '@/00_domain/entity/user';
 import { useDeleteArticle, useDeleteFavorite, usePostFavorite } from '@/01_application/server-hooks/article/mutation';
 import { useDeleteFollow, usePostFollow } from '@/01_application/server-hooks/profile/mutation';
 import FollowButton from '@/02_adapter/ui/components/FollowButton.vue';
 import FavoriteButton from '@/02_adapter/ui/components/FavoriteButton.vue';
 import router from '@/02_adapter/ui/router';
-import type { ProfileData } from '@/00_domain/entity/profile';
 
 interface Props {
   articleInfo: ArticleData;

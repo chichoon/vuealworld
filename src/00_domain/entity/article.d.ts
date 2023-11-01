@@ -1,5 +1,5 @@
 import type { Slug, Text, Timestamp } from '../common/value';
-import type { ProfileData } from './profile';
+import type { ProfileData } from './user';
 
 export interface ArticleData {
   slug: Slug;
