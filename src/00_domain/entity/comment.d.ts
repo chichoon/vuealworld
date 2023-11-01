@@ -1,10 +1,10 @@
 import type { ID, Text, Timestamp } from '../common/value';
-import type { AuthorData } from './author';
+import type { ProfileData } from './profile';
 
 export interface CommentData {
   id: ID;
   createdAt: Timestamp;
   updatedAt: Timestamp;
   body: Text;
-  author: AuthorData;
+  author: ProfileData;
 }

@@ -1,4 +1,5 @@
 import type { Slug, Text, Timestamp } from '../common/value';
+import type { ProfileData } from './profile';
 
 export interface ArticleData {
   slug: Slug;
@@ -10,5 +11,5 @@ export interface ArticleData {
   updatedAt: Timestamp;
   favorited: boolean;
   favoritesCount: number;
-  author: AuthorData;
+  author: ProfileData;
 }
