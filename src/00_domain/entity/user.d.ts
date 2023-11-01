@@ -1,4 +1,4 @@
-import type { Email, ID, URLString, JWTToken, Username, Text } from '../common/value';
+import type { Email, URLString, JWTToken, Username, Text } from '../common/value';
 
 interface User {
   username: Username;
@@ -8,8 +8,7 @@ interface User {
 
 export interface UserData extends User {
   email: Email;
-  token?: JWTToken;
-  id?: ID;
+  token: JWTToken;
 }
 
 export interface ProfileData extends User {
