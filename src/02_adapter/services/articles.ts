@@ -1,4 +1,4 @@
-import type { ArticleEditData } from '@/01_application/ports/article';
+import type { ArticleEditData } from '@/01_application/ports/outbound/article';
 import { httpClient } from './httpClient';
 import type { Page, Slug, Tag, Text, Username } from '@/00_domain/common/value';
 

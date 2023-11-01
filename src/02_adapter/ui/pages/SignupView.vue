@@ -21,7 +21,7 @@
 import { ref } from 'vue';
 
 import type { Message } from '@/00_domain/common/value';
-import type { SignUpData } from '@/01_application/ports/auth';
+import type { SignUpData } from '@/01_application/ports/outbound/auth';
 import { useSignup } from '@/01_application/server-hooks/user/mutation';
 import CustomForm from '@/02_adapter/ui/components/CustomForm.vue';
 import router from '@/02_adapter/ui/router';

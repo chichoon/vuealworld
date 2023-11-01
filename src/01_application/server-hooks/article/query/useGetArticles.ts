@@ -2,7 +2,7 @@ import type { Ref } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 
 import type { Page, Tag, Username } from '@/00_domain/common/value';
-import type { ArticlesResponse } from '@/01_application/ports/article';
+import type { ArticlesResponse } from '@/01_application/ports/inbound/article';
 import { CACHE_TIME, STALE_TIME } from '@/01_application/common/constants';
 import articles from '@/02_adapter/services/articles';
 import { articleKeys } from '../query-key';

@@ -6,8 +6,3 @@ export interface ArticleEditData {
   body: Text;
   tagList: Tag[];
 }
-
-export interface ArticlesResponse {
-  articles: ArticleData[];
-  articlesCount: number;
-}
