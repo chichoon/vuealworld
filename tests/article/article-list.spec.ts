@@ -8,14 +8,14 @@ async function testArticlesCountFromPath(page: Page, path: string) {
 
   const articlesCountFromResponse = articlesResponse.articlesCount;
   const paginationList = await page.getByTestId('pagination-button').all();
-  const pageButton = paginationList[paginationList.length - 1];
-  await pageButton.click();
+  await paginationList[paginationList.length - 1].click();
 
   if (paginationList.length > 1) {
     await page.waitForResponse((res) =>
       res.url().endsWith(`${path}offset=${(paginationList.length - 1) * 10}&limit=10`),
     );
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(5000);
+    await page.locator('.article-preview').first().waitFor({ state: 'visible' });
   }
   const articlesCount = (await page.getByTestId('article-preview').count()) + (paginationList.length - 1) * 10;
   expect(articlesCount).toEqual(articlesCountFromResponse);
@@ -24,7 +24,7 @@ async function testArticlesCountFromPath(page: Page, path: string) {
 test('User Feed test', async ({ page }) => {
   await login(page);
   await page.goto('/');
-  await page.waitForSelector('text=Your Feed');
+  await page.locator('text=Your Feed').waitFor({ state: 'visible' });
 
   await testArticlesCountFromPath(page, '/feed?');
 });
@@ -32,7 +32,7 @@ test('User Feed test', async ({ page }) => {
 test('Global Feed test', async ({ page }) => {
   await login(page);
   await page.goto('/');
-  await page.waitForSelector('text=Global Feed');
+  await page.locator('text=Global Feed').waitFor({ state: 'visible' });
 
   await page.getByRole('button', { name: 'Global Feed' }).click();
   await testArticlesCountFromPath(page, '/articles?');
@@ -41,7 +41,7 @@ test('Global Feed test', async ({ page }) => {
 test('Tag Feed test', async ({ page }) => {
   await login(page);
   await page.goto('/');
-  await page.waitForSelector('text=qui');
+  await page.locator('text=qui').waitFor({ state: 'visible' });
 
   await page.getByRole('button', { name: 'qui' }).click();
   await testArticlesCountFromPath(page, '/articles?tag=qui&');
@@ -50,7 +50,7 @@ test('Tag Feed test', async ({ page }) => {
 test('My Articles test', async ({ page }) => {
   await login(page);
   await page.getByTestId('nav-userdata').click();
-  await page.waitForSelector('text=My Articles');
+  await page.locator('text=My Articles').waitFor({ state: 'visible' });
 
   await testArticlesCountFromPath(page, `/articles?author=${process.env.USERNAME}&`);
 });
@@ -58,7 +58,7 @@ test('My Articles test', async ({ page }) => {
 test('Favorited Articles test', async ({ page }) => {
   await login(page);
   await page.getByTestId('nav-userdata').click();
-  await page.waitForSelector('text=Favorited Articles');
+  await page.locator('text=Favorited Articles').waitFor({ state: 'visible' });
 
   await page.getByRole('button', { name: 'Favorited Articles' }).click();
   await testArticlesCountFromPath(page, `/articles?favorited=${process.env.USERNAME}&`);
