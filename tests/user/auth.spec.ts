@@ -39,13 +39,14 @@ test('User Login and Logout', async ({ page }) => {
     await settingsBtn.click();
     await expect(page).toHaveURL('/settings');
 
-    await page.locator('.form-control').waitFor({ state: 'visible' });
-  });
-  const logoutBtn = page.getByRole('button', { name: 'Or click here to logout.' });
-  await logoutBtn.click();
+    await page.locator('.form-control').first().waitFor({ state: 'visible' });
 
-  await page.waitForURL('/');
-  await expect(page).toHaveURL('/');
-  await expect(page.getByRole('link', { name: 'Sign in' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Sign up' })).toBeVisible();
+    const logoutBtn = page.getByRole('button', { name: 'Or click here to logout.' });
+    await logoutBtn.click();
+
+    await page.waitForURL('/');
+    await expect(page).toHaveURL('/');
+    await expect(page.getByRole('link', { name: 'Sign in' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Sign up' })).toBeVisible();
+  });
 });
